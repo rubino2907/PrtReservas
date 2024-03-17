@@ -1,0 +1,21 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { UserDto } from '../models/userDto';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private url = "User";
+
+  private usernameSubject = new BehaviorSubject<string>('');
+  username$: Observable<string> = this.usernameSubject.asObservable();
+
+  constructor(private http: HttpClient) { }
+
+  public login(userDto: UserDto): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/${this.url}/Auth/Login`, userDto);
+  }
+}

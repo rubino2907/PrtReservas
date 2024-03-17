@@ -1,0 +1,46 @@
+<div class="row border border-grey rounded shadow bg-light" style="margin-bottom: 20px;">
+  <div class="col-6" style="margin: 10px;">
+    <h2 style="margin-left: 15px;"> <i class="bi bi-person-fill" style="margin-right: 5px;"></i> Configurações de Utilizadores</h2>
+  </div>
+  <div class="col-4 d-flex justify-content-center align-items-center" style="margin: 5px">
+    <button class="btn btn-primary btn-sm" (click)="initNewUser()">
+      <i class="bi bi-plus"></i> Create Novo Utilizador
+    </button>  
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4 border border-grey rounded shadow bg-light">
+    <div class="col-lg-11" style="margin-top: 10px; margin-bottom: 20px; margin-left: 10px;  border-bottom: 1px solid #000000;">
+      <h2 class="text-left py-3 mb-0"> <i class="bi bi-person-lines-fill" style="margin-right: 5px;"></i> Utilizadores</h2> <!-- Adicionando classes text-center, py-3 e mb-0 para centralizar, espaçamento e margem inferior respectivamente -->
+    </div>
+    <div style="overflow-x: auto;">
+      <!-- Tabela para listar os usuários -->
+      <table class="table table-center-align table-sm" style="position: sticky; top: 0; z-index: 1;">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">User Name</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users"> <!-- Adiciona cor de fundo alternada -->
+            <td><i class="bi bi-person-fill me-2"></i></td>
+            <td>{{ user.userName }}</td>
+            <td><button class="btn btn-sm" (click)="editUser(user)">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-8 mt-3 mt-lg-0">
+    <div *ngIf="isFormVisible" class="border border-grey rounded shadow bg-light">
+      <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #000000;">
+        <h2 class="text-left py-3 mb-0"> <i class="bi bi-person-plus-fill" style="margin-right: 5px;"></i> Formulário Utilizador</h2> <!-- Adicionando classes text-center, py-3 e mb-0 para centralizar, espaçamento e margem inferior respectivamente -->
+      </div>
+      <div style="margin-left: 10px; margin-right: 10px;">
+        <app-edit-user *ngIf="isFormVisible" [user]="userToEdit" (usersUpdated)="updateUserList($event)"></app-edit-user>
+      </div>
+    </div>
+  </div>
+</div>

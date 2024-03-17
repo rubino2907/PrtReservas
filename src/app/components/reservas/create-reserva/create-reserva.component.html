@@ -1,0 +1,38 @@
+<h2>Formulário de Reserva</h2>
+<form id="reserveForm" class="col-sm-6">
+
+    <div class="form-group">
+        <label for="matriculation">Matrícula:</label>
+        <select id="matriculation" name="matriculation" class="form-control">
+            <option value="" disabled selected>Selecione uma matrícula</option>
+            <option *ngFor="let matricula of matriculas" [value]="matricula">{{ matricula }}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="dateStart">Data de Início:</label>
+        <input type="date" id="dateStart" name="dateStart" class="form-control">
+    </div>
+    
+    <div class="form-group">
+        <label for="dateEnd">Data de Fim:</label>
+        <input type="date" id="dateEnd" name="dateEnd" class="form-control">
+    </div>
+    
+    <div class="form-group">
+        <label for="description">Descrição:</label>
+        <input type="text" id="description" name="description" class="form-control">
+    </div>
+    
+    <div class="form-group">
+        <label for="obs">Observações:</label>
+        <input type="text" id="obs" name="obs" class="form-control">
+    </div>
+    
+    <div class="form-group">
+        <label for="state">Estado:</label>
+        <input type="text" id="state" name="state" class="form-control">
+    </div>
+    
+    <button (click)="createReserva()" class="btn btn-primary">Enviar</button>
+</form>

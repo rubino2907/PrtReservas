@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="row border border-grey rounded shadow bg-light" style="margin-bottom: 20px; margin-right: 2px;">
+        <div class="col-6" style="margin: 10px;">
+            <h2 style="margin-left: 15px;"> <i class="bi bi-gear-fill" style="margin-right: 5px;"></i> Dashboard </h2>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-4">
+            <div class="p-3 border border-grey rounded shadow-sm bg-light">
+                <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #000000;">
+                    <h5 class="text-left py-3 mb-0"> <i class="bi bi-people-fill" style="margin-right: 10px;"></i>Total Utilizadores</h5>
+                </div>
+                <!-- Exibir userCount aqui -->
+                <div style="margin-top: 10px;" class="user-count d-flex justify-content-center align-items-center display-6"> {{ userCount }}  <i class="bi bi-people-fill" style="margin-left: 10px;"></i></div>
+    
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="p-3 border border-grey rounded shadow-sm bg-light">
+                <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #000000;">
+                    <h5 class="text-left py-3 mb-0"> <i class="bi bi-people-fill" style="margin-right: 10px;"></i>Total Veiculos</h5>
+                </div>
+                <!-- Exibir userCount aqui -->
+                <div style="margin-top: 10px;" class="user-count d-flex justify-content-center align-items-center display-6"> {{ vehicleCount }}  <i class="bi bi-car-front-fill" style="margin-left: 10px;"></i></div>
+    
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="p-3 border border-grey rounded shadow-sm bg-light">
+                <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #000000;">
+                    <h5 class="text-left py-3 mb-0"> <i class="bi bi-people-fill" style="margin-right: 10px;"></i>Total Reservas</h5>
+                </div>
+                <!-- Exibir userCount aqui -->
+                <div style="margin-top: 10px;" class="user-count d-flex justify-content-center align-items-center display-6"> {{ reserveCount }}  <i class="bi bi-calendar2-week-fill" style="margin-left: 10px;"></i></div>
+    
+            </div>
+        </div>
+    </div>
+    
+</div>

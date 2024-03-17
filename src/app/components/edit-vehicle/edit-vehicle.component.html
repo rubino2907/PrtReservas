@@ -1,0 +1,78 @@
+<div *ngIf="vehicle" class="vehicle-form">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-6">
+            <h2>{{ vehicle.matriculation }}</h2>
+        </div>
+        <div class="col-md-6 text-right">
+            <button (click)="updateVehicle(vehicle)" *ngIf="vehicle.vehicleID" class="btn btn-primary">Atualizar</button>
+            <button (click)="deleteVehicle(vehicle)" *ngIf="vehicle.vehicleID" class="btn btn-danger" style="margin-left: 10px;">Apagar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="matriculation">Matrícula:</label>
+                <input [(ngModel)]="vehicle.matriculation" name="matriculation" id="matriculation" class="form-control" placeholder="Matrícula">
+            </div>
+            <div class="form-group">
+                <label for="descVehicle">Descrição:</label>
+                <input [(ngModel)]="vehicle.descVehicle" name="descVehicle" id="descVehicle" class="form-control" placeholder="Descrição">
+            </div>
+            <div class="form-group">
+                <label for="mark">Marca:</label>
+                <input [(ngModel)]="vehicle.mark" name="mark" id="mark" class="form-control" placeholder="Marca">
+            </div>
+            <div class="form-group">
+                <label for="model">Modelo:</label>
+                <input [(ngModel)]="vehicle.model" name="model" id="model" class="form-control" placeholder="Modelo">
+            </div>
+            <div class="form-group">
+                <label for="topology">Topologia:</label>
+                <input [(ngModel)]="vehicle.topology" name="topology" id="topology" class="form-control" placeholder="Topologia">
+            </div>
+            <div class="form-group">
+                <label for="year">Ano:</label>
+                <input [(ngModel)]="vehicle.year" name="year" id="year" class="form-control" placeholder="Ano">
+            </div>
+            <div class="form-group">
+                <label for="places">Lugares:</label>
+                <input [(ngModel)]="vehicle.places" name="places" id="places" class="form-control" placeholder="Lugares">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="fuel">Combustível:</label>
+                <input [(ngModel)]="vehicle.fuel" name="fuel" id="fuel" class="form-control" placeholder="Combustível">
+            </div>
+            <div class="form-group">
+                <label for="defaultLocation">Localização Padrão:</label>
+                <input [(ngModel)]="vehicle.defaultLocation" name="defaultLocation" id="defaultLocation" class="form-control" placeholder="Localização Padrão">
+            </div>
+            <div class="form-group">
+                <label for="defaultCoords">Coordenadas Padrão:</label>
+                <input [(ngModel)]="vehicle.defaultCoords" name="defaultCoords" id="defaultCoords" class="form-control" placeholder="Coordenadas Padrão">
+            </div>
+            <div class="form-group">
+                <label for="color">Cor:</label>
+                <input [(ngModel)]="vehicle.color" name="color" id="color" class="form-control" placeholder="Cor">
+            </div>
+            <div class="form-group">
+                <label for="icon">Ícone:</label>
+                <input [(ngModel)]="vehicle.icon" name="icon" id="icon" class="form-control" placeholder="Ícone">
+            </div>
+            <div class="form-group">
+                <label for="obs">Observações:</label>
+                <input [(ngModel)]="vehicle.obs" name="obs" id="obs" class="form-control" placeholder="Observações">
+            </div>
+            <div class="form-group">
+                <label for="vehicleCode">Código do Veículo:</label>
+                <input [(ngModel)]="vehicle.vehicleCode" name="vehicleCode" id="vehicleCode" class="form-control" placeholder="Código do Veículo">
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-md-6 text-center">
+            <button (click)="createVehicle(vehicle)" *ngIf="!vehicle.vehicleID" class="btn btn-primary">Criar</button>
+        </div>
+    </div>
+</div>

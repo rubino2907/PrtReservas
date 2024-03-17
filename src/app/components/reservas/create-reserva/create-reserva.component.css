@@ -1,0 +1,11 @@
+/* Estilos para o calendário */
+input[type="date"] {
+  padding: 8px; /* Espaçamento interno */
+  border: 1px solid #ccc; /* Borda */
+  border-radius: 4px; /* Borda arredondada */
+  font-family: Arial, sans-serif; /* Fonte */
+  font-size: 16px; /* Tamanho da fonte */
+  color: #333; /* Cor do texto */
+  background-color: #fff; /* Cor de fundo */
+  /* Adicione outros estilos desejados */
+}

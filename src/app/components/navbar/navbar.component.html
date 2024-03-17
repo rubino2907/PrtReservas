@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+<div class="navbar">
+  <a href="#"><img src="caminho-para-seu-logotipo" alt="Logo"> </a>
+  <a (click)="GoToReservas()"><i class="bi bi-calendar-fill"></i> Reservas</a> 
+  <a *ngIf="isAdmin"><i class="bi bi-list-task"></i> Pedidos</a> 
+  <div class="logout-btn">
+    <a (click)="GoToDashboard()" ><i class="bi bi-person-circle"></i> {{username}}</a>  <!-- Modificado para acessar diretamente a propriedade username -->
+    <a (click)="logout()"><i class="bi bi-door-closed-fill"></i> Logout</a> <!-- Adiciona a classe logout-btn -->
+  </div>
+</div>
+
+</body>
+</html>

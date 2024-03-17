@@ -1,0 +1,33 @@
+<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+    <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+            <a class="list-group-item list-group-item-action py-2 ripple" style="cursor: pointer; margin-bottom: 20px;">
+                <i class="bi bi-gear-fill me-3"></i><span class="fs-5">Dashboard</span>
+            </a>
+            <a class="list-group-item list-group-item-action py-2 ripple" 
+               [class.active]="userListActive" 
+               (click)="toggleUserList()"
+               style="cursor: pointer;">
+               <i class="bi bi-people-fill me-3"></i><span>Utilizador</span>
+            </a>
+            <a class="list-group-item list-group-item-action py-2 ripple" 
+            [class.active]="vehicleListActive" 
+            (click)="toggleVehicleList()"
+            style="cursor: pointer;">
+            <i class="bi bi-car-front-fill me-3"></i><span>Veículos</span>
+            </a>
+            <a class="list-group-item list-group-item-action py-2 ripple" 
+            [class.active]="pendantListActive" 
+            (click)="togglePendantList()"
+            style="cursor: pointer;">
+            <i class="bi bi-check-circle-fill me-3"></i><span>Pedidos</span>
+            </a>
+            <a class="list-group-item list-group-item-action py-2 ripple" 
+            [class.active]="reservesListActive" 
+            (click)="toggleReservesList()"
+            style="cursor: pointer;">
+            <i class="bi bi-calendar2-week-fill me-3"></i><span>Reservas</span>
+            </a>
+        </div>
+    </div>
+</nav>

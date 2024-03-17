@@ -1,0 +1,29 @@
+/* Estilo para a barra de navegação */
+app-navbar {
+    z-index: 1000; /* Defina um z-index alto para a barra de navegação */
+    position: fixed; /* Posicionamento fixo para manter a barra de navegação no topo */
+    top: 0; /* Ancora a barra de navegação no topo */
+    left: 0; /* Ancora a barra de navegação à esquerda */
+    width: 100%; /* Define a largura para preencher a largura total da tela */
+}
+
+/* Estilo para a barra lateral */
+app-sidebar {
+    z-index: 900; /* Defina um z-index menor para a barra lateral */
+    position: fixed; /* Posicionamento fixo para manter a barra lateral na posição desejada */
+    top: 56px; /* Ajuste conforme necessário para deixar espaço para a barra de navegação */
+    left: 0; /* Ancora a barra lateral à esquerda */
+    width: 250px; /* Define a largura desejada para a barra lateral */
+    height: calc(100% - 56px); /* Ajusta a altura para preencher o restante da tela após a barra de navegação */
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical se o conteúdo da barra lateral for longo */
+}
+
+.content {
+    padding-top: 100px; /* Adicione o preenchimento superior necessário para evitar que o conteúdo seja sobreposto pela barra de navegação */
+  }
+  
+/* Adiciona largura da sidebar ao content da Dashboard
+
+.col-md-2{
+    width: 15%;
+}*/

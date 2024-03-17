@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  justify-content: flex-start; /* Ajuste para flex-start */
+  align-items: center;
+  background-color: #4e4e4e;
+  overflow: auto;
+  cursor: pointer;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  padding: 12px;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.logout-btn {
+  margin-left: auto; /* Define margem à esquerda automática para o botão de logout */
+}
+
+.navbar span {
+  font-family: Arial, sans-serif; /* Define uma fonte de texto mais limpa */
+  font-size: 16px; /* Ajusta o tamanho da fonte conforme necessário */
+  color: #fff; /* Define a cor do texto para branco */
+}
