@@ -1,13 +1,4 @@
-<div *ngIf="vehicle" class="vehicle-form">
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-md-6">
-            <h2>{{ vehicle.matriculation }}</h2>
-        </div>
-        <div class="col-md-6 text-right">
-            <button (click)="updateVehicle(vehicle)" *ngIf="vehicle.vehicleID" class="btn btn-primary">Atualizar</button>
-            <button (click)="deleteVehicle(vehicle)" *ngIf="vehicle.vehicleID" class="btn btn-danger" style="margin-left: 10px;">Apagar</button>
-        </div>
-    </div>
+<div *ngIf="vehicle" class="vehicle-form" style="margin-top: 10px;">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -62,13 +53,29 @@
             </div>
         </div>
     </div>
+
     <div class="form-group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444;opacity: 1px; margin-bottom: 20px;">
         <label for="Obs" style="margin-bottom: 5px;">OBSERVAÇÕES:</label>
         <textarea [(ngModel)]="vehicle.obs" name="Obs" id="Obs" class="form-control" style="resize: none;"></textarea>
     </div>
+
+    
     <div class="row justify-content-center" style="margin-top: 10px;">
         <div class="col-md-6 text-center">
-            <button (click)="createVehicle(vehicle)" *ngIf="!vehicle.vehicleID" class="btn btn-primary">Criar</button>
+        <div class="row">
+            <div class="d-flex justify-content-between">
+                <button (click)="updateVehicle(vehicle)" *ngIf="vehicle.vehicleID" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px;">
+                    <span style="font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">SALVAR</span>
+                </button>
+                <button (click)="deleteVehicle(vehicle)" *ngIf="vehicle.vehicleID" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px;"> 
+                    <span style="font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">APAGAR</span> 
+                </button>
+            </div>
         </div>
+        <button (click)="createVehicle(vehicle)" *ngIf="!vehicle.vehicleID" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; opacity: 1; width: 144px; height: 43px;">
+            <span style="text-align: left; font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">SALVAR</span>
+        </button>
     </div>
+</div>
+
 </div>

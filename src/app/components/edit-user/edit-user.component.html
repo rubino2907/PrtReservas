@@ -13,68 +13,84 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="userName">Nome:</label>
-                <input [(ngModel)]="user.userName" name="userName" id="userName" class="form-control" placeholder="Nome">
+                <label for="userName" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">USERNAME:</label>
+                <input [(ngModel)]="user.userName" name="userName" id="userName" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;">
             </div>
+            <div class="form-group"> 
+                <label for="password" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">PASSWORD:</label>
+                <input [(ngModel)]="user.password" name="password" id="password" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; ">
+            </div> 
             <div class="form-group">
-                <label for="userCode">Código de Utilizador:</label>
-                <input [(ngModel)]="user.userCode" name="userCode" id="userCode" class="form-control" placeholder="Código">
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input [(ngModel)]="user.email" name="email" id="email" class="form-control" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <label for="userInitials">Iniciais:</label>
-                <input [(ngModel)]="user.userInitials" name="userInitials" id="userInitials" class="form-control" placeholder="Iniciais">
-            </div>
-            <div class="form-group">
-                <div class="form-group form-check" style="margin-top: 10px; margin-bottom: 10px;">
-                    <input class="form-check-input" type="checkbox" id="isAdmin" [(ngModel)]="user.isAdmin" name="isAdmin">
-                    <label class="form-check-label" for="isAdmin">É Admin</label>
+                <div class="form-group form-check" style="margin-top: 20px; margin-bottom: 10px;">
+                    <input class="form-check-input" type="checkbox" id="isAdmin" [(ngModel)]="user.isAdmin" name="isAdmin" >
+                    <label class="form-check-label" for="isAdmin" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">É ADMIN</label>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="group">Grupo:</label>
-                <input [(ngModel)]="user.group" name="group" id="group" class="form-control" placeholder="Grupo">
+                <label for="group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">GRUPO:</label>
+                <input [(ngModel)]="user.group" name="group" id="group" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; ">
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
-                <input [(ngModel)]="user.password" name="password" id="password" class="form-control" placeholder="Senha">
+                <label for="userCode" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">CÓDIGO DE UTILIZADOR:</label>
+                <input [(ngModel)]="user.userCode" name="userCode" id="userCode" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;">
             </div>
             <div class="form-group">
-                <label for="phone">Telefone:</label>
-                <input [(ngModel)]="user.phone" name="phone" id="phone" class="form-control" placeholder="Telefone">
-            </div>
-            <div class="form-group">
-                <label for="postalCode">Código Postal:</label>
-                <input [(ngModel)]="user.postalCode" name="postalCode" id="postalCode" class="form-control" placeholder="Código Postal">
-            </div>
-            <div class="form-group form-check" style="margin-top: 10px; margin-bottom: 10px;">
-                <input class="form-check-input" type="checkbox" id="canApproveReservations" [(ngModel)]="user.canApproveReservations" name="canApproveReservations">
-                <label class="form-check-label" for="canApproveReservations">Pode Aprovar: </label>
-            </div>
-            
+                <label for="userInitials" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">INICIAIS:</label>
+                <input [(ngModel)]="user.userInitials" name="userInitials" id="userInitials" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; ">
+            </div>       
         </div>
     </div>
-    <div class="form-group">
-        <label for="fullName">Nome Completo:</label>
-        <input [(ngModel)]="user.fullName" name="fullName" id="fullName" class="form-control" placeholder="Nome Completo">
+
+    <div class="form-group" style="margin-bottom: 10px;">
+        <label for="fullName" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">NOME COMPLETO:</label>
+        <input [(ngModel)]="user.fullName" name="fullName" id="fullName" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; ">
     </div>
-    <div class="form-group">
-        <label for="address">Morada:</label>
-        <input [(ngModel)]="user.address" name="address" id="address" class="form-control" placeholder="Morada">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444;opacity: 1px; margin-bottom: 20px;">
+                <label for="address" style="margin-bottom: 5px;">MORADA:</label>
+                <input [(ngModel)]="user.address" name="address" id="address" class="form-control">
+            </div>
+            <div class="form-group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444;opacity: 1px; margin-bottom: 20px;">
+                <label for="email" style="margin-bottom: 5px;">EMAIL:</label>
+                <input [(ngModel)]="user.email" name="email" id="email" class="form-control">
+            </div>
+        </div>
+    
+        <div class="col-md-6">
+            <div class="form-group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444;opacity: 1px; margin-bottom: 20px;">
+                <label for="postalCode" style="margin-bottom: 5px;">CÓDIGO POSTAL:</label>
+                <input [(ngModel)]="user.postalCode" name="postalCode" id="postalCode" class="form-control">
+            </div>
+            <div class="form-group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444;opacity: 1px; margin-bottom: 20px;">
+                <label for="phone" style="margin-bottom: 5px;">TELEFONE:</label>
+                <input [(ngModel)]="user.phone" name="phone" id="phone" class="form-control">
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="notes">Notas:</label>
-        <input [(ngModel)]="user.notes" name="notes" id="notes" class="form-control" placeholder="Notas">
+
+    <div class="form-group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444;opacity: 1px; margin-bottom: 20px;">
+        <label for="notes" style="margin-bottom: 5px;">NOTAS:</label>
+        <textarea [(ngModel)]="user.notes" name="notes" id="notes" class="form-control" style="resize: none;"></textarea>
     </div>
 
     <div class="row justify-content-center" style="margin-top: 10px;">
         <div class="col-md-6 text-center">
-            <button (click)="createUser(user)" *ngIf="!user.userID" class="btn btn-success">Criar</button>
+        <div class="row">
+            <div class="d-flex justify-content-between">
+                <button (click)="updateUser(user)" *ngIf="user.userID" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px;">
+                    <span style="font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">SALVAR</span>
+                </button>
+                <button (click)="deleteUser(user)" *ngIf="user.userID" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px;"> 
+                    <span style="font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">APAGAR</span> 
+                </button>
+            </div>
         </div>
+        <button (click)="createUser(user)" *ngIf="!user.userID" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; opacity: 1; width: 144px; height: 43px;">
+            <span style="text-align: left; font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">SALVAR</span>
+        </button>
     </div>
 </div>
