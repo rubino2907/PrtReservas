@@ -1,38 +1,42 @@
-<h2>Formulário de Reserva</h2>
-<form id="reserveForm" class="col-sm-6">
+<div *ngIf="pending" class="col-lg-6" style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-left: 10px; height: 803px;">
+    <div class="pending-form">
+        <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #337AB7; opacity: 1;">
+            <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 20px/27px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
+                <img src="assets\Iconly-Bold-Document[152].svg" alt="Ícone de Reservas" style="width: 22px; height: 22px; opacity: 1; margin-right: 10px;">
+                Pedido Viatura
+            </h2>
+        </div>
+        <div style="margin-left: 10px; margin-right: 10px;">
+            <!-- Correção dos erros de binding -->
+            
+            <div class="form-group" style="margin-top: 20px;">
+                <label for="matriculation">MATRÍCULA:</label>
+                <select [(ngModel)]="pending.matriculation"  name="matriculation" id="matriculation" class="form-control">
+                    <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
+                </select>
+            </div>
 
-    <div class="form-group">
-        <label for="matriculation">Matrícula:</label>
-        <select id="matriculation" name="matriculation" class="form-control">
-            <option value="" disabled selected>Selecione uma matrícula</option>
-            <option *ngFor="let matricula of matriculas" [value]="matricula">{{ matricula }}</option>
-        </select>
-    </div>
+            <div class="form-group">
+                <label for="dateStart" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">SELECIONE A DATA PRETENDIDA PARA INICIO DA RESERVA:</label>
+                <input [(ngModel)]="pending.dateStart" name="dateStart" id="dateStart" type="datetime-local" class="form-control">
+            </div>
 
-    <div class="form-group">
-        <label for="dateStart">Data de Início:</label>
-        <input type="date" id="dateStart" name="dateStart" class="form-control">
+            <div class="form-group">
+                <label for="dateEnd" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">SELECIONE A DATA PRETENDIDA PARA FIM DA RESERVA:</label>
+                <input [(ngModel)]="pending.dateEnd" name="dateEnd" id="dateEnd" type="datetime-local" class="form-control">
+            </div>
+
+            <div class="form-group" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">
+                <label for="description" style="margin-bottom: 5px;">MOTIVO DA RESERVA:</label>
+                <textarea [(ngModel)]="pending.description" name="description" id="description" class="form-control" style="resize: none; height: 107px;"></textarea>
+            </div>
+
+            <div class="text-center" style=" margin-top: 100px;"> <!-- Adicionando a classe text-center para centralizar o botão -->
+                <button (click)="createPending(pending)" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 2px; opacity: 1; width: 211px; height: 41px; align-items: center;">
+                    <label style="text-align: center; letter-spacing: 0px; color: #FFFFFF; opacity: 1; font: normal normal 600 10px/14px 'Open Sans', sans-serif;">SUBMETER PEDIDO</label>
+                </button>
+            </div>
+
+        </div>
     </div>
-    
-    <div class="form-group">
-        <label for="dateEnd">Data de Fim:</label>
-        <input type="date" id="dateEnd" name="dateEnd" class="form-control">
-    </div>
-    
-    <div class="form-group">
-        <label for="description">Descrição:</label>
-        <input type="text" id="description" name="description" class="form-control">
-    </div>
-    
-    <div class="form-group">
-        <label for="obs">Observações:</label>
-        <input type="text" id="obs" name="obs" class="form-control">
-    </div>
-    
-    <div class="form-group">
-        <label for="state">Estado:</label>
-        <input type="text" id="state" name="state" class="form-control">
-    </div>
-    
-    <button (click)="createReserva()" class="btn btn-primary">Enviar</button>
-</form>
+</div>

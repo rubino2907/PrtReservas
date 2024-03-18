@@ -24,6 +24,7 @@ import { ListPendantsComponent } from './components/admin-dashboard/list-pendant
 import { EditPendantsComponent } from './components/edit-pendants/edit-pendants.component';
 import { SidebarReservasComponent } from './components/reservas/sidebar-reservas/sidebar-reservas.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { PedidosReservaComponent } from './components/reservas/pedidos-reserva/pedidos-reserva.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     ListReservesComponent,
     ListPendantsComponent,
     EditPendantsComponent,
-    SidebarReservasComponent
+    SidebarReservasComponent,
+    PedidosReservaComponent
   ],
   imports: [
     BrowserModule,

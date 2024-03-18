@@ -30,7 +30,7 @@ export class SidebarReservasComponent {
     }else{
       this.reserveRequestsActive = false;
     }
-    this.toggleReserveRequestsEvent.emit(this.createReserveActive); // Emitir o evento com o estado atual
+    this.toggleReserveRequestsEvent.emit(this.reserveRequestsActive); // Emitir o evento com o estado atual
     this.toggleCreateReserveEvent.emit(false);
   }
 }

@@ -12,10 +12,11 @@
         <div class="col-md-10">
             <div class="content">
                 <!-- Conteúdo principal -->
-                <app-create-reserva *ngIf="showCreateReserve"></app-create-reserva>  
+                <app-create-reserva *ngIf="showCreateReserve" [pending]="pending"></app-create-reserva>  
 
-                <div *ngIf="!showCreateReserve">
-                    <p>OLA</p>
+                <app-pedidos-reserva *ngIf="showReserveRequests"></app-pedidos-reserva>
+                <div *ngIf="!showCreateReserve && !showReserveRequests">
+                    <p>Selecione uma opção</p>
                   </div>
             </div>
         </div>

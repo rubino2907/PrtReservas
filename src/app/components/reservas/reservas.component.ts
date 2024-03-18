@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Pending } from '../../models/pending';
 
 @Component({
   selector: 'app-reservas',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class ReservasComponent {
 
+  pending: Pending = {
+    // inicialize os campos com valores padrão, se necessário
+  };
+  
   showCreateReserve: boolean = false;
   showReserveRequests: boolean = false;
 

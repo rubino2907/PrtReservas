@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { VehicleService } from '../../../services/vehicle.service';
-import { ReserveService } from '../../../services/reserve.service';
 import { Reserve } from '../../../models/reserve';
 import { CookieService } from 'ngx-cookie-service';
+import { PendantService } from '../../../services/pending.service';
+import { Pending } from '../../../models/pending';
 
 @Component({
   selector: 'app-create-reserva',
@@ -11,10 +12,12 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CreateReservaComponent  implements OnInit{
 
-  matriculas: string[] = [];
+  @Input() pending?: Pending;
+  @Output() pendingsUpdated = new EventEmitter<Pending[]>();
+  matriculations: string[] = [];
   @Output() reservesUpdated = new EventEmitter<Reserve[]>();
 
-  constructor(private vehicleService: VehicleService, private reserveService: ReserveService, private cookieService: CookieService) { }
+  constructor(private vehicleService: VehicleService, private pendantService: PendantService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.carregarMatriculas();
@@ -23,7 +26,7 @@ export class CreateReservaComponent  implements OnInit{
   carregarMatriculas(): void {
     this.vehicleService.getMatriculations().subscribe(
       matriculas => {
-        this.matriculas = matriculas;
+        this.matriculations = matriculas;
       },
       error => {
         console.log('Erro ao carregar as matrículas:', error);
@@ -31,30 +34,35 @@ export class CreateReservaComponent  implements OnInit{
     );
   }
 
-  createReserva(): void {
-    const reserve = new Reserve(); // Criando uma nova instância de Reserve
-    console.log("Reserva antes de ser enviada:", reserve);
-
-    const userAdmin: boolean = this.cookieService.get('isAdmin') === 'true'; // Converte para booleano
-
-    if (userAdmin) { // Verifica se o usuário é admin
-        console.log('Usuário é admin.');
-        reserve.state = 'Ativa';
-    } else {
-        console.log('Usuário não é admin.');
-        reserve.state = 'Em espera';
-    }
-
-    // Chamar o método createReserve do service e passar a nova reserva
-    this.reserveService.createReserve(reserve).subscribe(
-        (reserves: Reserve[]) => {
-          console.log("Resposta do servidor ao criar reserva:", reserves);
-          this.reservesUpdated.emit(reserves);
-          console.log("Reserva criada com sucesso!", reserves);
+  createPending(newPending: Pending): void {
+    console.log("Pendente antes de ser enviado:", newPending);
+    
+    newPending.createdBy = this.cookieService.get('userName');
+    newPending.changeDateTime = "";
+    newPending.creationDateTime = "";
+    newPending.aproved = false;
+    newPending.aprovedBy = this.cookieService.get('userName');
+    
+    this.pendantService
+      .createPending(newPending)
+      .subscribe(
+        (pendants: Pending[]) => {
+          console.log("Pendentes criados com sucesso!", pendants);
+          this.pendingsUpdated.emit(pendants);
         },
         (error) => {
-          console.error("Erro ao criar reserva:", error);
+          console.error("Erro ao criar Pendentes:", error);
+          if (error && error.error && error.error.errors) {
+            const validationErrors = error.error.errors;
+            for (const field in validationErrors) {
+              if (validationErrors.hasOwnProperty(field)) {
+                console.error(`Erro de validação no campo ${field}: ${validationErrors[field]}`);
+              }
+            }
+          } else if (error && error.message) {
+            console.error("Mensagem de erro:", error.message);
+          }
         }
-    );
+      );
   }
 }
