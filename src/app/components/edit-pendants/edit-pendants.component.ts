@@ -75,6 +75,7 @@ export class EditPendantsComponent {
   }
 
   updatePending(pending: Pending): void {
+    pending.aprovedBy = this.cookieService.get('userName');
     this.pendantService
       .updatePendings(pending)
       .subscribe((pendants: Pending[]) => {
