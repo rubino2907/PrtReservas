@@ -25,7 +25,7 @@ export class ReserveService {
         );
     }
 
-    updateReserves(reserve: Reserve): Observable<Reserve[]>{
+    public updateReserves(reserve: Reserve): Observable<Reserve[]>{
         return this.http.put<Reserve[]>
         (`${environment.apiUrl}/${this.url}`,
         reserve

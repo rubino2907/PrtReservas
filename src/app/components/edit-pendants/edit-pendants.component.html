@@ -23,7 +23,7 @@
             </div>
 
             <!-- Campos adicionais -->
-            <div *ngIf="pending.pendingID" class="form-group">
+            <div *ngIf="pending.pendingID"  class="form-group">
                 <label for="aproved">APROVADO:</label>
                     <select [(ngModel)]="pending.aproved" name="aproved" id="aproved" class="form-control">
                         <option [ngValue]="true">Sim</option>

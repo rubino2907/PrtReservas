@@ -1,16 +1,5 @@
 <div *ngIf="user" class="user-form">
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-md-6">
-            <h2>{{ user.fullName }}</h2>
-        </div>
-        <div class="col-md-6 text-right">
-            <button (click)="updateUser(user)" *ngIf="user.userID" class="btn btn-primary">Atualizar</button>
-            <button (click)="deleteUser(user)" *ngIf="user.userID" class="btn btn-danger">Apagar</button>
-        </div>
-    </div>
-    
-
-    <div class="row">
+    <div class="row" style="margin-top: 20px;">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="userName" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">USERNAME:</label>
