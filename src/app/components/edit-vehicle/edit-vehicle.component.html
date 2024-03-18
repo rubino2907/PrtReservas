@@ -11,64 +11,60 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="matriculation">Matrícula:</label>
-                <input [(ngModel)]="vehicle.matriculation" name="matriculation" id="matriculation" class="form-control" placeholder="Matrícula">
+                <label for="matriculation" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">MATRÍCULA:</label>
+                <input [(ngModel)]="vehicle.matriculation" name="matriculation" id="matriculation" class="form-control" placeholder="Matrícula" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="descVehicle">Descrição:</label>
-                <input [(ngModel)]="vehicle.descVehicle" name="descVehicle" id="descVehicle" class="form-control" placeholder="Descrição">
+                <label for="mark" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">MARCA:</label>
+                <input [(ngModel)]="vehicle.mark" name="mark" id="mark" class="form-control" placeholder="Marca" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="mark">Marca:</label>
-                <input [(ngModel)]="vehicle.mark" name="mark" id="mark" class="form-control" placeholder="Marca">
+                <label for="model" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">MODELO:</label>
+                <input [(ngModel)]="vehicle.model" name="model" id="model" class="form-control" placeholder="Modelo" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="model">Modelo:</label>
-                <input [(ngModel)]="vehicle.model" name="model" id="model" class="form-control" placeholder="Modelo">
+                <label for="topology" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">TOPOLOGIA:</label>
+                <input [(ngModel)]="vehicle.topology" name="topology" id="topology" class="form-control" placeholder="Topologia" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
+            </div>
+            <div class="form-group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">
+                <label for="year">ANO:</label>
+                <input [(ngModel)]="vehicle.year" name="year" id="year" class="form-control" placeholder="Ano" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="topology">Topologia:</label>
-                <input [(ngModel)]="vehicle.topology" name="topology" id="topology" class="form-control" placeholder="Topologia">
-            </div>
-            <div class="form-group">
-                <label for="year">Ano:</label>
-                <input [(ngModel)]="vehicle.year" name="year" id="year" class="form-control" placeholder="Ano">
-            </div>
-            <div class="form-group">
-                <label for="places">Lugares:</label>
-                <input [(ngModel)]="vehicle.places" name="places" id="places" class="form-control" placeholder="Lugares">
+                <label for="places" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">LUGARES:</label>
+                <input [(ngModel)]="vehicle.places" name="places" id="places" class="form-control" placeholder="Lugares" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="fuel">Combustível:</label>
-                <input [(ngModel)]="vehicle.fuel" name="fuel" id="fuel" class="form-control" placeholder="Combustível">
+                <label for="fuel" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">COMBUSTÍVEL:</label>
+                <input [(ngModel)]="vehicle.fuel" name="fuel" id="fuel" class="form-control" placeholder="Combustível" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="defaultLocation">Localização Padrão:</label>
-                <input [(ngModel)]="vehicle.defaultLocation" name="defaultLocation" id="defaultLocation" class="form-control" placeholder="Localização Padrão">
+                <label for="defaultLocation" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">LOCALIZAÇÃO PADRÃO:</label>
+                <input [(ngModel)]="vehicle.defaultLocation" name="defaultLocation" id="defaultLocation" class="form-control" placeholder="Localização Padrão" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="defaultCoords">Coordenadas Padrão:</label>
-                <input [(ngModel)]="vehicle.defaultCoords" name="defaultCoords" id="defaultCoords" class="form-control" placeholder="Coordenadas Padrão">
+                <label for="defaultCoords" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">COORDENADAS PADRÃO:</label>
+                <input [(ngModel)]="vehicle.defaultCoords" name="defaultCoords" id="defaultCoords" class="form-control" placeholder="Coordenadas Padrão" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="color">Cor:</label>
-                <input [(ngModel)]="vehicle.color" name="color" id="color" class="form-control" placeholder="Cor">
+                <label for="color" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">COR:</label>
+                <input [(ngModel)]="vehicle.color" name="color" id="color" class="form-control" placeholder="Cor" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="icon">Ícone:</label>
-                <input [(ngModel)]="vehicle.icon" name="icon" id="icon" class="form-control" placeholder="Ícone">
+                <label for="icon" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">ÍCONE:</label>
+                <input [(ngModel)]="vehicle.icon" name="icon" id="icon" class="form-control" placeholder="Ícone" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
             <div class="form-group">
-                <label for="obs">Observações:</label>
-                <input [(ngModel)]="vehicle.obs" name="obs" id="obs" class="form-control" placeholder="Observações">
-            </div>
-            <div class="form-group">
-                <label for="vehicleCode">Código do Veículo:</label>
-                <input [(ngModel)]="vehicle.vehicleCode" name="vehicleCode" id="vehicleCode" class="form-control" placeholder="Código do Veículo">
+                <label for="vehicleCode" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">CÓDIGO DO VEÍCULO:</label>
+                <input [(ngModel)]="vehicle.vehicleCode" name="vehicleCode" id="vehicleCode" class="form-control" placeholder="Código do Veículo" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 250px; height: 31px;">
             </div>
         </div>
+    </div>
+    <div class="form-group" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444;opacity: 1px; margin-bottom: 20px;">
+        <label for="Obs" style="margin-bottom: 5px;">OBSERVAÇÕES:</label>
+        <textarea [(ngModel)]="vehicle.obs" name="Obs" id="Obs" class="form-control" style="resize: none;"></textarea>
     </div>
     <div class="row justify-content-center" style="margin-top: 10px;">
         <div class="col-md-6 text-center">

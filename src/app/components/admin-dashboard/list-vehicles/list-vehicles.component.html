@@ -48,11 +48,14 @@
       
       </div>
   </div>
-  <div *ngIf="isFormEditVehicleVisible" class="col-lg-6">
-      <div  class="border border border-grey shadow bg-light">
-          <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #000000;">
-              <h2 class="text-left py-3 mb-0">Formulário Veículo</h2>
-          </div>
+  <div *ngIf="isFormEditVehicleVisible" class="col-lg-6"  style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-left: 10px; width: 600px;">
+      <div>
+        <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #337AB7; opacity: 1;">
+            <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 20px/27px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
+                <img src="assets\Iconly-Bold-Document[152].svg" alt="Ícone de Reservas" style="width: 22px; height: 22px; opacity: 1; margin-right: 10px;">
+                Formulário Veículos
+            </h2>
+        </div>
           <div style="margin-left: 10px; margin-right: 10px;">
               <app-edit-vehicle [vehicle]="vehiclesToEdit" (vehiclesUpdated)="updateVehicleList($event)"></app-edit-vehicle>
           </div>

@@ -23,6 +23,7 @@ export class EditVehicleComponent implements OnInit  {
 
   createVehicle(vehicle: Vehicle): void {
     console.log("Vehicle antes de ser enviado:", vehicle);
+    vehicle.descVehicle = vehicle.matriculation;
 
     this.vehicleService
       .createVehicles(vehicle)
