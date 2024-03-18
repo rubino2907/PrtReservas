@@ -7,17 +7,13 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from './components/navbar/navbar.component'; // Importe o FormsModule aqui
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { CookieService } from 'ngx-cookie-service';
 import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
 import { ReservasComponent } from './components/reservas/reservas.component';
 import { CreateReservaComponent } from './components/reservas/create-reserva/create-reserva.component';
-// Importe os módulos do Angular Material necessários
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core'; // Adicione este módulo para datas nativas
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { MatDatetimepickerModule } from '@mat-datetimepicker/core'; // Importe o MatDatetimepickerModule
+import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { SidebarComponent } from './components/admin-dashboard/sidebar/sidebar.component';
 import { ListUsersComponent } from './components/admin-dashboard/list-users/list-users.component';
 import { ListVehiclesComponent } from './components/admin-dashboard/list-vehicles/list-vehicles.component';
@@ -26,6 +22,9 @@ import { EditReservesComponent } from './components/edit-reserves/edit-reserves.
 import { ListReservesComponent } from './components/admin-dashboard/list-reserves/list-reserves.component';
 import { ListPendantsComponent } from './components/admin-dashboard/list-pendants/list-pendants.component';
 import { EditPendantsComponent } from './components/edit-pendants/edit-pendants.component';
+import { SidebarReservasComponent } from './components/reservas/sidebar-reservas/sidebar-reservas.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 
 @NgModule({
   declarations: [
@@ -44,21 +43,20 @@ import { EditPendantsComponent } from './components/edit-pendants/edit-pendants.
     EditReservesComponent,
     ListReservesComponent,
     ListPendantsComponent,
-    EditPendantsComponent
+    EditPendantsComponent,
+    SidebarReservasComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    BrowserAnimationsModule, // Certifique-se de incluir este módulo para datas nativas
-    BsDatepickerModule.forRoot()
+    MatDatetimepickerModule, // Use o MatDatetimepickerModule em vez do MatDatepickerModule
+    MatNativeDatetimeModule, // Importe o MatNativeDatetimeModule para compatibilidade com datas nativas
   ],
   providers: [
     CookieService,
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })

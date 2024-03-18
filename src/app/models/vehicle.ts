@@ -19,4 +19,5 @@ export class Vehicle
     color?: string;
     icon?: string;
     obs?: string;
+    typeVehicle?: string;
 }

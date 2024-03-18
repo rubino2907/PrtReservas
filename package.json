@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^17.2.0",
     "@angular/platform-browser-dynamic": "^17.2.0",
     "@angular/router": "^17.2.0",
+    "@mat-datetimepicker/core": "^13.0.2",
     "@types/datatables.net": "^1.10.28",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
