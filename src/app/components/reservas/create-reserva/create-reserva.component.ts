@@ -49,6 +49,8 @@ export class CreateReservaComponent  implements OnInit{
         (pendants: Pending[]) => {
           console.log("Pendentes criados com sucesso!", pendants);
           this.pendingsUpdated.emit(pendants);
+          // Limpar o formulário
+          this.pending = new Pending(); // Ou qualquer outra forma de criar um novo objeto vazio
         },
         (error) => {
           console.error("Erro ao criar Pendentes:", error);
@@ -65,4 +67,5 @@ export class CreateReservaComponent  implements OnInit{
         }
       );
   }
+  
 }
