@@ -4,6 +4,8 @@ import { VehicleService } from '../../services/vehicle.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Pending } from '../../models/pending';
 import { PendantService } from '../../services/pending.service';
+import { ReserveService } from '../../services/reserve.service';
+import { Reserve } from '../../models/reserve';
 
 @Component({
   selector: 'app-edit-pendants',
@@ -17,7 +19,7 @@ export class EditPendantsComponent {
 
   isFormEditPendingVisible: boolean = false; // Variável para controlar a visibilidade do formulário
 
-  constructor(private cookieService: CookieService ,private pendantService: PendantService, private vehicleService: VehicleService) {}
+  constructor(private cookieService: CookieService ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService) {}
 
   ngOnInit(): void {
     this.loadMatriculations();
@@ -78,8 +80,38 @@ export class EditPendantsComponent {
       .subscribe((pendants: Pending[]) => {
         this.pendingsUpdated.emit(pendants);
         this.isFormEditPendingVisible = false; // Esconde o formulário após a atualização bem-sucedida
+        
+        // Verifica se o pedido foi aprovado
+        if (pending.aproved) {
+          // Se aprovado, cria a reserva
+          const reserve: Reserve = {
+            createdBy: pending.createdBy,
+            creationDateTime: pending.creationDateTime,
+            changeDateTime: pending.changeDateTime,
+            dateStart: pending.dateStart,
+            dateEnd: pending.dateEnd,
+            description: pending.description,
+            matriculation: pending.matriculation,
+            state: 'ATIVA',
+            obs: ''
+          };
+          
+          this.reserveService
+            .createReserve(reserve)
+            .subscribe(
+              (reserves: Reserve[]) => {
+                console.log("Reserva criada com sucesso!", reserves);
+                // Se necessário, emita um evento para atualizar as reservas no componente pai
+              },
+              (error) => {
+                console.error("Erro ao criar Reserva:", error);
+                // Lide com os erros adequadamente
+              }
+            );
+        }
       });
   }
+  
 
   deletePending(pending: Pending): void {
     this.pendantService

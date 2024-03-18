@@ -24,11 +24,11 @@
 
             <!-- Campos adicionais -->
             <div *ngIf="pending.pendingID" class="form-group">
-                <label for="aproved" style="text-align: left; font: normal normal normal 12px/17px 'Open Sans', sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">APROVADO:</label>
-                <select [(ngModel)]="pending.aproved" name="aproved" id="aproved" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; width: 218px; height: 31px;">
-                    <option value="Sim">Sim</option>
-                    <option value="Não">Não</option>
-                </select>
+                <label for="aproved">APROVADO:</label>
+                    <select [(ngModel)]="pending.aproved" name="aproved" id="aproved" class="form-control">
+                        <option [ngValue]="true">Sim</option>
+                        <option [ngValue]="false">Não</option>
+                    </select>
             </div>            
     </div>
     <div class="row justify-content-center" style="margin-top: 10px;">
