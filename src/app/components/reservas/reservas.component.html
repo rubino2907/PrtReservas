@@ -1,3 +1,24 @@
 <app-navbar></app-navbar>
 
-<app-create-reserva></app-create-reserva>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Barra lateral -->
+        <div class="col-md-2">
+            <app-sidebar-reservas (toggleCreateReserveEvent)="showCreateReserve = $event" 
+                                   (toggleReserveRequestsEvent)="showReserveRequests = $event">
+            </app-sidebar-reservas>
+        </div>
+
+        <div class="col-md-10">
+            <div class="content">
+                <!-- Conteúdo principal -->
+                <app-create-reserva *ngIf="showCreateReserve"></app-create-reserva>  
+
+                <div *ngIf="!showCreateReserve">
+                    <p>OLA</p>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+

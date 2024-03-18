@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class ReservasComponent {
 
+  showCreateReserve: boolean = false;
+  showReserveRequests: boolean = false;
+
+  constructor(){}
+
+  toggleCreateReserve(createReserveActive: boolean){
+    this.showCreateReserve = createReserveActive;
+    this.showReserveRequests = !createReserveActive;
+  }
+
+  toggleReserveRequests(reserveRequestsActive: boolean){
+    this.showReserveRequests = reserveRequestsActive;
+    this.showCreateReserve = !reserveRequestsActive;
+  }
 }
