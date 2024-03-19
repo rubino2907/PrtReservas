@@ -13,6 +13,7 @@ export class ScheduleReservesComponent implements OnInit {
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
   view: 'month' | 'day' | 'week' = 'month'; // Variável para controlar a visualização inicial
+  views = ['month', 'day', 'week']; // Array com as opções de visualização
 
   constructor(private reserveService: ReserveService) {}
 
@@ -44,7 +45,6 @@ export class ScheduleReservesComponent implements OnInit {
       secondary: colors[colorIndex]
     };
   }
-  
 
   eventClicked(event: CalendarEvent): void {
     console.log('Evento clicado:', event);

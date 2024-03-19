@@ -19,7 +19,7 @@ app-sidebar {
 }
 
 .content {
-    padding-top: 100px; /* Adicione o preenchimento superior necessário para evitar que o conteúdo seja sobreposto pela barra de navegação */
+    padding-top: 80px; /* Adicione o preenchimento superior necessário para evitar que o conteúdo seja sobreposto pela barra de navegação */
   }
   
 /* Adiciona largura da sidebar ao content da Dashboard
