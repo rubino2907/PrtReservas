@@ -1,1 +1,23 @@
-<p>list-user-pendings works!</p>
+<div style="overflow-x: auto; margin-left: 20px; margin-right: 20px;">
+    <table class="table table-center-align table-sm" style="position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px;">
+        <thead style="text-align: left; font: normal normal normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;" >
+            <tr style="border-bottom: #337AB7;">
+                <th scope="col" style="color: #337AB7;">DATA INÍCIO</th>
+                <th scope="col" style="color: #337AB7;">DATA DE FIM</th>
+                <th scope="col" style="color: #337AB7;">APROVADO</th>
+                <th scope="col" style="color: #337AB7;">APROVADO POR</th>
+            </tr>
+        </thead>
+        <tbody style="font: normal normal normal 12px/16px 'Open Sans', sans-serif; text-align: left; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">
+            <tr *ngFor="let pending of pendings" style="height: 50px; border-bottom: #505050;">
+                <td style="vertical-align: middle;">{{ pending.dateStart }}</td>
+                <td style="vertical-align: middle;">{{ pending.dateEnd }}</td>
+                <td style="vertical-align: middle;">
+                    <ng-container *ngIf="pending.aproved; else notApproved">Sim</ng-container>
+                    <ng-template #notApproved>Não</ng-template>
+                </td>
+                <td style="vertical-align: middle;">{{ pending.aprovedBy }}</td>
+            </tr>
+        </tbody>
+    </table>    
+</div>

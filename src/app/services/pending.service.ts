@@ -35,6 +35,10 @@ export class PendantService {
     public deletePendings(pending: Pending) : Observable<Pending[]>{
         return this.http.delete<Pending[]>(`${environment.apiUrl}/${this.url}/${pending.pendingID}`);
     }
+    
+    public getPendingsByCreatedBy(createdBy: string): Observable<Pending[]> {
+        return this.http.get<Pending[]>(`${environment.apiUrl}/${this.url}/GetPendingsByCreatedBy/${createdBy}`);
+    }
 
 
 }
