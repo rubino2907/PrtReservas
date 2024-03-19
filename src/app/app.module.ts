@@ -12,8 +12,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
 import { ReservasComponent } from './components/reservas/reservas.component';
 import { CreateReservaComponent } from './components/reservas/create-reserva/create-reserva.component';
-import { MatDatetimepickerModule } from '@mat-datetimepicker/core'; // Importe o MatDatetimepickerModule
-import { MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { SidebarComponent } from './components/admin-dashboard/sidebar/sidebar.component';
 import { ListUsersComponent } from './components/admin-dashboard/list-users/list-users.component';
 import { ListVehiclesComponent } from './components/admin-dashboard/list-vehicles/list-vehicles.component';
@@ -25,7 +23,13 @@ import { EditPendantsComponent } from './components/edit-pendants/edit-pendants.
 import { SidebarReservasComponent } from './components/reservas/sidebar-reservas/sidebar-reservas.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { PedidosReservaComponent } from './components/reservas/pedidos-reserva/pedidos-reserva.component';
+import { ScheduleReservesComponent } from './components/reservas/schedule-reserves/schedule-reserves.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -46,15 +50,18 @@ import { PedidosReservaComponent } from './components/reservas/pedidos-reserva/p
     ListPendantsComponent,
     EditPendantsComponent,
     SidebarReservasComponent,
-    PedidosReservaComponent
+    PedidosReservaComponent,
+    ScheduleReservesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatDatetimepickerModule, // Use o MatDatetimepickerModule em vez do MatDatepickerModule
-    MatNativeDatetimeModule, // Importe o MatNativeDatetimeModule para compatibilidade com datas nativas
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [
     CookieService,
