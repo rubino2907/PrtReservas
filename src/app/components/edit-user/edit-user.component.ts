@@ -43,6 +43,7 @@ export class EditUserComponent implements OnInit {
 
     user.createdBy = this.cookieService.get('userName');
     user.canApproveReservations = true;
+    user.token = '';
 
     console.log(user.createdBy)
 
