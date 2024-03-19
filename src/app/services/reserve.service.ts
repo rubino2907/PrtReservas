@@ -7,33 +7,35 @@ import { Observable } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
-
 export class ReserveService {
 
     private url = "Reserve";
 
     constructor(private http: HttpClient) {}
 
-    public getReserves() : Observable<Reserve[]>{
+    public getReserves(): Observable<Reserve[]> {
         return this.http.get<Reserve[]>(`${environment.apiUrl}/${this.url}`);
     }
 
-    public createReserve(reserve: Reserve) : Observable<Reserve[]>{
-        return this.http.post<Reserve[]>
-        (`${environment.apiUrl}/${this.url}/CreateReservation`,
-        reserve
+    public createReserve(reserve: Reserve): Observable<Reserve[]> {
+        return this.http.post<Reserve[]>(
+            `${environment.apiUrl}/${this.url}/CreateReservation`,
+            reserve
         );
     }
 
-    public updateReserves(reserve: Reserve): Observable<Reserve[]>{
-        return this.http.put<Reserve[]>
-        (`${environment.apiUrl}/${this.url}`,
-        reserve
+    public updateReserves(reserve: Reserve): Observable<Reserve[]> {
+        return this.http.put<Reserve[]>(
+            `${environment.apiUrl}/${this.url}`,
+            reserve
         );
     }
 
-    public deleteReserves(reserve: Reserve) : Observable<Reserve[]>{
+    public deleteReserves(reserve: Reserve): Observable<Reserve[]> {
         return this.http.delete<Reserve[]>(`${environment.apiUrl}/${this.url}/${reserve.reserveID}`);
     }
-    
+
+    public getReservesByMatriculation(matriculation: string): Observable<Reserve[]> {
+        return this.http.get<Reserve[]>(`${environment.apiUrl}/${this.url}/GetReservesByMatriculation?matriculation=${matriculation}`);
+    }
 }

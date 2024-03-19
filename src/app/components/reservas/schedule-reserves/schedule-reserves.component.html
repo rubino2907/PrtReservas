@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row" style="margin-top: 5px; margin-bottom: 50px;">
-    <div class="col-md-12">
-
+    <div class="col-md-6"> <!-- Divisão de colunas para os selects -->
       <!-- Seletor de visualização -->
       <div class="mt-3 mb-3">
         <!-- Label do seletor de visualização -->
@@ -10,8 +9,23 @@
           <option *ngFor="let viewOption of views" [value]="viewOption">{{ viewOption | titlecase }}</option>
         </select>
       </div>
+    </div>
+    <div class="col-md-6"> <!-- Divisão de colunas para os selects -->
+      <!-- Seletor de matrícula -->
+      <div class="mt-3 mb-3">
+        <!-- Label do seletor de matrícula -->
+        <label for="matriculationSelector" class="form-label">Matrícula:</label>
+        <select id="matriculationSelector" class="form-select" [(ngModel)]="selectedMatriculation" (change)="loadReserves()">
+          <option value="">Todas as Matrículas</option>
+          <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
-      <!-- Indicador de data e botões de navegação -->
+  <!-- Indicador de data e botões de navegação -->
+  <div class="row">
+    <div class="col-md-12">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <!-- Botão de navegação "Anterior" -->
         <button class="btn btn-primary" (click)="previous()">
@@ -26,14 +40,18 @@
           <i class="fa fa-chevron-right"></i>
         </button>
       </div>
+    </div>
+  </div>
 
-      <!-- Visualização do calendário -->
+  <!-- Visualização do calendário -->
+  <div class="row">
+    <div class="col-md-12">
       <ng-container *ngIf="view === 'month'">
         <mwl-calendar-month-view
           [viewDate]="viewDate"
           [events]="events"
           (eventClicked)="eventClicked($event.event)"
-          class="small-calendar" 
+          class="small-calendar"
         ></mwl-calendar-month-view>
       </ng-container>
       <ng-container *ngIf="view === 'day'">
@@ -41,7 +59,7 @@
           [viewDate]="viewDate"
           [events]="events"
           (eventClicked)="eventClicked($event.event)"
-          class="small-calendar" 
+          class="small-calendar"
         ></mwl-calendar-day-view>
       </ng-container>
       <ng-container *ngIf="view === 'week'">
@@ -49,7 +67,7 @@
           [viewDate]="viewDate"
           [events]="events"
           (eventClicked)="eventClicked($event.event)"
-          class="small-calendar" 
+          class="small-calendar"
         ></mwl-calendar-week-view>
       </ng-container>
     </div>
