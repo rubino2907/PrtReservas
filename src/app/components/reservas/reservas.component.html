@@ -14,8 +14,6 @@
                 <!-- Conteúdo principal -->
                 <app-create-reserva *ngIf="showCreateReserve" [pending]="pending"></app-create-reserva>  
 
-                <!-- <app-pedidos-reserva *ngIf="showReserveRequests"></app-pedidos-reserva>  -->
-
                 <app-schedule-reserves *ngIf="showReserveRequests"></app-schedule-reserves>
 
                 <div *ngIf="!showCreateReserve && !showReserveRequests">
