@@ -37,4 +37,8 @@ export class ListUsersComponent {
     this.userToEdit = this.isFormVisible ? undefined : new User();
     this.isFormVisible = !this.isFormVisible;
   }
+
+  fecharForm(){
+    this.isFormVisible = false;
+  }
 }

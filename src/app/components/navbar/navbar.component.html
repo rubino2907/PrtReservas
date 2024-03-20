@@ -8,10 +8,15 @@
 <body>
 
 <div class="navbar">
-  <a (click)="GoToReservas()"><i class="bi bi-calendar-fill" style="margin-left: 20px;"></i> Reservas</a> 
+  <!-- Adiciona a imagem do logotipo -->
+  <img src="assets\logo maps.svg" alt="Logotipo" style="width: 220px; height: auto; background: transparent url('img/logo pin.png') 0% 0% no-repeat padding-box; opacity: 1; margin-left: 20px;">
+  <a (click)="GoToReservas()">
+    <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;">
+    <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Reservas</label>
+  </a> 
   <div class="logout-btn">
-    <a (click)="GoToDashboard()" ><i class="bi bi-person-circle"></i> {{username}}</a>  <!-- Modificado para acessar diretamente a propriedade username -->
-    <a (click)="logout()"><i class="bi bi-door-closed-fill"></i> Logout</a> <!-- Adiciona a classe logout-btn -->
+    <a (click)="GoToDashboard()"><i class="bi bi-person-circle"></i> {{username}}</a>
+    <a (click)="logout()"><i class="bi bi-door-closed-fill"></i> Logout</a>
   </div>
 </div>
 

@@ -1,33 +1,47 @@
 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
     <div class="position-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4">
-            <a class="list-group-item list-group-item-action py-2 ripple" style="margin-bottom: 20px;">
-                <i class="bi bi-gear-fill me-3"></i><span class="fs-5">Dashboard</span>
-            </a>
-            <a class="list-group-item list-group-item-action py-2 ripple" 
-               [class.active]="userListActive" 
-               (click)="toggleUserList()"
-               style="cursor: pointer;">
-               <i class="bi bi-people-fill me-3"></i><span>Utilizador</span>
-            </a>
-            <a class="list-group-item list-group-item-action py-2 ripple" 
-            [class.active]="vehicleListActive" 
-            (click)="toggleVehicleList()"
-            style="cursor: pointer;">
-            <i class="bi bi-car-front-fill me-3"></i><span>Veículos</span>
-            </a>
-            <a class="list-group-item list-group-item-action py-2 ripple" 
-            [class.active]="pendantListActive" 
-            (click)="togglePendantList()"
-            style="cursor: pointer;">
-            <i class="bi bi-check-circle-fill me-3"></i><span>Pedidos</span>
-            </a>
-            <a class="list-group-item list-group-item-action py-2 ripple" 
-            [class.active]="reservesListActive" 
-            (click)="toggleReservesList()"
-            style="cursor: pointer;">
-            <i class="bi bi-calendar2-week-fill me-3"></i><span>Reservas</span>
-            </a>
+        <div class="list-group list-group-flush">
+            <div class="sidebar-item d-flex align-items-center justify-content-center" style="border: 1px solid #337AB7; background: #FFFFFF; opacity: 1; height: 84px;">
+                <a class="list-group-item list-group-item-action py-2 ripple d-block d-flex align-items-center justify-content-center" 
+                [class.active-menu]="userListActive" 
+                (click)="toggleUserList()"
+                style="cursor: pointer;">
+                <i class="bi bi-people-fill me-2" style="vertical-align: middle;" 
+                [ngStyle]="{'color': userListActive ? '#FFFFFF' : '#337AB7'}">
+                </i>
+                <span class="sidebar-text" 
+                style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">
+                    UTILIZADOR
+                </span>
+                </a>
+            </div>       
+            <!-- Outros itens de menu -->
+            <div class="sidebar-item d-flex align-items-center justify-content-center" style="border: 1px solid #337AB7; background: #FFFFFF; opacity: 1; height: 84px;">
+                <a class="list-group-item list-group-item-action py-2 ripple d-block d-flex align-items-center justify-content-center" 
+                [class.active-menu]="vehicleListActive" 
+                (click)="toggleVehicleList()"
+                style="cursor: pointer;">
+                <i class="bi bi-car-front-fill me-2" style="vertical-align: middle;" 
+                [ngStyle]="{'color': vehicleListActive ? '#FFFFFF' : '#337AB7'}"></i>
+                <span class="sidebar-text" style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">VEÍCULOS</span>
+                </a>
+            </div>
+            <div class="sidebar-item d-flex align-items-center justify-content-center" style="border: 1px solid #337AB7; background: #FFFFFF; opacity: 1; height: 84px;">
+                <a class="list-group-item list-group-item-action py-2 ripple d-block d-flex align-items-center justify-content-center" 
+                [class.active-menu]="pendantListActive" 
+                (click)="togglePendantList()"
+                style="cursor: pointer;">
+                <i class="bi bi-check-circle-fill me-2" style="vertical-align: middle;" [ngStyle]="{'color': pendantListActive ? '#FFFFFF' : '#337AB7'}"></i><span class="sidebar-text" style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">PEDIDOS</span>
+                </a>
+            </div>
+            <div class="sidebar-item d-flex align-items-center justify-content-center" style="border: 1px solid #337AB7; background: #FFFFFF; opacity: 1; height: 84px;">
+                <a class="list-group-item list-group-item-action py-2 ripple d-block d-flex align-items-center justify-content-center" 
+                [class.active-menu]="reservesListActive" 
+                (click)="toggleReservesList()"
+                style="cursor: pointer;" >
+                <i class="bi bi-calendar2-week-fill me-2" style="vertical-align: middle;" [ngStyle]="{'color': reservesListActive ? '#FFFFFF' : '#337AB7'}"></i><span class="sidebar-text" style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">RESERVAS</span>
+                </a>
+            </div>
         </div>
     </div>
 </nav>
