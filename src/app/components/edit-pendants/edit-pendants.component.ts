@@ -6,6 +6,7 @@ import { Pending } from '../../models/pending';
 import { PendantService } from '../../services/pending.service';
 import { ReserveService } from '../../services/reserve.service';
 import { Reserve } from '../../models/reserve';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-edit-pendants',
@@ -19,7 +20,7 @@ export class EditPendantsComponent {
 
   isFormEditPendingVisible: boolean = false; // Variável para controlar a visibilidade do formulário
 
-  constructor(private cookieService: CookieService ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService) {}
+  constructor(private cookieService: CookieService ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService, private userService: UserService) {}
 
   ngOnInit(): void {
     this.loadMatriculations();

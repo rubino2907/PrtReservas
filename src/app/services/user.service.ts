@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { User } from "../models/user";
 import { environment } from "../../environments/environment";
+import { UserDetails } from "../models/userDetails";
 
 @Injectable({
     providedIn: 'root'
@@ -38,5 +39,9 @@ export class UserService {
 
     public getCountUsers() : Observable<User[]>{
         return this.http.delete<User[]>(`${environment.apiUrl}/${this.url}/count`);
+    }
+
+    public getUserDetailsByCreatedBy(createdBy: string): Observable<UserDetails> {
+        return this.http.get<UserDetails>(`${environment.apiUrl}/${this.url}/Email&PhoneDetails?createdBy=${createdBy}`);
     }
 }

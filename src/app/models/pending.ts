@@ -9,6 +9,6 @@ export class Pending {
     dateStart?: string;
     dateEnd?: string;
     description?: string;
-    matriculation?: string;
+    matriculation?: string
 
 }
