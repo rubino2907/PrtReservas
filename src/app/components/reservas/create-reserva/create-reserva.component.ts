@@ -40,7 +40,7 @@ export class CreateReservaComponent  implements OnInit{
     newPending.createdBy = this.cookieService.get('userName');
     newPending.changeDateTime = "";
     newPending.creationDateTime = "";
-    newPending.aproved = "";
+    newPending.aproved = "EM ESPERA";
     newPending.aprovedBy = this.cookieService.get('userName');
     
     this.pendantService

@@ -13,10 +13,19 @@
                 <td style="vertical-align: middle;">{{ pending.dateStart }}</td>
                 <td style="vertical-align: middle;">{{ pending.dateEnd }}</td>
                 <td style="vertical-align: middle;">
-                    <ng-container *ngIf="pending.aproved; else notApproved">Sim</ng-container>
-                    <ng-template #notApproved>Não</ng-template>
+                    <ng-container *ngIf="pending.aproved === 'APROVADO';">
+                        APROVADO
+                    </ng-container>
+                    <ng-container *ngIf="pending.aproved === 'NÃO APROVADO';">
+                        NÃO APROVADO
+                    </ng-container>
+                    <ng-container *ngIf="pending.aproved === 'EM ESPERA';">
+                        EM ESPERA
+                    </ng-container>
                 </td>
-                <td style="vertical-align: middle;">{{ pending.aprovedBy }}</td>
+                <td style="vertical-align: middle;">
+                    <ng-container *ngIf="pending.aproved === 'APROVADO';">{{ pending.aprovedBy }}</ng-container>
+                </td>
             </tr>
         </tbody>
     </table>    
