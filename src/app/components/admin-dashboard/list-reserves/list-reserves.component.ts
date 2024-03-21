@@ -53,4 +53,8 @@ export class ListReservesComponent implements OnInit {
     this.reserves = reserves;
     this.isFormEditReserveVisible = false;
   }
+
+  fecharForm(){
+    this.isFormEditReserveVisible = false;
+  }
 }
