@@ -30,8 +30,8 @@ export class EditReservesComponent {
     console.log("Reserva antes de ser enviado:", reserve);
   
     reserve.createdBy = this.cookieService.get('userName');
-    reserve.changeDateTime = "";
-    reserve.creationDateTime = "";
+    reserve.changeDateTime = new Date();;
+    reserve.creationDateTime = new Date();;
     reserve.state = "";
   
     this.reserveService

@@ -25,7 +25,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ScheduleReservesComponent } from './components/reservas/schedule-reserves/schedule-reserves.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { SelectScheduleOrPendingsComponent } from './components/reservas/select-schedule-or-pendings/select-schedule-or-pendings.component';
 import { ListUserPendingsComponent } from './components/reservas/list-user-pendings/list-user-pendings.component';
@@ -60,6 +60,7 @@ registerLocaleData(localePt);
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    CommonModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

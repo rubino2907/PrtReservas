@@ -25,6 +25,10 @@ export class PendantService {
         );
     }
 
+    public createPendingWithType(pending: Pending) : Observable<Pending[]>{
+        return this.http.post<Pending[]>(`${environment.apiUrl}/${this.url}/CreatePendingWithType`, pending);
+    }
+
     public updatePendings(pending: Pending): Observable<Pending[]>{
         return this.http.put<Pending[]>
         (`${environment.apiUrl}/${this.url}`,
@@ -39,6 +43,11 @@ export class PendantService {
     public getPendingsByCreatedBy(createdBy: string): Observable<Pending[]> {
         return this.http.get<Pending[]>(`${environment.apiUrl}/${this.url}/GetPendingsByCreatedBy/${createdBy}`);
     }
+
+    public getPendingsByAproved(): Observable<Pending[]> {
+        return this.http.get<Pending[]>(`${environment.apiUrl}/${this.url}/GetPendingsByAproved`);
+    }
+
 
 
 }

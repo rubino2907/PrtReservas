@@ -34,9 +34,10 @@ export class EditPendantsComponent {
     console.log("Pendente antes de ser enviado:", newPending);
     
     newPending.createdBy = this.cookieService.get('userName');
-    newPending.changeDateTime = "";
-    newPending.creationDateTime = "";
+    newPending.changeDateTime = new Date();;
+    newPending.creationDateTime = new Date();;
     newPending.aproved = "EM ESPERA";
+    newPending.vehicleType = "";
     newPending.aprovedBy = this.cookieService.get('userName');
     
     this.pendantService

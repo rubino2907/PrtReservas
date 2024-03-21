@@ -11,7 +11,7 @@ import { UserDetails } from '../../../models/userDetails';
 })
 
 export class ListPendantsComponent implements OnInit {
-
+  readonly ASCENDING = 'asc';
   @Input() pendings: Pending[] = [];
   @Input() pendingsToEdit?: Pending;
   @Input() isFormEditPendingVisible: boolean = false;

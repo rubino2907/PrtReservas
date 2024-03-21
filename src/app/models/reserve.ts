@@ -1,11 +1,11 @@
 export class Reserve {
 
     reserveID?: number;
-    creationDateTime?: string;
+    creationDateTime?: Date;
     createdBy?: string;
-    changeDateTime?: string;
-    dateStart?: string;
-    dateEnd?: string;
+    changeDateTime?: Date;
+    dateStart?: Date;
+    dateEnd?: Date;
     description?: string;
     obs?: string;
     matriculation?: string;

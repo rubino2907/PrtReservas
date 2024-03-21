@@ -1,14 +1,15 @@
 export class Pending {
 
     pendingID?: number;
-    creationDateTime?: string;
+    creationDateTime?: Date;
     createdBy?: string;
-    changeDateTime?: string;
+    changeDateTime?: Date;
     aproved?: string;
     aprovedBy?: string;
-    dateStart?: string;
-    dateEnd?: string;
+    dateStart?: Date;
+    dateEnd?: Date;
     description?: string;
-    matriculation?: string
+    matriculation?: string;
+    vehicleType?: string;
 
 }

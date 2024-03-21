@@ -4,6 +4,7 @@ import { Reserve } from '../../../models/reserve';
 import { CookieService } from 'ngx-cookie-service';
 import { PendantService } from '../../../services/pending.service';
 import { Pending } from '../../../models/pending';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
 
 @Component({
   selector: 'app-create-reserva',
@@ -17,34 +18,25 @@ export class CreateReservaComponent  implements OnInit{
   matriculations: string[] = [];
   @Output() reservesUpdated = new EventEmitter<Reserve[]>();
 
-  constructor(private vehicleService: VehicleService, private pendantService: PendantService, private cookieService: CookieService) { }
+  constructor(private vehicleService: VehicleService, private pendantService: PendantService, private cookieService: CookieService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.carregarMatriculas();
-  }
-
-  carregarMatriculas(): void {
-    this.vehicleService.getMatriculations().subscribe(
-      matriculas => {
-        this.matriculations = matriculas;
-      },
-      error => {
-        console.log('Erro ao carregar as matrículas:', error);
-      }
-    );
   }
 
   createPending(newPending: Pending): void {
     console.log("Pendente antes de ser enviado:", newPending);
-    
+  
     newPending.createdBy = this.cookieService.get('userName');
-    newPending.changeDateTime = "";
-    newPending.creationDateTime = "";
+    
+    // Convertendo a string para um objeto Date
+    newPending.changeDateTime = new Date(); // criando um novo objeto Date com a data atual
+    newPending.creationDateTime = new Date(); // criando um novo objeto Date com a data atual
+    newPending.matriculation = "";
     newPending.aproved = "EM ESPERA";
     newPending.aprovedBy = this.cookieService.get('userName');
     
     this.pendantService
-      .createPending(newPending)
+      .createPendingWithType(newPending)
       .subscribe(
         (pendants: Pending[]) => {
           console.log("Pendentes criados com sucesso!", pendants);
@@ -64,8 +56,11 @@ export class CreateReservaComponent  implements OnInit{
           } else if (error && error.message) {
             console.error("Mensagem de erro:", error.message);
           }
+          // Exibir mensagem de erro
+          this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível para essa data.', 'Fechar', {
+            duration: 5000, // Duração em milissegundos
+          });
         }
       );
   }
-  
 }

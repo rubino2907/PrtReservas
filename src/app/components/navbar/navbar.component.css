@@ -27,3 +27,15 @@
   font-size: 16px; /* Ajusta o tamanho da fonte conforme necessário */
   color: #fff; /* Define a cor do texto para branco */
 }
+
+.badge {
+  background-color: red; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  padding: 1px 3px; /* Espaçamento interno ainda menor */
+  border-radius: 50%; /* Borda arredondada */
+  font-size: 8px; /* Tamanho ainda menor da fonte */
+  margin-left: -7px; /* Ajuste de posição para a esquerda */
+  margin-top: -10px; /* Mover para cima */
+}
+
+
