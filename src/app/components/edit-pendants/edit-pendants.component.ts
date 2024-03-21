@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-
 import { VehicleService } from '../../services/vehicle.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Pending } from '../../models/pending';
@@ -7,6 +6,7 @@ import { PendantService } from '../../services/pending.service';
 import { ReserveService } from '../../services/reserve.service';
 import { Reserve } from '../../models/reserve';
 import { UserService } from '../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
 
 @Component({
   selector: 'app-edit-pendants',
@@ -20,7 +20,7 @@ export class EditPendantsComponent {
 
   isFormEditPendingVisible: boolean = false; // Variável para controlar a visibilidade do formulário
 
-  constructor(private cookieService: CookieService ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService, private userService: UserService) {}
+  constructor(private cookieService: CookieService ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService, private userService: UserService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadMatriculations();
@@ -32,21 +32,23 @@ export class EditPendantsComponent {
 
   createPending(newPending: Pending): void {
     console.log("Pendente antes de ser enviado:", newPending);
-    
+  
     newPending.createdBy = this.cookieService.get('userName');
-    newPending.changeDateTime = new Date();;
-    newPending.creationDateTime = new Date();;
+    
+    newPending.changeDateTime = new Date(); // criando um novo objeto Date com a data atual
+    newPending.creationDateTime = new Date(); // criando um novo objeto Date com a data atual
+    newPending.matriculation = "";
     newPending.aproved = "EM ESPERA";
-    newPending.vehicleType = "";
     newPending.aprovedBy = this.cookieService.get('userName');
     
     this.pendantService
-      .createPending(newPending)
+      .createPendingWithType(newPending)
       .subscribe(
         (pendants: Pending[]) => {
           console.log("Pendentes criados com sucesso!", pendants);
           this.pendingsUpdated.emit(pendants);
-          this.isFormEditPendingVisible = false; // Esconde o formulário após criar os pendentes com sucesso
+          // Limpar o formulário
+          this.pending = new Pending(); // Ou qualquer outra forma de criar um novo objeto vazio
         },
         (error) => {
           console.error("Erro ao criar Pendentes:", error);
@@ -60,7 +62,10 @@ export class EditPendantsComponent {
           } else if (error && error.message) {
             console.error("Mensagem de erro:", error.message);
           }
-          this.isFormEditPendingVisible = false; // Esconde o formulário se ocorrer um erro
+          // Exibir mensagem de erro
+          this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível para essa data.', 'Fechar', {
+            duration: 5000, // Duração em milissegundos
+          });
         }
       );
   }

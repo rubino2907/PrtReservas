@@ -28,7 +28,6 @@ export class CreateReservaComponent  implements OnInit{
   
     newPending.createdBy = this.cookieService.get('userName');
     
-    // Convertendo a string para um objeto Date
     newPending.changeDateTime = new Date(); // criando um novo objeto Date com a data atual
     newPending.creationDateTime = new Date(); // criando um novo objeto Date com a data atual
     newPending.matriculation = "";
