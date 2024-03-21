@@ -4,7 +4,7 @@ export class Pending {
     creationDateTime?: string;
     createdBy?: string;
     changeDateTime?: string;
-    aproved?: boolean;
+    aproved?: string;
     aprovedBy?: string;
     dateStart?: string;
     dateEnd?: string;

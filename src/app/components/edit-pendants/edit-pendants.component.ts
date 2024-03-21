@@ -36,7 +36,7 @@ export class EditPendantsComponent {
     newPending.createdBy = this.cookieService.get('userName');
     newPending.changeDateTime = "";
     newPending.creationDateTime = "";
-    newPending.aproved = false;
+    newPending.aproved = "EM ESPERA";
     newPending.aprovedBy = this.cookieService.get('userName');
     
     this.pendantService
@@ -84,7 +84,7 @@ export class EditPendantsComponent {
         this.isFormEditPendingVisible = false; // Esconde o formulário após a atualização bem-sucedida
         
         // Verifica se o pedido foi aprovado
-        if (pending.aproved) {
+        if (pending.aproved === 'APROVADO') { // Verifica se o pendente foi aprovado
           // Se aprovado, cria a reserva
           const reserve: Reserve = {
             createdBy: pending.createdBy,

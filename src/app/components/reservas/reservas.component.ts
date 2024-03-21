@@ -9,7 +9,6 @@ import { Pending } from '../../models/pending';
 export class ReservasComponent {
 
   pending: Pending = {
-    // inicialize os campos com valores padrão, se necessário
   };
   
   showCreateReserve: boolean = false;

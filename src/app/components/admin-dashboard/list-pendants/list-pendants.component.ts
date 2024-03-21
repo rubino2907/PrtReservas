@@ -6,15 +6,18 @@ import { UserDetails } from '../../../models/userDetails';
 
 @Component({
   selector: 'app-list-pendants',
-  templateUrl: './list-pendants.component.html',
+  templateUrl: 'list-pendants.component.html', // Apenas o nome do arquivo
   styleUrls: ['./list-pendants.component.css']
 })
+
 export class ListPendantsComponent implements OnInit {
 
   @Input() pendings: Pending[] = [];
   @Input() pendingsToEdit?: Pending;
   @Input() isFormEditPendingVisible: boolean = false;
   userDetails?: UserDetails;
+  // Variável para acompanhar a linha selecionada
+  selectedPending: any = null;
 
   constructor(private pendantService: PendantService, private userService: UserService) {}
 
@@ -85,7 +88,27 @@ export class ListPendantsComponent implements OnInit {
 
     // Ocultar o formulário de edição
     this.isFormEditPendingVisible = false;
-}
+  }
 
+  // Função para selecionar a linha clicada
+  selectPending(pending: any) {
+    this.selectedPending = pending;
+    console.log('Selected Pending:', this.selectedPending); // Adicione este console log para verificar se a linha está sendo selecionada corretamente
+  }
+
+  // Função para retornar a classe com base no estado do pedido
+  getPendingStatusClass(status: string | undefined): string {
+    if (status === 'APROVADO') {
+      return 'approved';
+    } else if (status === 'EM ESPERA') {
+      return 'pending';
+    } else if (status === 'NÃO APROVADO') {
+      return 'not-approved';
+    } else {
+      return ''; // Retorna uma string vazia se o status for undefined
+    }
+  }
+
+  
   
 }
