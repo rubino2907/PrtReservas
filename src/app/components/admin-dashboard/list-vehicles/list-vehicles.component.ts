@@ -41,4 +41,7 @@ export class ListVehiclesComponent {
     this.isFormEditVehicleVisible = !this.isFormEditVehicleVisible;
   }
   
+  fecharForm(){
+    this.isFormEditVehicleVisible = false;
+  }
 }
