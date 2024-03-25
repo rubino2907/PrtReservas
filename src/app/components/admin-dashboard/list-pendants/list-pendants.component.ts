@@ -11,7 +11,6 @@ import { UserDetails } from '../../../models/userDetails';
 })
 
 export class ListPendantsComponent implements OnInit {
-  readonly ASCENDING = 'asc';
   @Input() pendings: Pending[] = [];
   @Input() pendingsToEdit?: Pending;
   @Input() isFormEditPendingVisible: boolean = false;
@@ -28,13 +27,25 @@ export class ListPendantsComponent implements OnInit {
   loadPendings(): void {
     this.pendantService.getPendings()
       .subscribe((result: Pending[]) => {
+        // Classifique os pedidos de acordo com o estado, colocando "EM ESPERA" primeiro
+        result.sort((a, b) => {
+          if (a.aproved === 'EM ESPERA' && b.aproved !== 'EM ESPERA') {
+            return -1; // "EM ESPERA" vem antes de outros estados
+          } else if (a.aproved !== 'EM ESPERA' && b.aproved === 'EM ESPERA') {
+            return 1; // Outros estados vêm depois de "EM ESPERA"
+          } else {
+            return 0; // Mantém a ordem atual entre pedidos com o mesmo estado
+          }
+        });
+  
         this.pendings = result;
       }, error => {
         console.error('Error fetching pendings:', error);
       });
-
+  
     this.isFormEditPendingVisible = false;
   }
+  
 
   initNewPending(): void {
     // Limpar os detalhes do usuário
