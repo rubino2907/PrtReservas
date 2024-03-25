@@ -44,24 +44,34 @@ export class EditPendantsComponent {
 
   createPending(newPending: Pending): void {
     console.log("Pendente antes de ser enviado:", newPending);
-
+  
     newPending.createdBy = this.cookieService.get('userName');
-
+  
     // Verificar se o usuário forneceu uma matrícula
     if (!newPending.matriculation) {
-        // Se não houver matrícula especificada, selecionar automaticamente a primeira matrícula disponível
-        if (this.matriculations.length > 0) {
-            newPending.matriculation = this.matriculations[0]; // Selecionar a primeira matrícula disponível
-        } else {
-            // Se não houver matrículas disponíveis, exibir uma mensagem de erro ao usuário
-            console.error("Nenhuma matrícula disponível.");
-            this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível.', 'Fechar', {
-                duration: 5000, // Duração em milissegundos
-            });
-            return; // Sai do método sem criar o pendente
-        }
+      // Se não houver matrícula especificada, selecionar automaticamente a primeira matrícula disponível
+      if (this.matriculations.length > 0) {
+        newPending.matriculation = this.matriculations[0]; // Selecionar a primeira matrícula disponível
+      } else {
+        // Se não houver matrículas disponíveis, exibir uma mensagem de erro ao usuário
+        console.error("Nenhuma matrícula disponível.");
+        this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível.', 'Fechar', {
+          duration: 5000, // Duração em milissegundos
+        });
+        return; // Sai do método sem criar o pendente
+      }
+    } else {
+      // Se o usuário fornecer uma matrícula, verificar se está disponível
+      if (!this.matriculations.includes(newPending.matriculation)) {
+        // Se a matrícula não estiver disponível, exibir uma mensagem de erro ao usuário
+        console.error("A matrícula fornecida não está disponível.");
+        this.snackBar.open('Impossível criar pedido. A matrícula fornecida não está disponível.', 'Fechar', {
+          duration: 5000, // Duração em milissegundos
+        });
+        return; // Sai do método sem criar o pendente
+      }
     }
-
+  
     newPending.changeDateTime = new Date(); // criando um novo objeto Date com a data atual
     newPending.creationDateTime = new Date(); // criando um novo objeto Date com a data atual
     newPending.aproved = "EM ESPERA";
@@ -95,6 +105,7 @@ export class EditPendantsComponent {
         }
       );
   }
+  
 
   updatePending(pending: Pending): void {
     pending.aprovedBy = this.cookieService.get('userName');

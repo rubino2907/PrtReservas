@@ -20,7 +20,6 @@ export class ScheduleReservesComponent implements OnInit {
   matriculations: string[] = []; // Lista de matrículas
   selectedMatriculation: string = ''; // Matrícula selecionada
 
-
   constructor(
     private reserveService: ReserveService,
     private vehicleService: VehicleService,
@@ -29,59 +28,106 @@ export class ScheduleReservesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMatriculations(); // Carrega as matrículas ao inicializar o componente
-    this.loadReserves(); // Carrega as reservas ao inicializar o componente
+    this.loadReservesByMatriculation(); // Carrega as reservas ao inicializar o componente
   }
 
   loadMatriculations(): void {
-    // Aqui você carrega as matrículas do serviço ReserveService
-    // Supondo que o serviço tem um método getMatriculations()
+    // Carrega as matrículas do serviço VehicleService
     this.vehicleService.getMatriculations().subscribe(matriculations => {
       this.matriculations = matriculations;
+      this.loadAvailableDays(); // Carrega os dias disponíveis ao carregar as matrículas
     });
   }
 
-  loadReserves(): void {
-    if (this.selectedMatriculation) {
-      // Se uma matrícula estiver selecionada, carrega as reservas dessa matrícula
-      this.reserveService.getReservesByMatriculation(this.selectedMatriculation).subscribe(
-        (reserves: Reserve[]) => {
-          this.events = reserves.map((reserve, index) => ({
-            start: reserve.dateStart ? new Date(reserve.dateStart) : new Date(),
-            end: reserve.dateEnd ? new Date(reserve.dateEnd) : new Date(),
-            title: reserve.matriculation || 'Sem Matrícula associada',
-            color: this.getColorByIndex(index)
-          }));
-        },
-        error => {
-          console.error('Erro ao carregar reservas:', error);
-        }
-      );
-    } else {
-      // Se nenhuma matrícula estiver selecionada, carrega todas as reservas
-      this.reserveService.getReserves().subscribe(
-        (reserves: Reserve[]) => {
-          this.events = reserves.map((reserve, index) => ({
-            start: reserve.dateStart ? new Date(reserve.dateStart) : new Date(),
-            end: reserve.dateEnd ? new Date(reserve.dateEnd) : new Date(),
-            title: reserve.matriculation || 'Sem Matrícula associada',
-            color: this.getColorByIndex(index)
-          }));
-        },
-        error => {
-          console.error('Erro ao carregar reservas:', error);
-        }
-      );
+  loadAvailableDays(): void {
+    // Verifica se há uma matrícula selecionada
+    if (!this.selectedMatriculation) {
+      return;
     }
+  
+    // Chama o serviço para obter os dias disponíveis com base na matrícula selecionada
+    this.reserveService.getAvailableDays(this.selectedMatriculation, this.viewDate, endOfWeek(this.viewDate))
+      .subscribe((availableDays: Date[]) => {
+        // Adiciona as reservas após adicionar os dias disponíveis
+        this.addReservesToEvents();
+  
+        // Adiciona os eventos para os dias disponíveis com a bola verde
+        availableDays.forEach(day => {
+          // Verifica se o dia não tem reservas
+          if (!this.hasReserveForDay(day)) {
+            this.events.push({
+              start: day,
+              title: 'Dia Livre',
+              color: { primary: 'green', secondary: 'green' }
+            });
+          }
+        });
+      });
   }
-
-  getColorByIndex(index: number): any {
-    const colors = ['blue', 'green', 'red', 'orange', 'purple'];
-    const colorIndex = index % colors.length;
-    return {
-      primary: colors[colorIndex],
-      secondary: colors[colorIndex]
-    };
+  
+  
+  // Adiciona as reservas à lista de eventos
+  addReservesToEvents(): void {
+    // Verifica se há uma matrícula selecionada
+    if (!this.selectedMatriculation) {
+      return;
+    }
+  
+    // Chama o serviço para obter as reservas da matrícula selecionada
+    this.reserveService.getReservesByMatriculation(this.selectedMatriculation)
+      .subscribe((reserves: Reserve[]) => {
+        // Adiciona os eventos das reservas
+        reserves.forEach(reserve => {
+          if (reserve.dateStart && reserve.dateEnd) {
+            this.events.push({
+              start: new Date(reserve.dateStart),
+              end: new Date(reserve.dateEnd),
+              title: 'Reserva',
+              color: { primary: 'red', secondary: 'red' }
+            });
+          }
+        });
+      });
   }
+  
+  
+  // Verifica se há uma reserva para o dia especificado
+  hasReserveForDay(day: Date): boolean {
+    return this.events.some(event => {
+      return event.start.getFullYear() === day.getFullYear() &&
+        event.start.getMonth() === day.getMonth() &&
+        event.start.getDate() === day.getDate();
+    });
+  }
+  
+  loadReservesByMatriculation(): void {
+    // Verifica se há uma matrícula selecionada
+    if (!this.selectedMatriculation) {
+      return;
+    }
+  
+    // Chama o serviço para obter as reservas da matrícula selecionada
+    this.reserveService.getReservesByMatriculation(this.selectedMatriculation)
+      .subscribe((reserves: Reserve[]) => {
+        // Limpa os eventos antes de adicionar as reservas
+        this.events = [];
+  
+        // Adiciona os eventos das reservas
+        reserves.forEach(reserve => {
+          if (reserve.dateStart && reserve.dateEnd) {
+            this.events.push({
+              start: new Date(reserve.dateStart),
+              end: new Date(reserve.dateEnd),
+              title: 'Reserva',
+              color: { primary: 'red', secondary: 'red' }
+            });
+          }
+        });
+  
+        this.loadAvailableDays(); // Carrega os dias disponíveis após carregar as reservas
+      });
+  }
+  
 
   eventClicked(event: CalendarEvent): void {
     console.log('Evento clicado:', event);
@@ -89,8 +135,9 @@ export class ScheduleReservesComponent implements OnInit {
 
   setView(view: 'month' | 'day' | 'week'): void {
     this.view = view;
+    this.loadAvailableDays(); // Carrega os dias disponíveis ao mudar a visualização do calendário
   }
-
+  
   next(): void {
     switch (this.view) {
       case 'month':
@@ -103,8 +150,9 @@ export class ScheduleReservesComponent implements OnInit {
         this.viewDate = addDays(this.viewDate, 1);
         break;
     }
+    this.loadAvailableDays(); // Carrega os dias disponíveis após avançar na visualização do calendário
   }
-
+  
   previous(): void {
     switch (this.view) {
       case 'month':
@@ -117,6 +165,7 @@ export class ScheduleReservesComponent implements OnInit {
         this.viewDate = subDays(this.viewDate, 1);
         break;
     }
+    this.loadAvailableDays(); // Carrega os dias disponíveis após retroceder na visualização do calendário
   }
 
   getIndicator(): string {

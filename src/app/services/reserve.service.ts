@@ -38,4 +38,11 @@ export class ReserveService {
     public getReservesByMatriculation(matriculation: string): Observable<Reserve[]> {
         return this.http.get<Reserve[]>(`${environment.apiUrl}/${this.url}/GetReservesByMatriculation?matriculation=${matriculation}`);
     }
+
+    public getAvailableDays(matriculation: string, startDate: Date, endDate: Date): Observable<Date[]> {
+        return this.http.get<Date[]>(
+            `${environment.apiUrl}/${this.url}/GetAvailableDays?matriculation=${matriculation}&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+        );
+    }
+    
 }
