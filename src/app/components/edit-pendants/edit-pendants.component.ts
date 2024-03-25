@@ -40,7 +40,7 @@ export class EditPendantsComponent {
             // Lide com os erros adequadamente
         }
     );
-}
+  }
 
   createPending(newPending: Pending): void {
     console.log("Pendente antes de ser enviado:", newPending);
