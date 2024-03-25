@@ -1,21 +1,34 @@
 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
     <div class="position-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4">
-            <a class="list-group-item list-group-item-action py-2 ripple" style="margin-bottom: 20px;">
-                <i class="bi bi-gear-fill me-3"></i><span class="fs-5">Reserva</span>
-            </a>
-            <a class="list-group-item list-group-item-action py-2 ripple" 
-               [class.active]="createReserveActive" 
-               (click)="toggleCreateReserve()"
-               style="cursor: pointer; margin-top: 20px;">
-               <i class="bi bi-calendar-week-fill me-3" style="margin-right: 5px;"></i><span>Pedido Viatura</span>
-            </a>
-            <a class="list-group-item list-group-item-action py-2 ripple" 
-            [class.active]="reserveRequestsActive" 
-            (click)="toggleReserveRequests()"
-            style="cursor: pointer; margin-top: 10px;">
-            <i class="bi bi-check-circle-fill me-3"></i><span>Lista De Pedidos</span>
-            </a>
+        <div class="list-group list-group-flush">
+            <div class="sidebar-item d-flex align-items-center justify-content-center" style="border: 1px solid #337AB7; background: #FFFFFF; opacity: 1; height: 84px;">
+                <a class="list-group-item list-group-item-action py-2 ripple d-block d-flex align-items-center justify-content-center" 
+                    [class.active]="createReserveActive" 
+                    (click)="toggleCreateReserve()"
+                    style="cursor: pointer;">
+                    <i class="bi bi-people-fill me-2" style="vertical-align: middle;"
+                    [ngStyle]="{'color': createReserveActive ? '#FFFFFF' : '#337AB7'}">
+                    </i>
+                    <span class="sidebar-text" 
+                    [ngStyle]="{'color': createReserveActive ? '#FFFFFF' : '#337AB7'}">
+                    PEDIDO VIATURA
+                </span>
+                </a>
+            </div>
+            <div class="sidebar-item d-flex align-items-center justify-content-center" style="border: 1px solid #337AB7; background: #FFFFFF; opacity: 1; height: 84px;">
+                <a class="list-group-item list-group-item-action py-2 ripple d-block d-flex align-items-center justify-content-center" 
+                    [class.active]="reserveRequestsActive" 
+                    (click)="toggleReserveRequests()"
+                    style="cursor: pointer;">
+                    <i class="bi bi-check-circle-fill me-2" style="vertical-align: middle;"
+                    [ngStyle]="{'color': reserveRequestsActive ? '#FFFFFF' : '#337AB7'}">
+                    </i>
+                    <span class="sidebar-text" 
+                    [ngStyle]="{'color': reserveRequestsActive ? '#FFFFFF' : '#337AB7'}">
+                    LISTA DE PEDIDOS
+                </span>
+                </a>
+            </div>
         </div>
     </div>
 </nav>
