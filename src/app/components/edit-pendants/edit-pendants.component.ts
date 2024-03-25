@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { VehicleService } from '../../services/vehicle.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Pending } from '../../models/pending';
@@ -7,6 +7,7 @@ import { ReserveService } from '../../services/reserve.service';
 import { Reserve } from '../../models/reserve';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
+import { Vehicle } from '../../models/vehicle';
 
 @Component({
   selector: 'app-edit-pendants',
@@ -22,22 +23,47 @@ export class EditPendantsComponent {
 
   constructor(private cookieService: CookieService ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService, private userService: UserService, private snackBar: MatSnackBar) {}
 
-  ngOnInit(): void {
-    this.loadMatriculations();
-  }
-
   showForm(): void {
     this.isFormEditPendingVisible = true; // Mostra o formulário
   }
 
+  loadMatriculations(vehicleType: string): void {
+    this.vehicleService.getVehiclesByType(vehicleType).subscribe(
+        (vehicles: Vehicle[]) => {
+            // Filtrar matrículas não definidas e extrair as matrículas dos veículos retornados
+            this.matriculations = vehicles
+                .filter(vehicle => !!vehicle.matriculation)
+                .map(vehicle => vehicle.matriculation!);
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+            // Lide com os erros adequadamente
+        }
+    );
+}
+
   createPending(newPending: Pending): void {
     console.log("Pendente antes de ser enviado:", newPending);
-  
+
     newPending.createdBy = this.cookieService.get('userName');
-    
+
+    // Verificar se o usuário forneceu uma matrícula
+    if (!newPending.matriculation) {
+        // Se não houver matrícula especificada, selecionar automaticamente a primeira matrícula disponível
+        if (this.matriculations.length > 0) {
+            newPending.matriculation = this.matriculations[0]; // Selecionar a primeira matrícula disponível
+        } else {
+            // Se não houver matrículas disponíveis, exibir uma mensagem de erro ao usuário
+            console.error("Nenhuma matrícula disponível.");
+            this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível.', 'Fechar', {
+                duration: 5000, // Duração em milissegundos
+            });
+            return; // Sai do método sem criar o pendente
+        }
+    }
+
     newPending.changeDateTime = new Date(); // criando um novo objeto Date com a data atual
     newPending.creationDateTime = new Date(); // criando um novo objeto Date com a data atual
-    newPending.matriculation = "";
     newPending.aproved = "EM ESPERA";
     newPending.aprovedBy = this.cookieService.get('userName');
     
@@ -63,22 +89,11 @@ export class EditPendantsComponent {
             console.error("Mensagem de erro:", error.message);
           }
           // Exibir mensagem de erro
-          this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível para essa data.', 'Fechar', {
+          this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível para essa data // Viatura escolhida não Disponivel.', 'Fechar', {
             duration: 5000, // Duração em milissegundos
           });
         }
       );
-  }
-  
-  loadMatriculations(): void {
-    this.vehicleService.getMatriculations().subscribe(
-      (matriculations: string[]) => {
-        this.matriculations = matriculations;
-      },
-      (error) => {
-        console.error("Erro ao carregar as matrículas dos veículos:", error);
-      }
-    );
   }
 
   updatePending(pending: Pending): void {
