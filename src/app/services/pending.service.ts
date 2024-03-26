@@ -45,7 +45,7 @@ export class PendantService {
     }
 
     public getPendingsByAproved(): Observable<Pending[]> {
-        return this.http.get<Pending[]>(`${environment.apiUrl}/${this.url}/GetPendingsByAproved`);
+        return this.http.get<Pending[]>(`${environment.apiUrl}/${this.url}/GetPendingByAprovedStatus`);
     }
 
 

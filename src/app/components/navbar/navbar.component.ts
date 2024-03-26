@@ -15,6 +15,8 @@ export class NavbarComponent implements OnInit {
   username: string = '';
   isAdmin: boolean = false; // Adicionamos essa variável para armazenar o valor de isAdmin
   pendingCount: number = 0; // Adicione a variável para armazenar o número de pendentes
+  showNotification: boolean = false;
+
 
   constructor(private router: Router, private cookieService: CookieService, private authService: AuthService, private pendingService: PendantService) {}
 
@@ -47,5 +49,13 @@ export class NavbarComponent implements OnInit {
     localStorage.clear();
     this.cookieService.deleteAll();
     this.router.navigate(['']);
+  }
+
+  toggleNotification() {
+    this.showNotification = !this.showNotification;
+  }
+
+  hideNotification() {
+    this.showNotification = false;
   }
 }

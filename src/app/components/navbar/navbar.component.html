@@ -16,9 +16,9 @@
     </a> 
     <div class="logout-btn">
       <!-- Ícone do sino com número de pedidos em espera -->
-      <a *ngIf="isAdmin">
-        <i class="bi bi-bell-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;"></i>
-        <span class="badge" *ngIf="pendingCount <= 0" >{{pendingCount}}</span> <!-- Número de pedidos em espera -->
+      <a *ngIf="isAdmin" (click)="toggleNotification()">
+          <i class="bi bi-bell-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;"></i>
+          <span class="badge" *ngIf="pendingCount > 0">{{pendingCount}}</span> <!-- Número de pedidos em espera -->
       </a>
       <!-- Ícone do usuário e botões de logout -->
       <a (click)="GoToDashboard()">
@@ -31,6 +31,11 @@
       </a>
     </div>
   </div>
+
+  
+  <!-- <div class="notification" *ngIf="showNotification">
+    Tem {{pendingCount}} por aceitar
+  </div> -->
   
 
 </body>

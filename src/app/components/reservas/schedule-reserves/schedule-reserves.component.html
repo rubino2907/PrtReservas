@@ -16,7 +16,7 @@
         <!-- Label do seletor de matrícula -->
         <label for="matriculationSelector" class="form-label">Matrícula:</label>
         <select id="matriculationSelector" class="form-select" [(ngModel)]="selectedMatriculation" (change)="loadReservesByMatriculation()">
-          <option value="">Todas as Matrículas</option>
+          <option value="">Selecione Uma Viatura</option>
           <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
         </select>
       </div>
