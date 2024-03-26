@@ -44,5 +44,9 @@ export class ReserveService {
             `${environment.apiUrl}/${this.url}/GetAvailableDays?matriculation=${matriculation}&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
         );
     }
+
+    public getReservesByCreatedBy(createdBy: string): Observable<Reserve[]> {
+        return this.http.get<Reserve[]>(`${environment.apiUrl}/${this.url}/GetReservesByCreatedBy/${createdBy}`);
+    }
     
 }
