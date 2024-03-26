@@ -65,9 +65,9 @@ export class ScheduleReservesComponent implements OnInit {
     if (!this.selectedMatriculation) {
       return;
     }
-
+  
     // Limpa os eventos antes de adicionar os novos dias disponíveis
-    this.events = this.events.filter(event => !event.title || event.title !== 'Dia Livre');
+    this.events = this.events.filter(event => !event.title || event.title !== 'Dia Preenchido');
   
     // Chama o serviço para obter os dias disponíveis com base na matrícula selecionada
     this.reserveService.getAvailableDays(this.selectedMatriculation, this.viewDate, endOfWeek(this.viewDate))
@@ -75,10 +75,20 @@ export class ScheduleReservesComponent implements OnInit {
         // Adiciona as reservas após adicionar os dias disponíveis
         this.addReservesToEvents();
   
-        // Adiciona os eventos para os dias disponíveis com a bola verde
+        // Verifica se todas as horas do dia estão reservadas
+        const isFullDayReserved = availableDays.every(day => this.hasReserveForDay(day));
+  
+        // Adiciona os eventos para os dias disponíveis
         availableDays.forEach(day => {
-          // Verifica se o dia não tem reservas
-          if (!this.hasReserveForDay(day)) {
+          if (isFullDayReserved) {
+            // Se todas as horas do dia estiverem reservadas, define o título como "Dia Preenchido"
+            this.events.push({
+              start: day,
+              title: 'Dia Preenchido',
+              color: { primary: 'blue', secondary: 'blue' }
+            });
+          } else if (!this.hasReserveForDay(day)) {
+            // Se o dia não tiver reservas, adiciona o evento "Dia Livre" com a cor verde
             this.events.push({
               start: day,
               title: 'Dia Livre',
@@ -88,6 +98,7 @@ export class ScheduleReservesComponent implements OnInit {
         });
       });
   }
+  
   
   
   // Adiciona as reservas à lista de eventos
@@ -131,21 +142,61 @@ export class ScheduleReservesComponent implements OnInit {
     // Chama o serviço para obter as reservas da matrícula selecionada
     this.reserveService.getReservesByMatriculation(this.selectedMatriculation)
       .subscribe((reserves: Reserve[]) => {
-        // Adiciona os eventos das reservas
-        reserves.forEach(reserve => {
-          if (reserve.dateStart && reserve.dateEnd) {
-            this.events.push({
-              start: new Date(reserve.dateStart),
-              end: new Date(reserve.dateEnd),
-              title: 'Reserva',
-              color: { primary: 'red', secondary: 'red' }
-            });
-          }
+        // Verifica se o dia está totalmente preenchido
+        const isDayFullyReserved = reserves.some(reserve => {
+          const reserveStart = reserve.dateStart ? new Date(reserve.dateStart) : undefined;
+          const reserveEnd = reserve.dateEnd ? new Date(reserve.dateEnd) : undefined;
+          return this.isDayReserved(reserveStart, reserveEnd);
         });
+  
+        if (isDayFullyReserved) {
+          // Adiciona apenas um evento de "Dia Preenchido" para o dia inteiro
+          const today = new Date(this.viewDate);
+          const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
+          const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
+          this.events.push({
+            start: startOfDay,
+            end: endOfDay,
+            title: 'Dia Preenchido',
+            color: { primary: 'blue', secondary: 'blue' }
+          });
+        } else {
+          // Adiciona as reservas à lista de eventos
+          reserves.forEach(reserve => {
+            if (reserve.dateStart && reserve.dateEnd) {
+              // Formata as datas de início e fim para exibir no título
+              const startDateFormatted = format(new Date(reserve.dateStart), 'HH:mm');
+              const endDateFormatted = format(new Date(reserve.dateEnd), 'HH:mm');
+  
+              // Concatena as datas formatadas para exibir no título
+              const title = `${startDateFormatted} - ${endDateFormatted}`;
+  
+              this.events.push({
+                start: new Date(reserve.dateStart),
+                end: new Date(reserve.dateEnd),
+                title: title,
+                color: { primary: 'red', secondary: 'red' }
+              });
+            }
+          });
+        }
   
         // Carrega os dias disponíveis após carregar as reservas
         this.loadAvailableDays();
       });
+  }
+  
+  
+  // Verifica se o dia está totalmente reservado
+  isDayReserved(start: Date | undefined, end: Date | undefined): boolean {
+    if (!start || !end) {
+      return false;
+    }
+  
+    const today = new Date(this.viewDate);
+    const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
+    const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
+    return start <= startOfDay && end >= endOfDay;
   }
 
   eventClicked(event: CalendarEvent): void {
