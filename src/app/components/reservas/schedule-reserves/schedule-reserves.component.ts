@@ -131,6 +131,13 @@ export class ScheduleReservesComponent implements OnInit {
 
   eventClicked(event: CalendarEvent): void {
     console.log('Evento clicado:', event);
+    this.openPopup(event); // Chame a função para abrir o popup aqui
+  }
+
+  openPopup(event: CalendarEvent): void {
+    // Aqui você pode abrir o popup com os detalhes da reserva
+    // Você pode usar o NgbModal para abrir o popup
+    // Consulte a documentação do NgbModal para mais detalhes sobre como usá-lo
   }
 
   setView(view: 'month' | 'day' | 'week'): void {
