@@ -6,7 +6,7 @@
       <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;">
       <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Pedidos de Reservas</label>
     </a> 
-    <a (click)="GoToDashboard()" [ngClass]="{'active': isDashboardActive}" style="padding-left: 8px; padding-right: 8px; padding-top: 10px; padding-bottom: 10px;">
+    <a *ngIf="isAdmin" (click)="GoToDashboard()" [ngClass]="{'active': isDashboardActive}" style="padding-left: 8px; padding-right: 8px; padding-top: 10px; padding-bottom: 10px;">
       <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;">
       <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Dashboard</label>
     </a> 
