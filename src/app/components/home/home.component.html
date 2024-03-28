@@ -1,9 +1,16 @@
-<div>
-    Name:
-    <input [(ngModel)] = "userDto.userName" type="text" placeholder="Name">
+<div class="login-wrapper">
+    <div class="login-container">
+        <h2>Login</h2>
+        <form>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input id="username" [(ngModel)]="userDto.userName" name="username" type="text" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input id="password" [(ngModel)]="userDto.password" name="password" type="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" (click)="login(userDto)">Login</button>
+        </form>
+    </div>
 </div>
-<div>
-    Password:
-    <input [(ngModel)] = "userDto.password" type="password" placeholder="Password">
-</div>
-<button (click)="login(userDto)">Login</button>

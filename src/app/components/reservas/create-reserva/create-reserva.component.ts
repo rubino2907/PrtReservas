@@ -46,17 +46,7 @@ export class CreateReservaComponent  implements OnInit{
   
     // Verificar se o usuário forneceu uma matrícula
     if (!newPending.matriculation) {
-      // Se não houver matrícula especificada, selecionar automaticamente a primeira matrícula disponível
-      if (this.matriculations.length > 0) {
-        newPending.matriculation = this.matriculations[0]; // Selecionar a primeira matrícula disponível
-      } else {
-        // Se não houver matrículas disponíveis, exibir uma mensagem de erro ao usuário
-        console.error("Nenhuma matrícula disponível.");
-        this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível.', 'Fechar', {
-          duration: 5000, // Duração em milissegundos
-        });
-        return; // Sai do método sem criar o pendente
-      }
+      newPending.matriculation = ""; // Atribuir uma string vazia à matrícula
     } else {
       // Se o usuário fornecer uma matrícula, verificar se está disponível
       if (!this.matriculations.includes(newPending.matriculation)) {
@@ -73,7 +63,7 @@ export class CreateReservaComponent  implements OnInit{
     newPending.creationDateTime = new Date(); // criando um novo objeto Date com a data atual
     newPending.aproved = "EM ESPERA";
     newPending.aprovedBy = this.cookieService.get('userName');
-    
+  
     this.pendantService
       .createPendingWithType(newPending)
       .subscribe(

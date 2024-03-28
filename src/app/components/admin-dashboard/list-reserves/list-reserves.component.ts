@@ -21,13 +21,26 @@ export class ListReservesComponent implements OnInit {
       .subscribe((result: Reserve[]) => {
         this.reserves = result;
         console.log('Reserves retrieved:', this.reserves);
+        this.sortReservesByState(); // Chamando a função de ordenação ao inicializar os dados
       }, error => {
         console.error('Error fetching reserves:', error);
       });
 
-      
-
     this.isFormEditReserveVisible = false;
+  }
+
+  sortReservesByState() {
+    this.reserves.sort((a, b) => {
+      const stateA = a.state ? a.state.toUpperCase() : '';
+      const stateB = b.state ? b.state.toUpperCase() : '';
+      if (stateA < stateB) {
+        return -1;
+      }
+      if (stateA > stateB) {
+        return 1;
+      }
+      return 0;
+    });
   }
 
   initNewReserva(){
@@ -39,6 +52,7 @@ export class ListReservesComponent implements OnInit {
     this.reserveService.getReserves().subscribe((result: Reserve[]) => {
       this.reserves = result;
       console.log('Reserves after addition:', this.reserves);
+      this.sortReservesByState(); // Chamando a função de ordenação após adicionar nova reserva
     });
   }
 
