@@ -1,54 +1,48 @@
+/* Estilo do container principal */
 .login-wrapper {
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    background-color: #fff; /* Cor de fundo branca */
 }
 
+/* Estilo do container de login */
 .login-container {
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
+    background-color: rgba(23, 116, 180, 0.47); /* Azul transparente */
+    padding: 25px;
+    border-radius: 20px;
     text-align: center;
-    margin-bottom: 20px;
+    max-width: 500px; /* Definir a largura máxima */
+    width: 100%; /* Para garantir que ocupe a largura total do container pai */
 }
 
-.form-group {
-    margin-bottom: 15px;
+/* Estilo do título */
+.title {
+    margin-top: 20px; /* Adicionar espaço entre o logo e o título */
 }
 
-label {
-    display: block;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="password"] {
+/* Estilo dos inputs */
+.form-group input {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    margin-bottom: 15px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: none;
+    background-color: #fff; /* Cor de fundo branca */
 }
 
+/* Estilo do botão */
 button {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
+    background-color: #337ab7; /* Azul */
+    color: #fff; /* Cor do texto branco */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #286090; /* Azul mais escuro no hover */
 }
