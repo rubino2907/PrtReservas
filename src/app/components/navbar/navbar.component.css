@@ -9,12 +9,6 @@
   z-index: 999;
 }
 
-.navbar a {
-  text-decoration: none;
-  color: white;
-  padding: 12px;
-}
-
 .navbar a:hover {
   background-color: #ddd;
   color: black;
@@ -38,4 +32,8 @@
   font-size: 8px;
   margin-left: -7px;
   margin-top: -10px;
+}
+
+.navbar a.active {
+  border-bottom: 3px solid #337AB7; /* Adicione o estilo da borda aqui */
 }

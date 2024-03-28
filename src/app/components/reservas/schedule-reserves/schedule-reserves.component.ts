@@ -32,7 +32,6 @@ export class ScheduleReservesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadReservesByMatriculation(); // Carrega as reservas ao inicializar o componente
     this.loadPendingData();
   }
 

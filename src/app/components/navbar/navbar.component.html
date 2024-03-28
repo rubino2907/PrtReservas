@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-</head>
-<body>
 
   <div class="navbar">
     <!-- Adiciona a imagem do logotipo -->
     <img src="assets\logo maps.svg" alt="Logotipo" style="width: 220px; height: auto; background: transparent url('img/logo pin.png') 0% 0% no-repeat padding-box; opacity: 1; margin-left: 20px;">
-    <a (click)="GoToReservas()">
+    <a (click)="GoToReservas()" [ngClass]="{'active': isReservasActive}" style="padding-left: 8px; padding-right: 8px; padding-top: 10px; padding-bottom: 10px;">
       <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;">
-      <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Reservas</label>
+      <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Pedidos de Reservas</label>
+    </a> 
+    <a (click)="GoToDashboard()" [ngClass]="{'active': isDashboardActive}" style="padding-left: 8px; padding-right: 8px; padding-top: 10px; padding-bottom: 10px;">
+      <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;">
+      <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Dashboard</label>
     </a> 
     <div class="logout-btn">
       <!-- Ícone do sino com número de pedidos em espera -->
-      <a *ngIf="isAdmin" (click)="toggleNotification()">
+      <a *ngIf="isAdmin" (click)="toggleNotification()" style="padding-left: 8px; padding-right: 8px; padding-top: 10px; padding-bottom: 10px;">
           <i class="bi bi-bell-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;"></i>
           <span class="badge" *ngIf="pendingCount > 0">{{pendingCount}}</span> <!-- Número de pedidos em espera -->
       </a>
       <!-- Ícone do usuário e botões de logout -->
-      <a (click)="GoToDashboard()">
+      <a style="padding-left: 8px; padding-right: 8px; padding-top: 10px; padding-bottom: 10px;">
         <i class="bi bi-person-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;" ></i>
         <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">{{username}}</label>
       </a>
-      <a (click)="logout()">
+      <a (click)="logout()" style="margin-right: 20px; padding-top: 10px; padding-bottom: 10px; padding-left: 8px; padding-right: 8px;">
         <i class="bi bi-door-closed-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 2px; vertical-align: middle;"></i>
         <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Logout</label>
       </a>
@@ -36,7 +32,3 @@
   <!-- <div class="notification" *ngIf="showNotification">
     Tem {{pendingCount}} por aceitar
   </div> -->
-  
-
-</body>
-</html>

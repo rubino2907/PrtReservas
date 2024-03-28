@@ -48,5 +48,7 @@ export class ReserveService {
     public getReservesByCreatedBy(createdBy: string): Observable<Reserve[]> {
         return this.http.get<Reserve[]>(`${environment.apiUrl}/${this.url}/GetReservesByCreatedBy/${createdBy}`);
     }
+
+    // public GetReservesByType
     
 }
