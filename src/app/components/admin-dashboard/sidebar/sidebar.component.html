@@ -1,43 +1,52 @@
 <nav id="sidebar" style="background-color: rgb(78, 78, 78);" class="sidebar">
         <div class="list-group list-group-flush">
-            <a class="list-group-item-action ripple d-block d-flex align-items-center justify-content-center" 
+            <a class="list-group-item-action ripple d-block d-flex" 
             [class.active]="userListActive" 
             (click)="toggleUserList()"
             style="margin-top: 20px; cursor: pointer; background-color: rgb(78, 78, 78);">
-            <i class="bi bi-people-fill me-2" style="vertical-align: middle; color: #FFFFFF;"></i>
+            <i class="bi bi-people-fill me-2" style="margin-left: 20px; vertical-align: left; color: #FFFFFF;"></i>
             <span class="sidebar-text" 
                 style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">
-                UTILIZADOR
+                Utilizador
             </span>
             </a>   
 
             <!-- Outros itens de menu -->
             
-            <a class="list-group-item-action ripple d-block d-flex align-items-center justify-content-center"  
+            <a class="list-group-item-action ripple d-block d-flex"  
                 [class.active]="vehicleListActive" 
                 (click)="toggleVehicleList()"
                 style="margin-top: 20px; cursor: pointer; background-color: rgb(78, 78, 78);">
-                <i class="bi bi-car-front-fill me-2" style="vertical-align: middle; color: #FFFFFF;"></i>
+                <i class="bi bi-car-front-fill me-2" style="margin-left: 20px; vertical-align: left; color: #FFFFFF;"></i>
                 <span class="sidebar-text" 
-                style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">VEÍCULOS</span>
+                style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Veículos</span>
             </a>
             
-            <a class="list-group-item-action ripple d-block d-flex align-items-center justify-content-center" 
+            <a class="list-group-item-action ripple d-block d-flex" 
                 [class.active]="pendantListActive" 
                 (click)="togglePendantList()"
                 style="margin-top: 20px; cursor: pointer; background-color: rgb(78, 78, 78);">
                 <i class="bi bi-check-circle-fill me-2" 
-                style="vertical-align: middle; color: #FFFFFF;"></i><span class="sidebar-text" 
-                style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">PEDIDOS</span>
+                style="margin-left: 20px; vertical-align: left; color: #FFFFFF;"></i><span class="sidebar-text" 
+                style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Pedidos</span>
             </a>
-            
-            <a class="list-group-item-action ripple d-block d-flex align-items-center justify-content-center" 
+
+            <a class="list-group-item-action ripple d-block d-flex" 
                 [class.active]="reservesListActive" 
                 (click)="toggleReservesList()"
                 style="margin-top: 20px; cursor: pointer; background-color: rgb(78, 78, 78);" >
                 <i class="bi bi-calendar2-week-fill me-2" 
-                style="vertical-align: middle; color: #FFFFFF;"></i><span class="sidebar-text" 
-                style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">RESERVAS</span>
+                style="margin-left: 20px; vertical-align: left; color: #FFFFFF;"></i><span class="sidebar-text" 
+                style="margin-left: 4px; vertical-align: middle; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Aprovação de Pedidos</span>
+            </a>
+            
+            <a class="list-group-item-action ripple d-block d-flex" 
+                [class.active]="reservesListActive" 
+                (click)="toggleReservesList()"
+                style="margin-top: 20px; cursor: pointer; background-color: rgb(78, 78, 78);" >
+                <i class="bi bi-calendar2-week-fill me-2" 
+                style="margin-left: 20px; vertical-align: left; color: #FFFFFF;"></i><span class="sidebar-text" 
+                style="margin-left: 4px; vertical-align: left; text-align: left; font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Reservas</span>
             </a>
             
         </div>

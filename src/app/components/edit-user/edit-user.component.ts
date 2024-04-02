@@ -9,6 +9,10 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
+  isDeleteConfirmationVisible: boolean = false;
+  isChangePasswordVisible: boolean = false; // Variável para controlar a visibilidade da popup de alteração de senha
+  newPassword: string = ''; // Nova senha
+  confirmPassword: string = ''; // Confirmação da nova senha
   @Input() user?: User;
   @Output() usersUpdated = new EventEmitter<User[]>();
 
@@ -62,5 +66,44 @@ export class EditUserComponent implements OnInit {
           console.error("Erro ao criar usuário:", error);
         }
       );
+  }
+  
+  showDeleteConfirmation(): void {
+    this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação
+  }
+  
+  cancelDelete(): void {
+    this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
+  }
+
+  showChangePassword(): void {
+    this.isChangePasswordVisible = true; // Mostra a popup de alteração de senha
+  }
+
+  changePassword(): void {
+    if (this.newPassword === this.confirmPassword && this.user) { // Verifica se user não é undefined
+        // Atualiza a senha no objeto do usuário
+        this.user.password = this.newPassword;
+
+        // Chama o método para atualizar o usuário, incluindo a nova senha
+        this.updateUser(this.user);
+
+        // Limpa os campos de nova senha e confirmação
+        this.newPassword = '';
+        this.confirmPassword = '';
+
+        // Fecha a popup de alteração de senha
+        this.isChangePasswordVisible = false;
+
+        console.log('Password alterada com sucesso!');
+    } else {
+        console.log('As Password não coincidem ou o usuário não está definido. Por favor, tente novamente.');
+    }
+  }
+
+
+
+  cancelChangePassword(): void {
+    this.isChangePasswordVisible = false; // Fecha a popup de alteração de senha
   }
 }

@@ -18,7 +18,9 @@ export class SidebarReservasComponent {
 
   toggleCreate() {
     this.opentwoOptions = !this.opentwoOptions;
+    this.toggleCreateReserveEvent.emit(false);
     this.toggleReserveRequestsEvent.emit(false);
+    this.toggleCalendarEvent.emit(false);
     this.reserveRequestsActive = false;
     this.createReserveActive = false;
     this.showCalendareActive = false;
