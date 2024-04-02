@@ -1,21 +1,22 @@
 /* Estilos para a barra lateral quando a largura da tela é maior que 991.98px */
 @media (min-width: 991.98px) {
   .sidebar {
-    padding-left: 240px; /* Adiciona espaço à esquerda para evitar sobreposição com o conteúdo principal */
+    width: 240px; /* Defina a largura desejada para a barra lateral */
   }
 }
 
 /* Estilos para a barra lateral */
 .sidebar {
-  position: fixed; /* Fixa a barra lateral na tela */
-  top: 0; /* Alinha a barra lateral ao topo da tela */
-  bottom: 0; /* Alinha a barra lateral ao final da tela */
-  left: 0; /* Alinha a barra lateral à esquerda da tela */
-  padding: 58px 0 0; /* Adiciona preenchimento no topo da barra lateral (altura da barra de navegação) */
-  width: 260px; /* Define a largura da barra lateral */
-  z-index: 600; /* Define a ordem de empilhamento da barra lateral */
-  text-align: center; /* Centraliza o conteúdo horizontalmente na barra lateral */
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 58px 0 0;
+  width: 210px; /* Reduza o valor da largura para diminuir a sidebar */
+  z-index: 600;
+  text-align: center;
 }
+
 
 /* Estilos para a barra lateral quando a largura da tela é menor ou igual a 991.98px */
 @media (max-width: 991.98px) {
@@ -44,4 +45,3 @@
 .sidebar a.active {
   border-bottom: 3px solid #337AB7; /* Adicione o estilo da borda aqui */
 }
-

@@ -3,14 +3,14 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Barra lateral -->
-        <div class="col-md-2">
+        <div class="col-md-1">
             <app-sidebar-reservas (toggleCreateReserveEvent)="showCreateReserve = $event" 
                                    (toggleCalendarEvent)="showCalendar = $event"
                                    (toggleReserveRequestsEvent)="showReserveRequests = $event">
             </app-sidebar-reservas>
         </div>
 
-        <div class="col-md-10">
+        <div class="col-md-11">
             <div class="content">
                 <!-- Conteúdo principal -->
                 <app-create-reserva *ngIf="showCreateReserve" [pending]="pending"></app-create-reserva> 

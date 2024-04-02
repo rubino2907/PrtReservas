@@ -1,7 +1,7 @@
 /* Estilos para a barra lateral quando a largura da tela é maior que 991.98px */
 @media (min-width: 991.98px) {
   .sidebar {
-    padding-left: 240px; /* Adiciona espaço à esquerda para evitar sobreposição com o conteúdo principal */
+    padding-left: 100px; /* Adiciona espaço à esquerda para evitar sobreposição com o conteúdo principal */
   }
 }
 
@@ -13,7 +13,7 @@
   left: 0; /* Alinha a barra lateral à esquerda da tela */
   padding: 58px 0 0; /* Adiciona preenchimento no topo da barra lateral (altura da barra de navegação) */
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.5); /* Adiciona sombra à barra lateral */
-  width: 260px; /* Define a largura da barra lateral */
+  width: 210px; /* Define a largura da barra lateral */
   z-index: 600; /* Define a ordem de empilhamento da barra lateral */
   text-align: center; /* Centraliza o conteúdo horizontalmente na barra lateral */
 }
