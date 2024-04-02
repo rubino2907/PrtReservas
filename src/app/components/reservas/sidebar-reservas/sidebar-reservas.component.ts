@@ -3,34 +3,50 @@ import { Component, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-sidebar-reservas',
   templateUrl: './sidebar-reservas.component.html',
-  styleUrls: ['./sidebar-reservas.component.css'] // Correção aqui
+  styleUrls: ['./sidebar-reservas.component.css']
 })
 export class SidebarReservasComponent {
   createReserveActive: boolean = false;
   reserveRequestsActive: boolean = false;
+  opentwoOptions: boolean = false;
+  showCalendareActive: boolean = false;
+  listPedidoVehicle: boolean = false;
 
   @Output() toggleCreateReserveEvent = new EventEmitter<boolean>();
   @Output() toggleReserveRequestsEvent = new EventEmitter<boolean>();
+  @Output() toggleCalendarEvent = new EventEmitter<boolean>();
+
+  toggleCreate() {
+    this.opentwoOptions = !this.opentwoOptions;
+    this.toggleReserveRequestsEvent.emit(false);
+    this.reserveRequestsActive = false;
+    this.createReserveActive = false;
+    this.showCalendareActive = false;
+  }
 
   toggleCreateReserve() {
-    if(!this.createReserveActive){
-      this.createReserveActive = true;
-      this.reserveRequestsActive = false;
-    }else{
-      this.createReserveActive = false;
-    }
-    this.toggleCreateReserveEvent.emit(this.createReserveActive); // Emitir o evento com o estado atual
+    this.createReserveActive = !this.createReserveActive;
+    this.toggleCreateReserveEvent.emit(this.createReserveActive);
     this.toggleReserveRequestsEvent.emit(false);
+    this.toggleCalendarEvent.emit(false);
+    this.showCalendareActive = false;
+  }
+
+  toggleShowCalendar() {
+    this.showCalendareActive = !this.showCalendareActive;
+    this.toggleCalendarEvent.emit(this.showCalendareActive);
+    this.toggleReserveRequestsEvent.emit(false);
+    this.toggleCreateReserveEvent.emit(false);
+    this.createReserveActive = false;
   }
 
   toggleReserveRequests() {
-    if(!this.reserveRequestsActive){
-      this.reserveRequestsActive = true;
-      this.createReserveActive = false;
-    }else{
-      this.reserveRequestsActive = false;
-    }
-    this.toggleReserveRequestsEvent.emit(this.reserveRequestsActive); // Emitir o evento com o estado atual
+    this.reserveRequestsActive = !this.reserveRequestsActive;
+    this.toggleReserveRequestsEvent.emit(this.reserveRequestsActive);
     this.toggleCreateReserveEvent.emit(false);
+    this.toggleCalendarEvent.emit(false);
+    this.showCalendareActive = false;
+    this.createReserveActive = false;
+    this.opentwoOptions = false;
   }
 }

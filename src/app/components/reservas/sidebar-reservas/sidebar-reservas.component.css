@@ -41,3 +41,8 @@
   letter-spacing: 0px;
   opacity: 1;
 }
+
+.sidebar a.active {
+  border-bottom: 3px solid #337AB7; /* Adicione o estilo da borda aqui */
+}
+

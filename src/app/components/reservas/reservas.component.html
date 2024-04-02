@@ -5,6 +5,7 @@
         <!-- Barra lateral -->
         <div class="col-md-2">
             <app-sidebar-reservas (toggleCreateReserveEvent)="showCreateReserve = $event" 
+                                   (toggleCalendarEvent)="showCalendar = $event"
                                    (toggleReserveRequestsEvent)="showReserveRequests = $event">
             </app-sidebar-reservas>
         </div>
@@ -13,10 +14,12 @@
             <div class="content">
                 <!-- Conteúdo principal -->
                 <app-create-reserva *ngIf="showCreateReserve" [pending]="pending"></app-create-reserva> 
-                
-                <app-select-schedule-or-pendings *ngIf="showReserveRequests"></app-select-schedule-or-pendings>
 
-                <div *ngIf="!showCreateReserve && !showReserveRequests">
+                <app-schedule-reserves *ngIf="showCalendar"></app-schedule-reserves>
+                
+                <app-list-user-pendings *ngIf="showReserveRequests"></app-list-user-pendings>
+
+                <div *ngIf="!showCreateReserve && !showReserveRequests && !showCalendar">
                     <span>Selecione uma opçao</span>
                   </div>
             </div>
