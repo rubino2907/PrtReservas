@@ -31,6 +31,7 @@ import { SelectScheduleOrPendingsComponent } from './components/reservas/select-
 import { ListUserPendingsComponent } from './components/reservas/list-user-pendings/list-user-pendings.component';
 import { CreateReservaScheduleComponent } from './components/reservas/create-reserva-schedule/create-reserva-schedule.component';
 import { UserScheduleComponent } from './components/reservas/user-schedule/user-schedule.component';
+import { AprovePendingsComponent } from './components/admin-dashboard/aprove-pendings/aprove-pendings.component';
 
 registerLocaleData(localePt);
 
@@ -58,6 +59,7 @@ registerLocaleData(localePt);
     ListUserPendingsComponent,
     CreateReservaScheduleComponent,
     UserScheduleComponent,
+    AprovePendingsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<div style="margin-left: 20px; margin-right: 20px; overflow-x: auto;">
+    <table *ngIf="pendings.length > 0" class="table table-center-align table-sm" style="margin-top: 20px; position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px;">
+        <thead style="text-align: left; font: normal normal normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;">
+            <tr style="border-bottom: #337AB7;">
+                <th scope="col" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">MATRÍCULA</th>
+                <th scope="col" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">DATA DE INÍCIO</th>
+                <th scope="col" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">DATA DE FIM</th>
+                <th scope="col" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">ESTADO</th>
+                <th scope="col" style="text-align: center; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">AÇÕES</th>
+            </tr>
+        </thead>
+        <tbody style="font: normal normal normal 12px/16px 'Open Sans', sans-serif; text-align: left; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">
+            <tr *ngFor="let pending of pendings" style="height: 50px; border-bottom: #505050;">
+                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ pending.matriculation }}</td>
+                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
+                    {{ pending.dateStart | date:'yyyy-MM-dd HH:mm:ss' }}
+                </td>
+                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
+                    {{ pending.dateEnd | date:'yyyy-MM-dd HH:mm:ss' }}
+                </td>                
+                <td style="vertical-align: middle; height: 45px; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1;" [ngClass]="getPendingStatusClass(pending.aproved)">{{ pending.aproved }}</td>
+                <td style="vertical-align: middle; text-align: center;">
+                    <button *ngIf="pending.aproved !== 'APROVADO'" style="background: transparent; border: none; cursor: pointer;">
+                        <i class="bi bi-check-circle" style="color: green;" (click)="approvePending(pending)"></i>
+                    </button>
+                    <button *ngIf="pending.pendingID" style="background: transparent; border: none; cursor: pointer;" (click)="deletePending(pending)">
+                        <i class="bi bi-x-circle" style="color: red;"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>    
+</div>

@@ -11,18 +11,21 @@ export class AdminDashboardComponent {
   showVehicleList: boolean = false;
   showReserveList: boolean = false;
   showPendantList: boolean = false;
+  showAprovedList: boolean = false;
 
   constructor(){}
 
   toggleUserList(userListActive: boolean): void {
     this.showUserList = userListActive;
     this.showVehicleList = !userListActive;
+    this.showAprovedList = !userListActive;
     this.showReserveList = false; // Oculta a lista de reservas quando a lista de usuários é ativada
   }
 
   toggleVehicleList(vehicleListActive: boolean): void {
     this.showVehicleList = vehicleListActive;
     this.showUserList = !vehicleListActive;
+    this.showAprovedList = !vehicleListActive;
     this.showReserveList = false; // Oculta a lista de reservas quando a lista de veículos é ativada
   }
 
@@ -30,6 +33,7 @@ export class AdminDashboardComponent {
     this.showReserveList = reserveListActive;
     this.showUserList = !reserveListActive;
     this.showVehicleList = !reserveListActive;
+    this.showAprovedList = !reserveListActive;
   }
 
   togglePendantList(pendantListActive: boolean): void {
@@ -37,5 +41,12 @@ export class AdminDashboardComponent {
     this.showUserList = !pendantListActive;
     this.showVehicleList = !pendantListActive;
     this.showReserveList = !pendantListActive;
+  }
+
+  toggleToAprovedList(showAprovedListActive: boolean) : void {
+    this.showPendantList = !showAprovedListActive;
+    this.showUserList = !showAprovedListActive;
+    this.showVehicleList = !showAprovedListActive;
+    this.showReserveList = showAprovedListActive;
   }
 }
