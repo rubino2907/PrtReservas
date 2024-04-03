@@ -42,7 +42,21 @@
   opacity: 1;
 }
 
+/* Estilos para o item ativo */
 .sidebar a.active {
-  border-bottom: 3px solid #337AB7; /* Adicione o estilo da borda aqui */
+  background-color: rgb(121, 121, 121); /* Cor de fundo quando ativo */
 }
 
+/* Estilos para os itens da barra lateral */
+.list-group-item-action {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #FFFFFF;
+  transition: background-color 0.3s ease; /* Adiciona uma transição suave para a mudança de cor de fundo */
+}
+
+/* Estilos para quando o mouse passa por cima dos itens da barra lateral */
+.list-group-item-action:hover {
+  background-color: #337AB7; /* Define a cor desejada para quando o mouse passa por cima */
+}

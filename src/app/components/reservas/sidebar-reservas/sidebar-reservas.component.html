@@ -1,9 +1,9 @@
 <div id="sidebar" class="sidebar" style="background-color: rgb(80, 80, 80);">
-    <a class="list-group-item list-group-item-action py-2 ripple d-block d-flex" 
+    <a class="list-group-item-action d-flex align-items-center" 
         [class.active]="opentwoOptions" 
         (click)="toggleCreate()"
-        style="margin-top: 20px; cursor: pointer; background-color: rgb(80, 80, 80); position: relative;">
-        <i class="bi bi-people-fill me-2" style="margin-left: 20px; vertical-align: left; color: #FFFFFF;"></i>
+        style="margin-top: 20px; cursor: pointer; position: relative;">
+        <i class="bi bi-people-fill me-2" style="color: #FFFFFF;"></i>
         <span class="sidebar-text" style="color: #FFFFFF;">Pedido Viatura</span>
         <i class="bi bi-caret-down-fill" style="color: #FFFFFF; position: absolute; right: 10px;"></i>
     </a>
@@ -13,7 +13,7 @@
         class="list-group-item list-group-item-action ripple d-block d-flex align-items-center justify-content-center"
         [class.active]="createReserveActive" 
         (click)="toggleCreateReserve()" 
-        style="display: block; margin-top: 10px; margin-bottom: 5px; cursor: pointer; background-color: rgb(80, 80, 80);">
+        style="display: block; margin-top: 10px; margin-bottom: 5px; cursor: pointer;">
             <i class="bi bi-file-earmark-text-fill" style="color: #FFFFFF; margin-right: 5px;"></i>
             <span class="sidebar-text" style="color: #FFFFFF;" >Formulario</span>
         </a>
@@ -21,18 +21,18 @@
         class="list-group-item list-group-item-action ripple d-block d-flex align-items-center justify-content-center"
         [class.active]="showCalendareActive"
         (click)="toggleShowCalendar()" 
-        style="display: block; margin-bottom: 5px; cursor: pointer; background-color: rgb(80, 80, 80);">
+        style="display: block; margin-bottom: 5px; cursor: pointer;">
         <i class="bi bi-calendar-event-fill" style="color: #FFFFFF; margin-right: 5px;"></i>
         <span class="sidebar-text" style="color: #FFFFFF;" >Calendário</span>
         </a>
     </div>
 
-    <a class="list-group-item list-group-item-action py-2 ripple d-block d-flex" 
+    <a class="list-group-item-action d-flex align-items-center" 
         [class.active]="reserveRequestsActive" 
         [ngClass]="{'active': reserveRequestsActive}"
         (click)="toggleReserveRequests()"
-        style="cursor: pointer; background-color: rgb(80, 80, 80);">
-        <i class="bi bi-check-circle-fill me-2" style="margin-left: 20px; vertical-align: left; color: #FFFFFF;"></i>
+        style="cursor: pointer;">
+        <i class="bi bi-check-circle-fill me-2" style="color: #FFFFFF;"></i>
         <span class="sidebar-text" style="color: #FFFFFF;">Lista de Pedidos</span>
     </a>
 </div>
