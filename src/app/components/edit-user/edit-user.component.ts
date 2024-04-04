@@ -102,7 +102,18 @@ export class EditUserComponent implements OnInit {
     }
   }
 
+  // No seu componente TypeScript
 
+  togglePasswordVisibility(fieldId: string) {
+    const field = document.getElementById(fieldId);
+    if (field) {
+        if (field.getAttribute('type') === 'password') {
+            field.setAttribute('type', 'text');
+        } else {
+            field.setAttribute('type', 'password');
+        }
+    }
+  }
 
   cancelChangePassword(): void {
     this.isChangePasswordVisible = false; // Fecha a popup de alteração de senha
