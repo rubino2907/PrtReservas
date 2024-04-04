@@ -1,0 +1,54 @@
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 40px;
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .popup h3 {
+    font-size: 23px;
+    color: #333333;
+  }
+  
+  .matriculation-list {
+    margin-top: 10px;
+  }
+  
+  .matriculation-list .form-check {
+    margin-bottom: 8px;
+  }
+  
+  .popup-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .popup-buttons button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .popup-buttons .btn-secondary {
+    background-color: #cccccc;
+    color: #ffffff;
+    border: none;
+  }
+  
+  .popup-buttons .btn-primary {
+    margin-left: 8px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+  }

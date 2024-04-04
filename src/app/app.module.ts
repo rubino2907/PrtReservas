@@ -30,7 +30,6 @@ import localePt from '@angular/common/locales/pt';
 import { SelectScheduleOrPendingsComponent } from './components/reservas/select-schedule-or-pendings/select-schedule-or-pendings.component';
 import { ListUserPendingsComponent } from './components/reservas/list-user-pendings/list-user-pendings.component';
 import { CreateReservaScheduleComponent } from './components/reservas/create-reserva-schedule/create-reserva-schedule.component';
-import { UserScheduleComponent } from './components/reservas/user-schedule/user-schedule.component';
 import { AprovePendingsComponent } from './components/admin-dashboard/aprove-pendings/aprove-pendings.component';
 
 registerLocaleData(localePt);
@@ -58,8 +57,7 @@ registerLocaleData(localePt);
     SelectScheduleOrPendingsComponent,
     ListUserPendingsComponent,
     CreateReservaScheduleComponent,
-    UserScheduleComponent,
-    AprovePendingsComponent,
+    AprovePendingsComponent
   ],
   imports: [
     BrowserModule,

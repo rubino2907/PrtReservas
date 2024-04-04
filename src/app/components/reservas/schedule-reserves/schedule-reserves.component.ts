@@ -23,6 +23,7 @@ export class ScheduleReservesComponent implements OnInit {
   views = ['month', 'day', 'week'];
   matriculations: string[] = []; // Lista de matrículas
   selectedMatriculation: string = ''; // Matrícula selecionada
+  selectedMatriculations: { [matriculation: string]: boolean } = {};
 
   constructor(
     private pendingService: PendantService,
@@ -32,7 +33,7 @@ export class ScheduleReservesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadPendingData();
+    // this.loadPendingData();
   }
 
   loadPendingData(): void {
@@ -134,19 +135,25 @@ export class ScheduleReservesComponent implements OnInit {
     });
   }
   
-  loadReservesByMatriculation(): void {
+  loadReservesByMatriculation(matriculations: string[]): void {
+    console.log('Carregando reservas para as matrículas:', matriculations);
+  
     // Limpa os eventos antes de adicionar as novas reservas
     this.events = [];
   
     // Chama o serviço para obter as reservas da matrícula selecionada
-    this.reserveService.getReservesByMatriculation(this.selectedMatriculation)
+    this.reserveService.getReservesByMatriculationess(matriculations)
       .subscribe((reserves: Reserve[]) => {
+        console.log('Reservas recuperadas:', reserves);
+  
         // Verifica se o dia está totalmente preenchido
         const isDayFullyReserved = reserves.some(reserve => {
           const reserveStart = reserve.dateStart ? new Date(reserve.dateStart) : undefined;
           const reserveEnd = reserve.dateEnd ? new Date(reserve.dateEnd) : undefined;
           return this.isDayReserved(reserveStart, reserveEnd);
         });
+  
+        console.log('Dia totalmente reservado?', isDayFullyReserved);
   
         if (isDayFullyReserved) {
           // Adiciona apenas um evento de "Dia Preenchido" para o dia inteiro
@@ -162,10 +169,11 @@ export class ScheduleReservesComponent implements OnInit {
         } else {
           // Adiciona as reservas à lista de eventos
           reserves.forEach(reserve => {
+            console.log('Adicionando reserva:', reserve);
             if (reserve.dateStart && reserve.dateEnd) {
               // Formata as datas de início e fim para exibir no título
-              const startDateFormatted = format(new Date(reserve.dateStart), 'HH:mm');
-              const endDateFormatted = format(new Date(reserve.dateEnd), 'HH:mm');
+              const startDateFormatted = format(new Date(reserve.dateStart), 'HH:mm:ss');
+              const endDateFormatted = format(new Date(reserve.dateEnd), 'HH:mm:ss');
   
               // Concatena as datas formatadas para exibir no título
               const title = `${startDateFormatted} - ${endDateFormatted}`;
@@ -180,10 +188,17 @@ export class ScheduleReservesComponent implements OnInit {
           });
         }
   
+        // Verifica se as reservas foram adicionadas aos eventos
+        console.log('Eventos após adicionar reservas:', this.events);
+  
         // Carrega os dias disponíveis após carregar as reservas
         this.loadAvailableDays();
+      },
+      (error) => {
+        console.error('Erro ao carregar reservas:', error);
       });
   }
+  
   
   
   // Verifica se o dia está totalmente reservado
@@ -216,7 +231,7 @@ export class ScheduleReservesComponent implements OnInit {
     // Limpa os eventos antes de carregar as reservas do novo dia
     this.events = [];
 
-    this.loadReservesByMatriculation()
+    this.loadReservesByMatriculation(this.matriculations)
   }
   
   next(): void {
@@ -235,7 +250,7 @@ export class ScheduleReservesComponent implements OnInit {
   // Limpa os eventos antes de carregar as reservas do novo dia
   this.events = [];
 
-  this.loadReservesByMatriculation()
+  this.loadReservesByMatriculation(this.matriculations)
 
   // Carrega as reservas do novo dia
   this.loadAvailableDays();
@@ -258,7 +273,7 @@ export class ScheduleReservesComponent implements OnInit {
       // Limpa os eventos antes de carregar as reservas do novo dia
       this.events = [];
 
-      this.loadReservesByMatriculation()
+      this.loadReservesByMatriculation(this.matriculations)
 
       this.loadAvailableDays(); // Carrega os dias disponíveis após retroceder na visualização do calendário
     }
@@ -281,6 +296,40 @@ export class ScheduleReservesComponent implements OnInit {
       this.pending = {}; // Limpa os dados do formulário
       this.selectedMatriculation = ''; // Limpa a matrícula selecionada
     }
+
+    onSave(): void {
+      // Obtenha a lista de matrículas selecionadas
+      const selectedMatriculationsList = Object.keys(this.selectedMatriculations).filter(matriculation => this.selectedMatriculations[matriculation]);
+      
+      console.log('Matrículas selecionadas:', selectedMatriculationsList);
+
+      this.matriculations = selectedMatriculationsList
+    
+      this.closePopupe();
+    
+      // Limpa os eventos antes de carregar as reservas do novo dia
+      this.events = [];
+    
+      // Carrega as reservas apenas para as matrículas selecionadas
+      this.loadReservesByMatriculation(this.matriculations);
+
+    }
+
+
+    showPopup: boolean = false;
+
+    openPopupe(): void {
+      this.showPopup = true;
+    }
+
+    closePopupe(): void {
+      // Limpar as matrículas selecionadas
+      this.selectedMatriculations = {};
+    
+      // Fechar a popup
+      this.showPopup = false;
+    }
+
 
   }
   

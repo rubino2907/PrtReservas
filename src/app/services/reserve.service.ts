@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Reserve } from "../models/reserve";
 import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
@@ -47,6 +47,11 @@ export class ReserveService {
 
     public getReservesByCreatedBy(createdBy: string): Observable<Reserve[]> {
         return this.http.get<Reserve[]>(`${environment.apiUrl}/${this.url}/GetReservesByCreatedBy/${createdBy}`);
+    }
+
+    public getReservesByMatriculationess(matriculations: string[]): Observable<Reserve[]> {
+        const params = new HttpParams().set('matriculations', matriculations.join(','));
+        return this.http.get<Reserve[]>(`${environment.apiUrl}/${this.url}/GetReservesByMatriculations`, { params });
     }
 
     // public GetReservesByType
