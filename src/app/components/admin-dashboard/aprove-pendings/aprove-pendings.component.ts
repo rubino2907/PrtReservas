@@ -6,6 +6,7 @@ import { Reserve } from '../../../models/reserve';
 import { ReserveService } from '../../../services/reserve.service';
 import { UserDetails } from '../../../models/userDetails';
 import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-aprove-pendings',
@@ -21,7 +22,7 @@ export class AprovePendingsComponent implements OnInit {
   // Variável para acompanhar a linha selecionada
   selectedPending: any = null;
 
-  constructor(private cookieService: CookieService, private reserveService: ReserveService, private pendantService: PendantService, private userService: UserService) {}
+  constructor(private cookieService: CookieService, private snackBar: MatSnackBar, private reserveService: ReserveService, private pendantService: PendantService, private userService: UserService) {}
 
   ngOnInit(): void {
     this.loadPendings();
@@ -78,10 +79,16 @@ export class AprovePendingsComponent implements OnInit {
                                     console.error("Erro ao criar Reserva:", error);
                                     // Se a reserva não puder ser criada devido à indisponibilidade da matrícula
                                     if (error.error === "Cannot approve the pending. The user already has an active reservation in the desired period.") {
-                                        alert('Impossível criar a reserva. Viatura indisponível.');
+                                        // Exibe um toast com a mensagem de erro
+                                        this.snackBar.open('Impossível criar a reserva. Viatura indisponível.', 'Fechar', {
+                                            duration: 5000 // Duração em milissegundos
+                                        });
                                     } else {
                                         // Se ocorrer outro tipo de erro
-                                        alert('Erro ao criar reserva: ' + error.error);
+                                        // Exibe um toast com o erro
+                                        this.snackBar.open('Erro ao criar reserva: ' + error.error, 'Fechar', {
+                                            duration: 5000 // Duração em milissegundos
+                                        });
                                     }
                                 }
                             );
@@ -90,11 +97,17 @@ export class AprovePendingsComponent implements OnInit {
                 (error) => {
                     console.error("Erro ao aprovar o pedido:", error);
                     // Se ocorrer um erro na solicitação para aprovar o pedido
-                    alert('Erro ao aprovar o pedido: ' + error.error);
+                    // Exibe um toast com a mensagem de erro
+                    this.snackBar.open('Erro ao aprovar o pedido: ' + error.error, 'Fechar', {
+                        duration: 5000 // Duração em milissegundos
+                    });
+                    
+                    this.loadPendings()
+                    this.isFormEditPendingVisible = false;
                 }
             );
     }
-}
+  }
 
 
 

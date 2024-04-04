@@ -50,6 +50,7 @@ export class EditUserComponent implements OnInit {
     user.changeDateTime = "";
     user.creationDateTime = "";
     user.token = '';
+    user.userCode = 0;
 
     console.log(user.createdBy)
 
