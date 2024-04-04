@@ -26,6 +26,7 @@ export class ScheduleReservesComponent implements OnInit {
   matriculations: string[] = []; // Lista de matrículas
   selectedMatriculation: string = ''; // Matrícula selecionada
   selectedMatriculations: { [matriculation: string]: boolean } = {};
+  matriculationColors: { [matriculation: string]: string } = {};
   
   @Output() refresh: EventEmitter<void> = new EventEmitter<void>();
 
@@ -64,44 +65,38 @@ export class ScheduleReservesComponent implements OnInit {
     );
 }
 
-// Defina um array de cores predefinidas
-private vehicleColors: string[] = ['#FF5733', '#33FF57', '#5733FF', '#FFFF33', '#33FFFF'];
-
 loadReservesByMatriculation(matriculations: string[]): void {
   console.log('Carregando reservas para as matrículas:', matriculations);
 
   this.events = []; // Limpa os eventos antes de adicionar as novas reservas
 
-  // Variável para controlar o índice da cor a ser usada
-  let colorIndex = 0;
-
   this.reserveService.getReservesByMatriculationess(matriculations)
     .subscribe((reserves: Reserve[]) => {
       console.log('Reservas recuperadas:', reserves);
 
+      // Limpa as cores das matrículas
+      this.matriculationColors = {};
+
       // Adiciona as reservas à lista de eventos
       reserves.forEach(reserve => {
         console.log('Adicionando reserva:', reserve);
-        if (reserve.dateStart && reserve.dateEnd) {
-          // Formata as datas de início e fim para exibir no título
-
-          // Concatena as datas formatadas para exibir no título
+        if (reserve.dateStart && reserve.dateEnd && reserve.matriculation && typeof reserve.matriculation === 'string') {
           const title = `${reserve.matriculation} - ${reserve.description}`;
 
-          // Obtém a cor do array de cores predefinidas
-          const color: any = {
-            primary: this.vehicleColors[colorIndex],
-            secondary: this.vehicleColors[colorIndex]
-          };
-
-          // Incrementa o índice da cor para a próxima viatura
-          colorIndex = (colorIndex + 1) % this.vehicleColors.length;
+          // Verifica se já existe uma cor atribuída a esta matrícula
+          if (!this.matriculationColors.hasOwnProperty(reserve.matriculation)) {
+            // Se não houver, atribui uma cor nova
+            this.matriculationColors[reserve.matriculation] = this.getRandomColor();
+          }
 
           this.events.push({
             start: new Date(reserve.dateStart),
             end: new Date(reserve.dateEnd),
             title: title,
-            color: color
+            color: {
+              primary: this.matriculationColors[reserve.matriculation],
+              secondary: this.matriculationColors[reserve.matriculation]
+            }
           });
         }
       });
@@ -110,7 +105,6 @@ loadReservesByMatriculation(matriculations: string[]): void {
       this.refresh.emit();
 
       console.log('Eventos:', this.events); // Lista os eventos
-
       // Atualiza o calendário para refletir as novas reservas
       this.loadAvailableDays();
     },
@@ -119,7 +113,10 @@ loadReservesByMatriculation(matriculations: string[]): void {
     });
 }
 
-
+getRandomColor(): string {
+  // Gera uma cor hexadecimal aleatória
+  return '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+}
 
 
 
