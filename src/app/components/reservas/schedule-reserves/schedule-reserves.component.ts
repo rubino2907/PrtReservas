@@ -1,4 +1,4 @@
-import { Component, OnInit, LOCALE_ID, Inject, Input } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
 import { ReserveService } from '../../../services/reserve.service';
 import { Reserve } from '../../../models/reserve';
@@ -7,10 +7,12 @@ import { pt } from 'date-fns/locale'; // Importação do idioma local pt
 import { VehicleService } from '../../../services/vehicle.service';
 import { PendantService } from '../../../services/pending.service';
 import { Vehicle } from '../../../models/vehicle';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-schedule-reserves',
   templateUrl: './schedule-reserves.component.html',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./schedule-reserves.component.css'],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-PT' }]
 })
@@ -24,16 +26,21 @@ export class ScheduleReservesComponent implements OnInit {
   matriculations: string[] = []; // Lista de matrículas
   selectedMatriculation: string = ''; // Matrícula selecionada
   selectedMatriculations: { [matriculation: string]: boolean } = {};
+  
+  @Output() refresh: EventEmitter<void> = new EventEmitter<void>();
+
 
   constructor(
     private pendingService: PendantService,
     private reserveService: ReserveService,
     private vehicleService: VehicleService,
+    private snackBar: MatSnackBar,
     @Inject(LOCALE_ID) private locale: string
   ) {}
 
   ngOnInit(): void {
-    // this.loadPendingData();
+    this.loadPendingData();
+    this.loadReservesByMatriculation(this.matriculations)
   }
 
   loadPendingData(): void {
@@ -46,49 +53,93 @@ export class ScheduleReservesComponent implements OnInit {
   loadMatriculations(vehicleType: string): void {
     this.vehicleService.getVehiclesByType(vehicleType).subscribe(
         (vehicles: Vehicle[]) => {
-            // Filtrar matrículas não definidas e extrair as matrículas dos veículos retornados
             this.matriculations = vehicles
                 .filter(vehicle => !!vehicle.matriculation)
                 .map(vehicle => vehicle.matriculation!);
-            this.loadAvailableDays();
         },
         (error) => {
             console.error("Erro ao carregar matrículas por tipo:", error);
             // Lide com os erros adequadamente
         }
     );
-  }
-  
+}
 
-  loadAvailableDays(): void {
-    // Verifica se há uma matrícula selecionada
+// Defina um array de cores predefinidas
+private vehicleColors: string[] = ['#FF5733', '#33FF57', '#5733FF', '#FFFF33', '#33FFFF'];
+
+loadReservesByMatriculation(matriculations: string[]): void {
+  console.log('Carregando reservas para as matrículas:', matriculations);
+
+  this.events = []; // Limpa os eventos antes de adicionar as novas reservas
+
+  // Variável para controlar o índice da cor a ser usada
+  let colorIndex = 0;
+
+  this.reserveService.getReservesByMatriculationess(matriculations)
+    .subscribe((reserves: Reserve[]) => {
+      console.log('Reservas recuperadas:', reserves);
+
+      // Adiciona as reservas à lista de eventos
+      reserves.forEach(reserve => {
+        console.log('Adicionando reserva:', reserve);
+        if (reserve.dateStart && reserve.dateEnd) {
+          // Formata as datas de início e fim para exibir no título
+
+          // Concatena as datas formatadas para exibir no título
+          const title = `${reserve.matriculation} - ${reserve.description}`;
+
+          // Obtém a cor do array de cores predefinidas
+          const color: any = {
+            primary: this.vehicleColors[colorIndex],
+            secondary: this.vehicleColors[colorIndex]
+          };
+
+          // Incrementa o índice da cor para a próxima viatura
+          colorIndex = (colorIndex + 1) % this.vehicleColors.length;
+
+          this.events.push({
+            start: new Date(reserve.dateStart),
+            end: new Date(reserve.dateEnd),
+            title: title,
+            color: color
+          });
+        }
+      });
+
+      // Emitir o evento de atualização
+      this.refresh.emit();
+
+      console.log('Eventos:', this.events); // Lista os eventos
+
+      // Atualiza o calendário para refletir as novas reservas
+      this.loadAvailableDays();
+    },
+    (error) => {
+      console.error('Erro ao carregar reservas:', error);
+    });
+}
+
+
+
+
+
+loadAvailableDays(): void {
     if (!this.selectedMatriculation) {
       return;
     }
-  
-    // Limpa os eventos antes de adicionar os novos dias disponíveis
-    this.events = this.events.filter(event => !event.title || event.title !== 'Dia Preenchido');
-  
-    // Chama o serviço para obter os dias disponíveis com base na matrícula selecionada
+
     this.reserveService.getAvailableDays(this.selectedMatriculation, this.viewDate, endOfWeek(this.viewDate))
       .subscribe((availableDays: Date[]) => {
-        // Adiciona as reservas após adicionar os dias disponíveis
-        this.addReservesToEvents();
-  
-        // Verifica se todas as horas do dia estão reservadas
         const isFullDayReserved = availableDays.every(day => this.hasReserveForDay(day));
   
-        // Adiciona os eventos para os dias disponíveis
         availableDays.forEach(day => {
           if (isFullDayReserved) {
-            // Se todas as horas do dia estiverem reservadas, define o título como "Dia Preenchido"
             this.events.push({
               start: day,
               title: 'Dia Preenchido',
               color: { primary: 'blue', secondary: 'blue' }
             });
           } else if (!this.hasReserveForDay(day)) {
-            // Se o dia não tiver reservas, adiciona o evento "Dia Livre" com a cor verde
             this.events.push({
               start: day,
               title: 'Dia Livre',
@@ -97,9 +148,7 @@ export class ScheduleReservesComponent implements OnInit {
           }
         });
       });
-  }
-  
-  
+}
   
   // Adiciona as reservas à lista de eventos
   addReservesToEvents(): void {
@@ -134,71 +183,6 @@ export class ScheduleReservesComponent implements OnInit {
         event.start.getDate() === day.getDate();
     });
   }
-  
-  loadReservesByMatriculation(matriculations: string[]): void {
-    console.log('Carregando reservas para as matrículas:', matriculations);
-  
-    // Limpa os eventos antes de adicionar as novas reservas
-    this.events = [];
-  
-    // Chama o serviço para obter as reservas da matrícula selecionada
-    this.reserveService.getReservesByMatriculationess(matriculations)
-      .subscribe((reserves: Reserve[]) => {
-        console.log('Reservas recuperadas:', reserves);
-  
-        // Verifica se o dia está totalmente preenchido
-        const isDayFullyReserved = reserves.some(reserve => {
-          const reserveStart = reserve.dateStart ? new Date(reserve.dateStart) : undefined;
-          const reserveEnd = reserve.dateEnd ? new Date(reserve.dateEnd) : undefined;
-          return this.isDayReserved(reserveStart, reserveEnd);
-        });
-  
-        console.log('Dia totalmente reservado?', isDayFullyReserved);
-  
-        if (isDayFullyReserved) {
-          // Adiciona apenas um evento de "Dia Preenchido" para o dia inteiro
-          const today = new Date(this.viewDate);
-          const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
-          const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
-          this.events.push({
-            start: startOfDay,
-            end: endOfDay,
-            title: 'Dia Preenchido',
-            color: { primary: 'blue', secondary: 'blue' }
-          });
-        } else {
-          // Adiciona as reservas à lista de eventos
-          reserves.forEach(reserve => {
-            console.log('Adicionando reserva:', reserve);
-            if (reserve.dateStart && reserve.dateEnd) {
-              // Formata as datas de início e fim para exibir no título
-              const startDateFormatted = format(new Date(reserve.dateStart), 'HH:mm:ss');
-              const endDateFormatted = format(new Date(reserve.dateEnd), 'HH:mm:ss');
-  
-              // Concatena as datas formatadas para exibir no título
-              const title = `${startDateFormatted} - ${endDateFormatted}`;
-  
-              this.events.push({
-                start: new Date(reserve.dateStart),
-                end: new Date(reserve.dateEnd),
-                title: title,
-                color: { primary: 'red', secondary: 'red' }
-              });
-            }
-          });
-        }
-  
-        // Verifica se as reservas foram adicionadas aos eventos
-        console.log('Eventos após adicionar reservas:', this.events);
-  
-        // Carrega os dias disponíveis após carregar as reservas
-        this.loadAvailableDays();
-      },
-      (error) => {
-        console.error('Erro ao carregar reservas:', error);
-      });
-  }
-  
   
   
   // Verifica se o dia está totalmente reservado
@@ -301,8 +285,18 @@ export class ScheduleReservesComponent implements OnInit {
       // Obtenha a lista de matrículas selecionadas
       const selectedMatriculationsList = Object.keys(this.selectedMatriculations).filter(matriculation => this.selectedMatriculations[matriculation]);
       
+      // Verifique se o número de matrículas selecionadas excede 5
+      if (selectedMatriculationsList.length > 5) {
+        // Exibe um snackbar com a mensagem de aviso
+        this.snackBar.open('Você já selecionou o número máximo de matrículas (5).', 'Fechar', {
+          duration: 3000 // Duração em milissegundos
+        });
+        return;
+      }
+      
+      // Continue com a lógica existente
       console.log('Matrículas selecionadas:', selectedMatriculationsList);
-
+    
       this.matriculations = selectedMatriculationsList
     
       this.closePopupe();
@@ -312,8 +306,8 @@ export class ScheduleReservesComponent implements OnInit {
     
       // Carrega as reservas apenas para as matrículas selecionadas
       this.loadReservesByMatriculation(this.matriculations);
-
     }
+    
 
 
     showPopup: boolean = false;
