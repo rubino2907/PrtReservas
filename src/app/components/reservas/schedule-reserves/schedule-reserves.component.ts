@@ -41,7 +41,6 @@ export class ScheduleReservesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPendingData();
-    this.loadReservesByMatriculation(this.matriculations)
   }
 
   loadPendingData(): void {
@@ -81,7 +80,7 @@ loadReservesByMatriculation(matriculations: string[]): void {
       reserves.forEach(reserve => {
         console.log('Adicionando reserva:', reserve);
         if (reserve.dateStart && reserve.dateEnd && reserve.matriculation && typeof reserve.matriculation === 'string') {
-          const title = `${reserve.matriculation} - ${reserve.description}`;
+          const title = ` Matrícula: ${reserve.matriculation} | Descrição: ${reserve.description} | Criado por: ${reserve.createdBy}`;
 
           // Verifica se já existe uma cor atribuída a esta matrícula
           if (!this.matriculationColors.hasOwnProperty(reserve.matriculation)) {
@@ -114,9 +113,15 @@ loadReservesByMatriculation(matriculations: string[]): void {
 }
 
 getRandomColor(): string {
-  // Gera uma cor hexadecimal aleatória
-  return '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+  // Gera uma cor hexadecimal aleatória em tons mais claros
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 3; i++) {
+    color += letters[Math.floor(Math.random() * 6) + 9];
+  }
+  return color;
 }
+
 
 
 
@@ -194,10 +199,15 @@ loadAvailableDays(): void {
     return start <= startOfDay && end >= endOfDay;
   }
 
+  selectedEvent: CalendarEvent | undefined;
+
   eventClicked(event: CalendarEvent): void {
     console.log('Evento clicado:', event);
-    this.openPopup(event); // Chame a função para abrir o popup aqui
+    this.selectedEvent = event; // Define o evento selecionado para exibir na popup
+    this.showPopupDescReserva = true; // Define showPopup como true para exibir a popup
+    this.showPopup = false;
   }
+  
 
   openPopup(event: CalendarEvent): void {
     // Aqui você pode abrir o popup com os detalhes da reserva
@@ -308,9 +318,11 @@ loadAvailableDays(): void {
 
 
     showPopup: boolean = false;
+    showPopupDescReserva: boolean = false;
 
     openPopupe(): void {
       this.showPopup = true;
+      this.showPopupDescReserva = false;
     }
 
     closePopupe(): void {
@@ -320,6 +332,11 @@ loadAvailableDays(): void {
       // Fechar a popup
       this.showPopup = false;
     }
+    
+    closePopupDescReserva(): void {
+      this.showPopupDescReserva = false;
+    }
+    
 
 
   }
