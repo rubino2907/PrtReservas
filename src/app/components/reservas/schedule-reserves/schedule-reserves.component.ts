@@ -2,7 +2,7 @@ import { Component, OnInit, LOCALE_ID, Inject, Input, Output, EventEmitter } fro
 import { CalendarEvent } from 'angular-calendar';
 import { ReserveService } from '../../../services/reserve.service';
 import { Reserve } from '../../../models/reserve';
-import { addDays, addMonths, addWeeks, endOfWeek, format, startOfWeek, subDays, subMonths, subWeeks } from 'date-fns';
+import { addDays, addMinutes, addMonths, addWeeks, eachDayOfInterval, endOfDay, endOfMonth, endOfWeek, format, startOfDay, startOfMonth, startOfWeek, subDays, subMonths, subWeeks } from 'date-fns';
 import { pt } from 'date-fns/locale'; // Importação do idioma local pt
 import { VehicleService } from '../../../services/vehicle.service';
 import { PendantService } from '../../../services/pending.service';
@@ -115,10 +115,15 @@ loadReservesByMatriculation(matriculations: string[]): void {
 getRandomColor(): string {
   // Gera uma cor hexadecimal aleatória em tons mais claros
   const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 3; i++) {
-    color += letters[Math.floor(Math.random() * 6) + 9];
-  }
+  let color;
+  
+  do {
+    color = '#';
+    for (let i = 0; i < 3; i++) {
+      color += letters[Math.floor(Math.random() * 6) + 9];
+    }
+  } while (color === '#A5D6A7'); // Repete a geração da cor se ela for #A5D6A7
+
   return color;
 }
 
@@ -126,30 +131,52 @@ getRandomColor(): string {
 
 
 loadAvailableDays(): void {
-    if (!this.selectedMatriculation) {
-      return;
-    }
+  this.events = this.events.filter(event => {
+    // Remova eventos 'Dia Livre' anteriormente adicionados
+    return event.title !== 'Dia Livre';
+  });
 
-    this.reserveService.getAvailableDays(this.selectedMatriculation, this.viewDate, endOfWeek(this.viewDate))
-      .subscribe((availableDays: Date[]) => {
-        const isFullDayReserved = availableDays.every(day => this.hasReserveForDay(day));
-  
-        availableDays.forEach(day => {
-          if (isFullDayReserved) {
-            this.events.push({
-              start: day,
-              title: 'Dia Preenchido',
-              color: { primary: 'blue', secondary: 'blue' }
-            });
-          } else if (!this.hasReserveForDay(day)) {
-            this.events.push({
-              start: day,
-              title: 'Dia Livre',
-              color: { primary: 'green', secondary: 'green' }
-            });
-          }
-        });
+  let startInterval: Date;
+  let endInterval: Date;
+
+  if (this.view === 'Mês') {
+    startInterval = startOfMonth(this.viewDate);
+    endInterval = endOfMonth(this.viewDate);
+  } else if (this.view === 'Semana') {
+    startInterval = startOfWeek(this.viewDate, { weekStartsOn: 1 });
+    endInterval = endOfWeek(this.viewDate, { weekStartsOn: 1 });
+  } else { // Dia
+    startInterval = startOfDay(this.viewDate);
+    endInterval = endOfDay(this.viewDate);
+  }
+
+  let allDays = eachDayOfInterval({ start: startInterval, end: endInterval });
+
+  allDays.forEach(day => {
+    let dayStart = startOfDay(day);
+    let dayEnd = endOfDay(day);
+    let isDayFree = !this.events.some(event => {
+      if (!event.start || !event.end) return false; // Garanta que start e end não são undefined
+
+      let eventStart = startOfDay(event.start);
+      let eventEnd = endOfDay(event.end);
+      return (dayStart >= eventStart && dayStart <= eventEnd) || (dayEnd >= eventStart && dayEnd <= eventEnd);
+    });
+
+    if (isDayFree) {
+      this.events.push({
+        start: dayStart,
+        end: dayEnd,
+        title: 'Dia Livre',
+        color: {
+          primary: '#A5D6A7', // Cor verde clara
+          secondary: '#A5D6A7'
+        }
       });
+    }
+  });
+
+  this.refresh.emit();
 }
   
   // Adiciona as reservas à lista de eventos

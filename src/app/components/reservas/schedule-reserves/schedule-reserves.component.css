@@ -100,5 +100,21 @@
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
+
+  /* Calendario */
+  
+  ::ng-deep .cal-month-view .cal-day-badge {
+    display: none !important;
+  }
+
+  ::ng-deep .cal-month-view .cal-event {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 2px;
+  }
+  
+  
   
   
