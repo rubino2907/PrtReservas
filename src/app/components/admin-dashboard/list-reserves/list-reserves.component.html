@@ -25,8 +25,8 @@
               <tbody style="font: normal normal normal 12px/16px 'Open Sans', sans-serif; text-align: left; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">
                   <tr *ngFor="let reserve of reserves">
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.matriculation }}</td>
-                      <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.dateStart }}</td>
-                      <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.dateEnd }}</td>
+                      <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.dateStart | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                      <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.dateEnd  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.state }}</td>
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"><button class="btn btn-sm" (click)="editReserve(reserve)" style="text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">Editar</button></td>
                   </tr>

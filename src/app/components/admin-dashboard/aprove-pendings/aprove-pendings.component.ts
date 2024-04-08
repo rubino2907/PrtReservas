@@ -150,11 +150,9 @@ export class AprovePendingsComponent implements OnInit {
       .deletePendings(pending)
       .subscribe((pendants: Pending[]) => {
         this.pendingsUpdated.emit(pendants);
-        this.loadPendings();
+        this.loadPendings()
+        this.isFormEditPendingVisible = false;
       });
-
-      this.loadPendings()
-      this.isFormEditPendingVisible = false;
   }
 
   // Função para retornar a classe com base no estado do pedido

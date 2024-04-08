@@ -10,7 +10,7 @@ import { Vehicle } from '../../../models/vehicle';
 @Component({
   selector: 'app-create-reserva-schedule',
   templateUrl: './create-reserva-schedule.component.html',
-  styleUrl: './create-reserva-schedule.component.css'
+  styleUrls: ['./create-reserva-schedule.component.css']
 })
 export class CreateReservaScheduleComponent implements OnInit{
   @Input() pending?: Pending;
@@ -73,6 +73,7 @@ createPending(newPending: Pending): void {
       console.error("A matrícula fornecida não está disponível.");
       this.snackBar.open('Impossível criar pedido. A matrícula fornecida não está disponível.', 'Fechar', {
         duration: 5000, // Duração em milissegundos
+        panelClass: ['center-snackbar'] // Aplicando a classe CSS personalizada
       });
       return; // Sai do método sem criar o pendente
     }
@@ -94,23 +95,24 @@ createPending(newPending: Pending): void {
       },
       (error) => {
         console.error("Erro ao criar Pendentes:", error);
-        if (error && error.error && error.error.errors) {
-          const validationErrors = error.error.errors;
-          for (const field in validationErrors) {
-            if (validationErrors.hasOwnProperty(field)) {
-              console.error(`Erro de validação no campo ${field}: ${validationErrors[field]}`);
-            }
-          }
-        } else if (error && error.message) {
-          console.error("Mensagem de erro:", error.message);
+        if (error.error) {
+          // Verifique se há um corpo de resposta contendo detalhes do erro
+          const errorMessage = error.error;
+          console.error("Mensagem de erro:", errorMessage);
+          this.snackBar.open(errorMessage, 'Fechar', {
+            duration: 5000,
+          });
+        } else {
+          // Se não houver corpo de resposta, use uma mensagem de erro padrão
+          console.error("Mensagem de erro:", "Erro do lado do cliente ao criar pendente.");
+          this.snackBar.open('Erro ao criar pendente. Tente novamente mais tarde.', 'Fechar', {
+            duration: 5000, // Duração em milissegundos
+          });
         }
-        // Exibir mensagem de erro
-        this.snackBar.open('Impossível criar pedido. Nenhuma viatura está disponível para essa data // Viatura escolhida não Disponivel.', 'Fechar', {
-          duration: 5000, // Duração em milissegundos
-        });
-      }
+      }      
     );
 }
+
 
 
 }
