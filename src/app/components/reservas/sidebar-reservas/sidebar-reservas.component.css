@@ -44,7 +44,7 @@
 
 /* Estilos para o item ativo */
 .sidebar a.active {
-  background-color: rgb(121, 121, 121); /* Cor de fundo quando ativo */
+  background-color: rgb(180, 180, 180); /* Cor de fundo quando ativo */
 }
 
 /* Estilos para os itens da barra lateral */
