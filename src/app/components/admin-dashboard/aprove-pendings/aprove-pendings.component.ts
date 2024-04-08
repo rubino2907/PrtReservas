@@ -152,6 +152,9 @@ export class AprovePendingsComponent implements OnInit {
         this.pendingsUpdated.emit(pendants);
         this.loadPendings();
       });
+
+      this.loadPendings()
+      this.isFormEditPendingVisible = false;
   }
 
   // Função para retornar a classe com base no estado do pedido
