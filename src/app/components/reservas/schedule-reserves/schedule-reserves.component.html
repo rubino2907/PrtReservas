@@ -79,7 +79,7 @@
       </div>
       <!-- Exibição do calendário -->
       <div class="col-md-12">
-        <ng-container *ngIf="view === 'month'">
+        <ng-container *ngIf="view === 'Mês'">
           <mwl-calendar-month-view
             style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;"
             [viewDate]="viewDate"
@@ -89,7 +89,7 @@
             class="small-calendar"
           ></mwl-calendar-month-view>
         </ng-container>
-        <ng-container *ngIf="view === 'day'">
+        <ng-container *ngIf="view === 'Dia'">
           <mwl-calendar-day-view
             style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;"
             [viewDate]="viewDate"
@@ -99,7 +99,7 @@
             class="small-calendar"
           ></mwl-calendar-day-view>
         </ng-container>
-        <ng-container *ngIf="view === 'week'">
+        <ng-container *ngIf="view === 'Semana'">
           <mwl-calendar-week-view
             style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;"
             [viewDate]="viewDate"

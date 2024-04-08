@@ -21,8 +21,8 @@ export class ScheduleReservesComponent implements OnInit {
   isFormEditPendingVisible: boolean = true; // Defina a propriedade 'isFormEditPendingVisible'
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
-  view: 'month' | 'day' | 'week' = 'month';
-  views = ['month', 'day', 'week'];
+  view: 'Mês' | 'Dia' | 'Semana' = 'Mês'; // Alteração dos valores aqui
+  views = ['Mês', 'Dia', 'Semana']; // Alteração dos valores aqui
   matriculations: string[] = []; // Lista de matrículas
   selectedMatriculation: string = ''; // Matrícula selecionada
   selectedMatriculations: { [matriculation: string]: boolean } = {};
@@ -205,7 +205,7 @@ loadAvailableDays(): void {
     // Consulte a documentação do NgbModal para mais detalhes sobre como usá-lo
   }
 
-  setView(view: 'month' | 'day' | 'week'): void {
+  setView(view: 'Mês' | 'Dia' | 'Semana'): void { // Alteração dos valores aqui
     this.view = view;
     this.loadAvailableDays(); // Carrega os dias disponíveis ao mudar a visualização do calendário
 
@@ -217,13 +217,13 @@ loadAvailableDays(): void {
   
   next(): void {
   switch (this.view) {
-    case 'month':
+    case 'Mês': // Alteração dos valores aqui
       this.viewDate = addMonths(this.viewDate, 1);
       break;
-    case 'week':
+    case 'Semana': // Alteração dos valores aqui
       this.viewDate = addWeeks(this.viewDate, 1);
       break;
-    case 'day':
+    case 'Dia': // Alteração dos valores aqui
       this.viewDate = addDays(this.viewDate, 1);
       break;
   }
@@ -240,13 +240,13 @@ loadAvailableDays(): void {
   
   previous(): void {
     switch (this.view) {
-      case 'month':
+      case 'Mês': // Alteração dos valores aqui
         this.viewDate = subMonths(this.viewDate, 1);
         break;
-      case 'week':
+      case 'Semana': // Alteração dos valores aqui
         this.viewDate = subWeeks(this.viewDate, 1);
         break;
-      case 'day':
+      case 'Dia': // Alteração dos valores aqui
         this.viewDate = subDays(this.viewDate, 1);       
          break;
       }
@@ -261,11 +261,11 @@ loadAvailableDays(): void {
   
     getIndicator(): string {
       switch (this.view) {
-        case 'month':
+        case 'Mês': // Alteração dos valores aqui
           return format(this.viewDate, 'MMMM yyyy', { locale: pt });
-        case 'week':
+        case 'Semana': // Alteração dos valores aqui
           return `${format(startOfWeek(this.viewDate), 'd MMMM', { locale: pt })} - ${format(endOfWeek(this.viewDate), 'd MMMM', { locale: pt })}`;
-        case 'day':
+        case 'Dia': // Alteração dos valores aqui
           return format(this.viewDate, 'd MMMM yyyy HH:mm', { locale: pt });
         default:
           return '';
@@ -323,5 +323,3 @@ loadAvailableDays(): void {
 
 
   }
-  
-       
