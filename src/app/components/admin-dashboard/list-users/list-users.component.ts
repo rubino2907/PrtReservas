@@ -11,6 +11,10 @@ export class ListUsersComponent {
   @Input() users: User[] = [];
   @Input() userToEdit?: User;
   @Input() isFormVisible: boolean = false;
+  
+  isSearchingByUser: boolean = true;
+  searchInput: string = '';
+  filteredUsers: User[] = [];
 
   constructor(private userService: UserService) {}
 
@@ -18,9 +22,10 @@ export class ListUsersComponent {
     this.userService.getUsers()
       .subscribe((result: User[]) => {
         this.users = result;
+        this.filteredUsers = result; // Inicializa a lista filtrada com todos os usuários
       });
 
-      this.isFormVisible = false;
+    this.isFormVisible = false;
   }
 
   editUser(user: User): void {
@@ -30,6 +35,7 @@ export class ListUsersComponent {
   
   updateUserList(users: User[]): void {
     this.users = users;
+    this.filteredUsers = users; // Atualiza a lista filtrada ao receber novos usuários
     this.isFormVisible = !this.isFormVisible;
   }
 
@@ -38,7 +44,21 @@ export class ListUsersComponent {
     this.isFormVisible = !this.isFormVisible;
   }
 
-  fecharForm(){
+  fecharForm(): void {
     this.isFormVisible = false;
+  }
+
+  toggleSearch(): void {
+    this.isSearchingByUser = !this.isSearchingByUser;
+    this.searchInput = ''; // Limpa o input ao alternar
+    this.filterUsers(); // Chama a função de filtro ao alternar
+  }
+
+  filterUsers(): void {
+    if (this.isSearchingByUser) {
+      this.filteredUsers = this.users.filter(user => user.userName.toLowerCase().includes(this.searchInput.toLowerCase()));
+    } else {
+      this.filteredUsers = this.users.filter(user => user.group.toLowerCase().includes(this.searchInput.toLowerCase()));
+    }
   }
 }
