@@ -47,10 +47,17 @@
             </div>
 
             <div class="text-center" style=" margin-top: 50px;"> <!-- Adicionando a classe text-center para centralizar o botão -->
-                <button (click)="createPending(pending)" style="margin-bottom: 50px; background: #337AB7 0% 0% no-repeat padding-box; border-radius: 2px; opacity: 1; width: 211px; height: 41px; align-items: center;">
+
+                <div *ngIf="!validateDates()" style="color: rgb(228, 1, 1);">A data de início deve ser anterior à data de fim.</div>
+  
+                <button (click)="createPending(pending)" [disabled]="!validateDates()" style="margin-bottom: 50px; background: #337AB7 0% 0% no-repeat padding-box; border-radius: 2px; opacity: 1; width: 211px; height: 41px; align-items: center;">
                     <label style="text-align: center; letter-spacing: 0px; color: #FFFFFF; opacity: 1; font: normal normal 600 10px/14px 'Open Sans', sans-serif;">Submeter Pedido</label>
                 </button>
             </div>
+
+            <!-- Adicione esta linha dentro da div do botão de submissão -->
+           
+
 
         </div>
     </div>

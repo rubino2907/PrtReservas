@@ -43,31 +43,31 @@ export class EditUserComponent implements OnInit {
   }
 
   createUser(user: User): void {
-    console.log("User antes de ser enviado:", user);
-
+    console.log("Dados do usuário antes de serem enviados:", user); // Adiciona um log para mostrar os dados do usuário antes de enviar a solicitação
+  
     user.createdBy = this.cookieService.get('userName');
     user.canApproveReservations = true;
     user.changeDateTime = "";
     user.creationDateTime = "";
     user.token = '';
-    user.userCode = 0;
-
-    console.log(user.createdBy)
-
+  
+    console.log("Usuário criado por:", user.createdBy); // Adiciona um log para mostrar quem está criando o usuário
+  
     this.userService
       .createUsers(user)
       .subscribe(
         (users: User[]) => {
-          console.log("Resposta do servidor ao criar usuário:", users);
+          console.log("Resposta do servidor ao criar usuário:", users); // Adiciona um log para mostrar a resposta do servidor ao criar o usuário
           this.usersUpdated.emit(users);
           console.log("Usuário criado com sucesso!", users);
           this.isFormVisible = false; // Esconde o formulário após criar o usuário com sucesso
         },
         (error) => {
-          console.error("Erro ao criar usuário:", error);
+          console.error("Erro ao criar usuário:", error); // Adiciona um log para mostrar qualquer erro ao criar o usuário
         }
       );
   }
+  
   
   showDeleteConfirmation(): void {
     this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação

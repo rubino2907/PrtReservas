@@ -97,6 +97,16 @@ export class EditPendantsComponent {
       );
   }
   
+  validateDates(): boolean {
+    // Verifica se this.pending não é nulo e se as datas estão definidas
+    if (this.pending && this.pending.dateStart && this.pending.dateEnd) {
+      // Verifica se a data de início é antes da data de fim
+      return new Date(this.pending.dateStart) < new Date(this.pending.dateEnd);
+    } else {
+      // Se alguma das datas não estiver definida ou this.pending for nulo, retorna falso
+      return false;
+    }
+  }
   
   
 
