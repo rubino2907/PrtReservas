@@ -1,56 +1,90 @@
-  <!-- <div class="col-4 d-flex justify-content-center align-items-center" style="margin: 5px">
-      <button (click)="initNewVehicle()" style="background-color: #337AB7; border-radius: 5px; opacity: 1px; width: 144px; height: 43px; ">
-          <span style="font-family: 'Open Sans', sans-serif; font-size: 13px; color: #fff;"> + NOVO VEÍCULO</span>
-      </button>  
-  </div>
-</div> -->
-
 <div class="row">
-  <div class="col-lg-5" style="background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; min-height: 650px; display: flex; flex-direction: column; height: 90vh; width: 35vw; ">
-      <div class="col-lg-11" style="margin-top: 10px; margin-bottom: 20px; margin-left: 10px; border-bottom: 1px solid #337AB7; display: flex; align-items: center; ">
-          <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="width: 20px; height: 20px; margin-right: 10px;">
-          <h2 class="text-left py-3 mb-0" style="top: 177px; left: 318px; width: 116px; text-align: left; font: normal 600 20px/27px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">Veículos</h2>
-      </div>
-      <div style="overflow-x: auto;">
-        <table *ngIf="vehicles.length > 0" class="table table-sm" style="position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px;">
-          <thead style="text-align: left; font: normal bold normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;">
-              <tr>
-                  <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Matrícula</th>
-                  <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Descrição</th>
-                  <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Ações</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let vehicle of vehicles">
-                  <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ vehicle.matriculation }}</td>
-                  <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ vehicle.descVehicle }}</td>
-                  <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"><button (click)="editVehicle(vehicle)" class="btn btn-sm" style="text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">Editar</button></td>
-              </tr>
-          </tbody>
-      </table> 
-    </div>
-    <div class="col-4 d-flex justify-content-center align-items-center" style="margin: 5px; margin-top: auto;">
-        <button (click)="initNewVehicle()" style="background-color: #337AB7; border-radius: 5px; opacity: 1px; width: 144px; height: 43px; ">
-            <span style="font-family: Open Sans, sans-serif; font-size: 13px; color: #fff;"> + Novo Veículo</span>
-        </button>  
-    </div>
-  </div>
-  <div *ngIf="isFormEditVehicleVisible" class="col-lg-6"  style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-left: 10px; position: relative; height: 90vh; width: 45vw;">
-    <div style="position: absolute; top: 0; right: 0; padding: 10px;" (click)="fecharForm()">
-        <button class="btn btn-sm" style="background: transparent; border: none; font-size: 16px;">
-            <span style="color: #337AB7;" >X</span>
-        </button>
-    </div>
-      <div>
-        <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #337AB7; opacity: 1;">
-            <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 20px/27px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
-                <img src="assets\Iconly-Bold-Document[152].svg" alt="Ícone de Reservas" style="width: 22px; height: 22px; opacity: 1; margin-right: 10px;">
-                Formulário Veículos
-            </h2>
+    <div class="col-lg-5" style="background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; min-height: 650px; display: flex; flex-direction: column; height: 90vh; width: 35vw; ">
+        <!-- Cabeçalho da seção de veículos -->
+        <div class="col-lg-11" style="margin-top: 10px; margin-bottom: 10px; margin-left: 10px; display: flex; align-items: center; ">
+            <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="width: 20px; height: 20px; margin-right: 10px;">
+            <h2 class="text-left py-3 mb-0" style="top: 177px; left: 318px; width: 116px; text-align: left; font: normal 600 20px/27px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">Veículos</h2>
         </div>
+        <!-- Seção de filtragem -->
+        <div style="display: flex; align-items: center; width: 100%; margin-bottom: 20px;">
+          <!-- Botão para alternar entre pesquisa por matrícula e tipo de veículo -->
+          <button style="background-color: #337AB7; padding: 8px; margin-left: 30px; width: calc(50px + 1px); height: 42px; border: none; display: flex; justify-content: center; align-items: center;" (click)="toggleSearch()">
+              <i class="{{ isSearchingByMatriculation ? 'bi bi-car-front-fill' : 'bi bi-card-text' }}" style="color: #FFFFFF; font-size: 20px;"></i>
+          </button>
+          <!-- Campo de entrada de texto para pesquisa por matrícula -->
+          <ng-container *ngIf="isSearchingByMatriculation; else typeSearchInput">
+              <input type="text" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0" [(ngModel)]="searchInput" (input)="filterVehicles()" placeholder="Pesquisar por matrícula...">
+          </ng-container>
+          <!-- Campo de seleção para filtrar por tipo de veículo -->
+            <ng-template #typeSearchInput>
+                <select [(ngModel)]="selectedVehicleType" (change)="filterVehicles()" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0; background-color: #FFFFFF;">
+                    <!-- Opção de placeholder -->
+                    <option value="">Selecione um tipo</option>
+                    <option value="Ligeiro">Ligeiro</option>
+                    <option value="Pesado">Pesado</option>
+                </select>
+            </ng-template>
+
+          <!-- Botão de pesquisa -->
+          <button style="background-color: #337AB7; padding: 8px; margin-right: 30px; width: calc(50px + 1px); height: 42px; border: none; border-radius: 2px; display: flex; justify-content: center; align-items: center;"> <i class="bi bi-search" style="color: #FFFFFF; font-size: 20px;"></i></button>
+        </div>
+        <!-- Tabela de veículos -->
+        <div style="overflow-x: auto;">
+            <table *ngIf="filteredVehicles.length > 0" class="table table-sm" style="position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px;">
+                <thead style="text-align: left; font: normal bold normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;">
+                    <tr>
+                        <!-- Cabeçalho vazio para a coluna do ícone -->
+                        <th></th>
+                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Matrícula</th>
+                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Descrição</th>
+                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vehicle of filteredVehicles">
+                        <!-- Coluna do ícone -->
+                        <td style="vertical-align: middle; height: 45px;">
+                            <i *ngIf="vehicle.typeVehicle === 'Ligeiro'" class="bi bi-car-front-fill" style="color: #337AB7;"></i>
+                            <i *ngIf="vehicle.typeVehicle === 'Pesado'" class="bi bi-truck-front-fill " style="color: #337AB7;"></i>
+                        </td>
+                        <!-- Coluna da matrícula -->
+                        <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ vehicle.matriculation }}</td>
+                        <!-- Coluna da descrição -->
+                        <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ vehicle.descVehicle }}</td>
+                        <!-- Coluna das ações -->
+                        <td style="vertical-align: middle; height: 45px;">
+                            <button (click)="editVehicle(vehicle)" class="btn btn-sm" style="text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">Editar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
+      </div>
+      <!-- Botão para adicionar novo veículo -->
+      <div class="col-4 d-flex justify-content-center align-items-center" style="margin: 5px; margin-top: auto;">
+          <button (click)="initNewVehicle()" style="background-color: #337AB7; border-radius: 5px; opacity: 1px; width: 144px; height: 43px; ">
+              <span style="font-family: Open Sans, sans-serif; font-size: 13px; color: #fff;"> + Novo Veículo</span>
+          </button>  
+      </div>
+    </div>
+    <!-- Componente de edição de veículo -->
+    <div *ngIf="isFormEditVehicleVisible" class="col-lg-6"  style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-left: 10px; position: relative; height: 90vh; width: 45vw;">
+      <div style="position: absolute; top: 0; right: 0; padding: 10px;" (click)="fecharForm()">
+          <button class="btn btn-sm" style="background: transparent; border: none; font-size: 16px;">
+              <span style="color: #337AB7;" >X</span>
+          </button>
+      </div>
+      <div>
+          <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #337AB7; opacity: 1;">
+              <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 20px/27px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
+                  <img src="assets\Iconly-Bold-Document[152].svg" alt="Ícone de Reservas" style="width: 22px; height: 22px; opacity: 1; margin-right: 10px;">
+                  Formulário Veículos
+              </h2>
+          </div>
+          <!-- Componente de edição de veículo -->
           <div style="margin-left: 10px; margin-right: 10px;">
               <app-edit-vehicle [vehicle]="vehiclesToEdit" (vehiclesUpdated)="updateVehicleList($event)"></app-edit-vehicle>
           </div>
       </div>
+    </div>
   </div>
-</div>
+  

@@ -5,25 +5,52 @@ import { VehicleService } from '../../../services/vehicle.service';
 @Component({
   selector: 'app-list-vehicles',
   templateUrl: './list-vehicles.component.html',
-  styleUrls: ['./list-vehicles.component.css'] // Aqui está a correção
+  styleUrls: ['./list-vehicles.component.css']
 })
-
 export class ListVehiclesComponent {
   
   @Input() vehicles: Vehicle[] = [];
   @Input() vehiclesToEdit?: Vehicle;
   @Input() isFormEditVehicleVisible: boolean = false;
+  isSearchingByMatriculation: boolean = true;
+  searchInput: string = '';
+  selectedVehicleType: string = '';
+  filteredVehicles: Vehicle[] = [];
 
-  constructor( private vehicleService: VehicleService) {}
+  constructor(private vehicleService: VehicleService) {}
 
   ngOnInit(): void {
+    this.getVehicles();
+  }
+
+  getVehicles(): void {
     this.vehicleService.getVehicles()
       .subscribe((result: Vehicle[]) => {
         this.vehicles = result;
-        console.log(this.vehicles)
-      })
+        this.filteredVehicles = result;
+      });
+  }
 
-      this.isFormEditVehicleVisible = false;
+  toggleSearch(): void {
+    this.isSearchingByMatriculation = !this.isSearchingByMatriculation;
+    this.searchInput = '';
+    this.filterVehicles();
+  }
+
+  filterVehicles(): void {
+    if (this.isSearchingByMatriculation) {
+      this.filteredVehicles = this.vehicles.filter(vehicle =>
+        vehicle.matriculation && vehicle.matriculation.toLowerCase().includes(this.searchInput.toLowerCase())
+      );
+    } else {
+      if (this.selectedVehicleType === '') {
+        this.filteredVehicles = this.vehicles; // Exibir a lista completa se nenhum tipo for selecionado
+      } else {
+        this.filteredVehicles = this.vehicles.filter(vehicle =>
+          vehicle.typeVehicle && vehicle.typeVehicle.toLowerCase() === this.selectedVehicleType.toLowerCase()
+        );
+      }
+    }
   }
   
   editVehicle(vehicle: Vehicle): void {
@@ -33,6 +60,7 @@ export class ListVehiclesComponent {
 
   updateVehicleList(vehicles: Vehicle[]): void {
     this.vehicles = vehicles;
+    this.filteredVehicles = vehicles;
     this.isFormEditVehicleVisible = !this.isFormEditVehicleVisible;
   }
 
@@ -41,7 +69,7 @@ export class ListVehiclesComponent {
     this.isFormEditVehicleVisible = !this.isFormEditVehicleVisible;
   }
   
-  fecharForm(){
+  fecharForm(): void {
     this.isFormEditVehicleVisible = false;
   }
 }
