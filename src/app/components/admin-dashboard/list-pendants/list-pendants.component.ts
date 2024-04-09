@@ -3,6 +3,8 @@ import { PendantService } from '../../../services/pending.service';
 import { Pending } from '../../../models/pending';
 import { UserService } from '../../../services/user.service';
 import { UserDetails } from '../../../models/userDetails';
+import { VehicleService } from '../../../services/vehicle.service';
+import { Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-list-pendants',
@@ -15,13 +17,22 @@ export class ListPendantsComponent implements OnInit {
   @Input() pendingsToEdit?: Pending;
   @Input() isFormEditPendingVisible: boolean = false;
   userDetails?: UserDetails;
+  matriculations: string[] = []; // Array para armazenar as matrículas
+
+  filteredPendings: any[] = []; // Lista filtrada para exibição
+  selectedMatricula: string = '';
+  startDate: string = '';
+  endDate: string = '';
+
+
   // Variável para acompanhar a linha selecionada
   selectedPending: any = null;
 
-  constructor(private pendantService: PendantService, private userService: UserService) {}
+  constructor(private pendantService: PendantService, private userService: UserService, private vehicleService:VehicleService) {}
 
   ngOnInit(): void {
     this.loadPendings();
+    this.loadMatriculations();
   }
 
   loadPendings(): void {
@@ -39,13 +50,60 @@ export class ListPendantsComponent implements OnInit {
         });
   
         this.pendings = result;
-      }, error => {
-        console.error('Error fetching pendings:', error);
-      });
+        this.filteredPendings = [...this.pendings]; // Inicialize a lista filtrada com todos os pendentes
+        this.applyFilters(); // Aplica qualquer filtro inicial se necessário
+    }, error => {
+      console.error('Error fetching pendings:', error);
+    });
   
     this.isFormEditPendingVisible = false;
   }
+
+  clearDate(field: string) {
+    if (field === 'startDate') {
+        this.startDate = ''; // Alteração aqui
+    } else if (field === 'endDate') {
+        this.endDate = ''; // Alteração aqui
+    }
+    this.applyFilters(); // Você pode chamar applyFilters() para aplicar os filtros imediatamente após limpar a data, se necessário.
+  }
+
   
+  loadMatriculations(): void {
+    this.vehicleService.getMatriculations().subscribe(
+        (matriculations: string[]) => {
+            // Você pode usar as matriculas diretamente aqui
+            this.matriculations = matriculations;
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+            // Lide com os erros adequadamente
+        }
+    );
+  }
+
+  applyFilters(): void {
+    // Converta as strings de data para objetos Date para comparação
+    let startDate = this.startDate ? new Date(this.startDate) : null;
+    let endDate = this.endDate ? new Date(this.endDate) : null;
+
+    this.filteredPendings = this.pendings.filter(pending => {
+      // Verificação de matrícula
+      const matchMatricula = this.selectedMatricula ? pending.matriculation === this.selectedMatricula : true;
+
+      // Conversão da data do pedido para objeto Date
+      const pendingStartDate = pending.dateStart ? new Date(pending.dateStart) : new Date();
+      const pendingEndDate = pending.dateEnd ? new Date(pending.dateEnd) : new Date();
+
+
+      // Verificação de datas
+      const matchStartDate = startDate ? pendingStartDate >= startDate : true;
+      const matchEndDate = endDate ? pendingEndDate <= endDate : true;
+
+      return matchMatricula && matchStartDate && matchEndDate;
+    });
+  }
+
 
   initNewPending(): void {
     // Limpar os detalhes do usuário
@@ -57,9 +115,10 @@ export class ListPendantsComponent implements OnInit {
     this.pendantService.getPendings().subscribe((result: Pending[]) => {
       this.pendings = result;
       console.log('Pendings after addition:', this.pendings);
-
+      
     });
   }
+
 
   editPending(pending: Pending): void {
     this.pendingsToEdit = pending;
