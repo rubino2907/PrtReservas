@@ -167,4 +167,42 @@ export class AprovePendingsComponent implements OnInit {
       return ''; // Retorna uma string vazia se o status for undefined
     }
   }
+
+  sortByStartDate(): void {
+    this.pendings.sort((a, b) => {
+        // Check if dateStart is defined for both objects
+        if (a.dateStart && b.dateStart) {
+            const dateA = new Date(a.dateStart);
+            const dateB = new Date(b.dateStart);
+            return dateA.getTime() - dateB.getTime();
+        }
+        // If either dateStart is undefined, return 0 to maintain current order
+        return 0;
+    });
+  }
+
+  sortByMatriculation(): void {
+    this.pendings.sort((a, b) => {
+        // Check if matriculation is defined for both objects
+        if (a.matriculation && b.matriculation) {
+            // Convert matriculation to lowercase before comparison (optional)
+            const matriculationA = a.matriculation.toLowerCase();
+            const matriculationB = b.matriculation.toLowerCase();
+            
+            // Compare matriculation strings
+            if (matriculationA < matriculationB) {
+                return -1;
+            } else if (matriculationA > matriculationB) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        // If either matriculation is undefined, return 0 to maintain current order
+        return 0;
+    });
+}
+
+
+
 }
