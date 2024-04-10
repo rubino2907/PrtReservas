@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Barra lateral -->
+      <div class="col-md-1">
+        <app-sidebar-tabelas (toggleUserListEvent)="showUserList = $event" 
+        (toggleVehicleListEvent)="showVehicleList = $event"
+        (togglePendantListEvent)="showPendantList = $event">
+        </app-sidebar-tabelas>
+      </div>
+      <!-- Conteúdo principal -->
+      <div class="col-md-11">
+        <app-navbar></app-navbar> <!-- Aqui incluímos o componente navbar -->
+        <div class="content">
+          <!-- Incluir os componentes aqui -->
+          <app-list-users *ngIf="showUserList"></app-list-users>
+          <app-list-vehicles *ngIf="showVehicleList"></app-list-vehicles>
+          <app-list-pendants *ngIf="showPendantList"></app-list-pendants>
+          <!-- <div *ngIf="!showUserList && !showVehicleList && !showReserveList && !showPendantList && !showAprovedList">
+            <app-base-admin-dashboard></app-base-admin-dashboard>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

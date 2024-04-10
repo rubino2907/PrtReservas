@@ -17,6 +17,8 @@ export class NavbarComponent implements OnInit {
   showNotification: boolean = false;
   isReservasActive: boolean = false; // Variável para indicar se a página de reservas está ativa
   isDashboardActive: boolean = false; // Variável para indicar se a página do dashboard está ativa
+  isTabelasActive: boolean = false;
+  isGestaoActive: boolean = false;
 
   constructor(private router: Router, private cookieService: CookieService, private authService: AuthService, private pendingService: PendantService) {}
 
@@ -35,18 +37,42 @@ export class NavbarComponent implements OnInit {
       if (this.router.url.includes('reservas')) {
         this.isReservasActive = true;
         this.isDashboardActive = false;
+        this.isTabelasActive = false;
+        this.isGestaoActive = false;
       } else if (this.router.url.includes('adminDashboard')) {
         this.isReservasActive = false;
         this.isDashboardActive = true;
-      } else {
+        this.isTabelasActive = false;
+        this.isGestaoActive = false;
+      } else if (this.router.url.includes('tabelas')) {
         this.isReservasActive = false;
         this.isDashboardActive = false;
+        this.isTabelasActive = true;
+        this.isGestaoActive = false;
+      } else if (this.router.url.includes('gestao')) {
+        this.isReservasActive = false;
+        this.isDashboardActive = false;
+        this.isTabelasActive = false;
+        this.isGestaoActive = true;
+      }  else {
+        this.isReservasActive = false;
+        this.isDashboardActive = false;
+        this.isTabelasActive = false;
+        this.isGestaoActive = false;
       }
     });
   }
 
   GoToReservas(){
     this.router.navigate(['/reservas']);
+  }
+
+  GoToGestao(){
+    this.router.navigate(['/gestao']);
+  }
+
+  GoToTabelas(){
+    this.router.navigate(['/tabelas']);
   }
 
   GoToDashboard(){

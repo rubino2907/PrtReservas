@@ -1,13 +1,21 @@
 <div class="navbar dynamic-width-navbar"> <!-- Defina a altura mínima para a navbar -->
   <!-- Adiciona a imagem do logotipo -->
   <a *ngIf="isAdmin" (click)="GoToDashboard()" [ngClass]="{'active': isDashboardActive}" style="padding: 5px;">
-      <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;">
-      <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Dashboard</label>
+      <i class="bi bi-bar-chart" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle; color: #337AB7;"></i>
+      <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer;">Dashboard</label>
   </a> 
   <a (click)="GoToReservas()" [ngClass]="{'active': isReservasActive}" style="padding: 5px; padding-left: 10px;">
       <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;">
-      <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">Pedidos de Reservas</label>
+      <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer;">Pedidos de Reservas</label>
   </a> 
+  <a *ngIf="isAdmin" (click)="GoToTabelas()" [ngClass]="{'active': isTabelasActive}" style="padding: 5px; padding-left: 10px;">
+    <i class="bi bi-table" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle; color: #337AB7;"></i>
+    <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer; ">Tabelas</label>
+</a> 
+<a *ngIf="isAdmin" (click)="GoToGestao()" [ngClass]="{'active': isGestaoActive}" style="padding: 5px; padding-left: 10px;">
+    <i class="bi bi-gear-fill" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle; color: #337AB7;"></i>
+    <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer;">Gestão</label>
+</a> 
   <div class="logout-btn" style="padding: 5px;">
       <a *ngIf="isAdmin" (click)="toggleNotification()">
           <i class="bi bi-bell-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;"></i>

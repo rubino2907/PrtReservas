@@ -13,12 +13,12 @@ import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.com
 import { ReservasComponent } from './components/reservas/reservas.component';
 import { CreateReservaComponent } from './components/reservas/create-reserva/create-reserva.component';
 import { SidebarComponent } from './components/admin-dashboard/sidebar/sidebar.component';
-import { ListUsersComponent } from './components/admin-dashboard/list-users/list-users.component';
-import { ListVehiclesComponent } from './components/admin-dashboard/list-vehicles/list-vehicles.component';
+import { ListUsersComponent } from './components/tabelas/list-users/list-users.component';
+import { ListVehiclesComponent } from './components/tabelas/list-vehicles/list-vehicles.component';
 import { BaseAdminDashboardComponent } from './components/admin-dashboard/base-admin-dashboard/base-admin-dashboard.component';
 import { EditReservesComponent } from './components/edit-reserves/edit-reserves.component';
 import { ListReservesComponent } from './components/admin-dashboard/list-reserves/list-reserves.component';
-import { ListPendantsComponent } from './components/admin-dashboard/list-pendants/list-pendants.component';
+import { ListPendantsComponent } from './components/tabelas/list-pendants/list-pendants.component';
 import { EditPendantsComponent } from './components/edit-pendants/edit-pendants.component';
 import { SidebarReservasComponent } from './components/reservas/sidebar-reservas/sidebar-reservas.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -31,6 +31,9 @@ import { SelectScheduleOrPendingsComponent } from './components/reservas/select-
 import { ListUserPendingsComponent } from './components/reservas/list-user-pendings/list-user-pendings.component';
 import { CreateReservaScheduleComponent } from './components/reservas/create-reserva-schedule/create-reserva-schedule.component';
 import { AprovePendingsComponent } from './components/admin-dashboard/aprove-pendings/aprove-pendings.component';
+import { TabelasComponent } from './components/tabelas/tabelas.component';
+import { GestaoComponent } from './components/gestao/gestao.component';
+import { SidebarTabelasComponent } from './components/tabelas/sidebar-tabelas/sidebar-tabelas.component';
 
 registerLocaleData(localePt);
 
@@ -57,7 +60,10 @@ registerLocaleData(localePt);
     SelectScheduleOrPendingsComponent,
     ListUserPendingsComponent,
     CreateReservaScheduleComponent,
-    AprovePendingsComponent
+    AprovePendingsComponent,
+    TabelasComponent,
+    GestaoComponent,
+    SidebarTabelasComponent
   ],
   imports: [
     BrowserModule,
