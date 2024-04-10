@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Pending } from '../../models/pending';
 
 @Component({
@@ -6,7 +6,7 @@ import { Pending } from '../../models/pending';
   templateUrl: './reservas.component.html',
   styleUrl: './reservas.component.css'
 })
-export class ReservasComponent {
+export class ReservasComponent implements OnInit {
 
   pending: Pending = {
   };
@@ -16,6 +16,10 @@ export class ReservasComponent {
   showCalendar: boolean = false;
 
   constructor(){}
+
+  ngOnInit(): void {
+    this.showCalendar = true;
+  }
 
   toggleCreateReserve(createReserveActive: boolean){
     this.showCreateReserve = createReserveActive;

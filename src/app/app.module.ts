@@ -17,7 +17,7 @@ import { ListUsersComponent } from './components/tabelas/list-users/list-users.c
 import { ListVehiclesComponent } from './components/tabelas/list-vehicles/list-vehicles.component';
 import { BaseAdminDashboardComponent } from './components/admin-dashboard/base-admin-dashboard/base-admin-dashboard.component';
 import { EditReservesComponent } from './components/edit-reserves/edit-reserves.component';
-import { ListReservesComponent } from './components/admin-dashboard/list-reserves/list-reserves.component';
+import { ListReservesComponent } from './components/gestao/list-reserves/list-reserves.component';
 import { ListPendantsComponent } from './components/tabelas/list-pendants/list-pendants.component';
 import { EditPendantsComponent } from './components/edit-pendants/edit-pendants.component';
 import { SidebarReservasComponent } from './components/reservas/sidebar-reservas/sidebar-reservas.component';
@@ -30,10 +30,11 @@ import localePt from '@angular/common/locales/pt';
 import { SelectScheduleOrPendingsComponent } from './components/reservas/select-schedule-or-pendings/select-schedule-or-pendings.component';
 import { ListUserPendingsComponent } from './components/reservas/list-user-pendings/list-user-pendings.component';
 import { CreateReservaScheduleComponent } from './components/reservas/create-reserva-schedule/create-reserva-schedule.component';
-import { AprovePendingsComponent } from './components/admin-dashboard/aprove-pendings/aprove-pendings.component';
+import { AprovePendingsComponent } from './components/gestao/aprove-pendings/aprove-pendings.component';
 import { TabelasComponent } from './components/tabelas/tabelas.component';
 import { GestaoComponent } from './components/gestao/gestao.component';
 import { SidebarTabelasComponent } from './components/tabelas/sidebar-tabelas/sidebar-tabelas.component';
+import { SidebarGestaoComponent } from './components/gestao/sidebar-gestao/sidebar-gestao.component';
 
 registerLocaleData(localePt);
 
@@ -63,7 +64,8 @@ registerLocaleData(localePt);
     AprovePendingsComponent,
     TabelasComponent,
     GestaoComponent,
-    SidebarTabelasComponent
+    SidebarTabelasComponent,
+    SidebarGestaoComponent
   ],
   imports: [
     BrowserModule,

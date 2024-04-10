@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-reservas',
   templateUrl: './sidebar-reservas.component.html',
   styleUrls: ['./sidebar-reservas.component.css']
 })
-export class SidebarReservasComponent {
+export class SidebarReservasComponent implements OnInit {
   createReserveActive: boolean = false;
   reserveRequestsActive: boolean = false;
   opentwoOptions: boolean = false;
@@ -16,15 +16,24 @@ export class SidebarReservasComponent {
   @Output() toggleReserveRequestsEvent = new EventEmitter<boolean>();
   @Output() toggleCalendarEvent = new EventEmitter<boolean>();
 
-  toggleCreate() {
-    this.opentwoOptions = !this.opentwoOptions;
-    this.toggleCreateReserveEvent.emit(false);
-    this.toggleReserveRequestsEvent.emit(false);
-    this.toggleCalendarEvent.emit(false);
-    this.reserveRequestsActive = false;
-    this.createReserveActive = false;
-    this.showCalendareActive = false;
+  ngOnInit(): void {
+    this.showCalendareActive = true;
   }
+
+  // toggleCreate() {
+  //   this.opentwoOptions = !this.opentwoOptions;
+  //   this.toggleCreateReserveEvent.emit(false);
+  //   this.toggleReserveRequestsEvent.emit(false);
+  //   this.toggleCalendarEvent.emit(false);
+  //   this.reserveRequestsActive = false;
+  //   this.createReserveActive = false;
+  //   this.showCalendareActive = false;
+  // }
+
+  toggleCreateDropdown() {
+    this.opentwoOptions = !this.opentwoOptions;
+  }
+
 
   toggleCreateReserve() {
     this.createReserveActive = !this.createReserveActive;
@@ -32,6 +41,7 @@ export class SidebarReservasComponent {
     this.toggleReserveRequestsEvent.emit(false);
     this.toggleCalendarEvent.emit(false);
     this.showCalendareActive = false;
+    this.reserveRequestsActive = false;
   }
 
   toggleShowCalendar() {
@@ -40,6 +50,7 @@ export class SidebarReservasComponent {
     this.toggleReserveRequestsEvent.emit(false);
     this.toggleCreateReserveEvent.emit(false);
     this.createReserveActive = false;
+    this.reserveRequestsActive = false;
   }
 
   toggleReserveRequests() {

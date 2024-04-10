@@ -7,4 +7,22 @@ import { Component } from '@angular/core';
 })
 export class GestaoComponent {
 
+  
+  title = 'WaveReservas';
+  showReserveList: boolean = false;
+  showAprovedList: boolean = false;
+
+  showOptions: boolean = false; // Controla a visibilidade das opções da barra lateral
+
+  constructor(){}
+
+  toggleReserveList(reserveListActive: boolean): void {
+    this.showReserveList = reserveListActive;
+    this.showAprovedList = !reserveListActive;
+  }
+
+  toggleToAprovedList(showAprovedListActive: boolean) : void {
+    this.showReserveList = showAprovedListActive;
+  }
+
 }

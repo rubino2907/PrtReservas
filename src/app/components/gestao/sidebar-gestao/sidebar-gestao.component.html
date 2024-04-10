@@ -1,0 +1,22 @@
+<!-- Logotipo -->
+<div class="logo">
+    <img src="assets\logo maps.svg" alt="Logotipo" style="width: 150px; height: auto; margin-left: 20px;">
+</div>
+
+<div id="sidebar" class="sidebar" style="background-color: rgb(90, 90, 90);">
+    <!-- Lista de opções de menu -->
+    <div class="list-group list-group-flush">
+        <a class="list-group-item-action d-block d-flex align-items-center" 
+        [class.active]="showAprovedListActive" 
+        (click)="toggleToAprovedList()">
+        <i class="bi bi-list-check me-2"></i>
+        <span class="sidebar-text">Aprovação de Pedidos</span>
+        </a>
+        <a class="list-group-item-action ripple d-block d-flex align-items-center" 
+        [class.active]="reservesListActive" 
+        (click)="toggleReservesList()">
+        <i class="bi bi-calendar2-week-fill me-2"></i>
+        <span class="sidebar-text">Reservas</span>
+        </a>
+    </div>
+</div>

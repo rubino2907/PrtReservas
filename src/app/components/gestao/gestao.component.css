@@ -1,0 +1,25 @@
+app-navbar {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+}
+
+app-sidebar {
+    z-index: 900;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 210px;
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+
+.content {
+    padding-top: 70px;
+    padding-left: 100px; /* Ajustado para a largura da sidebar (220px) + 10px de margem */
+    padding-right: 20px;
+}
+

@@ -2,26 +2,13 @@
   <div class="row">
     <!-- Barra lateral -->
     <div>
-      <app-sidebar (toggleUserListEvent)="showUserList = $event" 
-      (toggleVehicleListEvent)="showVehicleList = $event"
-      (toggleReservesListEvent)="showReserveList= $event"
-      (togglePendantListEvent)="showPendantList = $event"
-      (toggleToListAprovedEvent)="showAprovedList = $event">
-      </app-sidebar>
+      <app-sidebar></app-sidebar>
     </div>
     <!-- Conteúdo principal -->
     <div>
       <app-navbar style="left: 240px;"></app-navbar> <!-- Aqui incluímos o componente navbar -->
       <div class="content">
-        <!-- Incluir os componentes aqui -->
-        <app-list-users *ngIf="showUserList"></app-list-users>
-        <app-list-vehicles *ngIf="showVehicleList"></app-list-vehicles>
-        <app-list-reserves *ngIf="showReserveList"></app-list-reserves>
-        <app-list-pendants *ngIf="showPendantList"></app-list-pendants>
-        <app-aprove-pendings *ngIf="showAprovedList"></app-aprove-pendings>
-        <div *ngIf="!showUserList && !showVehicleList && !showReserveList && !showPendantList && !showAprovedList">
-          <app-base-admin-dashboard></app-base-admin-dashboard>
-        </div>
+        <app-base-admin-dashboard></app-base-admin-dashboard> 
       </div>
     </div>
   </div>
