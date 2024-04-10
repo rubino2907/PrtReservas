@@ -5,6 +5,7 @@ import { VehicleService } from '../../../services/vehicle.service';
 import { Vehicle } from '../../../models/vehicle';
 import { ReserveService } from '../../../services/reserve.service';
 import { Reserve } from '../../../models/reserve';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-base-admin-dashboard',
@@ -17,10 +18,13 @@ export class BaseAdminDashboardComponent implements OnInit {
   userCount: number = 0; // Inicializa a variável userCount
   vehicleCount: number = 0;
   reserveCount: number = 0;
+  userName: string = ''; // Variável para armazenar o nome de usuário
 
-  constructor(private reserveService: ReserveService ,private userService: UserService, private vehicleService: VehicleService) { }
+  constructor(private reserveService: ReserveService ,private userService: UserService, private vehicleService: VehicleService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    // Obtém o nome de usuário do cookie ao inicializar o componente
+    this.userName = this.cookieService.get('userName'); // Substitua 'userName' pelo nome do seu cookie
     // Chama o método para obter a contagem de usuários ao inicializar o componente
     this.getUsers();
     this.getVehicles();

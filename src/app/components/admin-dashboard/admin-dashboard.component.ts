@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'] 
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit{
   title = 'WaveReservas';
   showUserList: boolean = false;
   showVehicleList: boolean = false;
@@ -13,7 +14,16 @@ export class AdminDashboardComponent {
   showPendantList: boolean = false;
   showAprovedList: boolean = false;
 
-  constructor(){}
+  showOptions: boolean = false; // Controla a visibilidade das opções da barra lateral
+
+  constructor(private sidebarService: SidebarService){}
+
+  ngOnInit(): void {
+    // Ocultar as opções da barra lateral ao entrar na página da dashboard
+    this.sidebarService.hideOptions();
+    // Definir showOptions como true para exibir as opções da barra lateral
+    this.showOptions = true;
+  }
 
   toggleUserList(userListActive: boolean): void {
     this.showUserList = userListActive;

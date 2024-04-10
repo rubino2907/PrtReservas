@@ -1,3 +1,10 @@
+/* Estilo para o elemento pai */
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o container tenha pelo menos a altura da janela de visualização */
+}
+
 /* Estilo para a barra de navegação */
 app-navbar {
     z-index: 1000; /* Defina um z-index alto para a barra de navegação */
@@ -5,6 +12,7 @@ app-navbar {
     top: 0; /* Ancora a barra de navegação no topo */
     left: 0; /* Ancora a barra de navegação à esquerda */
     width: 100%; /* Define a largura para preencher a largura total da tela */
+    height: 56px; /* Defina a altura da barra de navegação */
 }
 
 /* Estilo para a barra lateral */
@@ -14,16 +22,13 @@ app-sidebar {
     top: 56px; /* Ajuste conforme necessário para deixar espaço para a barra de navegação */
     left: 0; /* Ancora a barra lateral à esquerda */
     width: 250px; /* Define a largura desejada para a barra lateral */
-    height: calc(100% - 56px); /* Ajusta a altura para preencher o restante da tela após a barra de navegação */
+    height: calc(100vh - 56px); /* Ajusta a altura para preencher o restante da tela após a barra de navegação */
     overflow-y: auto; /* Adiciona uma barra de rolagem vertical se o conteúdo da barra lateral for longo */
 }
 
+/* Estilo para o conteúdo principal */
 .content {
-    padding-top: 80px; /* Adicione o preenchimento superior necessário para evitar que o conteúdo seja sobreposto pela barra de navegação */
-  }
-  
-/* Adiciona largura da sidebar ao content da Dashboard
+    padding-top: 60px; /* Adicione o preenchimento superior necessário para evitar que o conteúdo seja sobreposto pela barra de navegação */
+    height: calc(100vh - 56px); /* Defina a altura do conteúdo para ocupar o restante da tela após subtrair a altura da barra de navegação */
+}
 
-.col-md-2{
-    width: 15%;
-}*/
