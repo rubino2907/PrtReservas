@@ -4,20 +4,22 @@ app-navbar {
     top: 0;
     left: 0;
     width: 100%;
-    height: 50px; /* Reduza a altura conforme necessário */
+    height: 50px;
 }
 
 app-sidebar {
     z-index: 900;
     position: fixed;
-    top: 50px; /* Ajuste conforme a altura da barra de navegação */
+    top: 50px;
     left: 0;
     width: 210px;
-    height: calc(100% - 50px); /* Ajuste conforme a altura da barra de navegação */
+    height: calc(100% - 50px);
     overflow-y: auto;
 }
 
 .content {
-    padding-top: 70px; /* Reduza o valor do padding conforme necessário */
-    padding-left: 80px;
+    padding-top: 70px;
+    padding-left: 100px; /* Ajustado para a largura da sidebar (220px) + 10px de margem */
+    padding-right: 20px;
 }
+

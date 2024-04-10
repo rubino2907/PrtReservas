@@ -17,7 +17,7 @@
 .navbar a {
   color: #fff; /* Cor do texto */
   text-decoration: none; /* Removida a sublinhado do texto */
-  margin-right: 20px; /* Adicionado espaçamento entre os elementos */
+  margin-right: 10px; /* Adicionado espaçamento entre os elementos */
 }
 
 .navbar a:hover {

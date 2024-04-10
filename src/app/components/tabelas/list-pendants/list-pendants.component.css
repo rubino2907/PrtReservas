@@ -24,6 +24,9 @@ tr.selected {
 background-color:#ffff;
 }
 
+.contentEmpty {
+    padding-left: 100px;
+}
 
 
   
