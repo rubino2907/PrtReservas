@@ -15,7 +15,7 @@ export class User {
     email: string = '';
     phone: number | null = null; // Permitindo valor nulo
     address: string = '';
-    postalCode: number | null = null;
+    postalCode: string = '';
     group: string = '';
     notes: string = '';
     token: string = '';

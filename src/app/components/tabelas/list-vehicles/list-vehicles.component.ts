@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Vehicle } from '../../../models/vehicle';
+import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { VehicleService } from '../../../services/vehicle.service';
 
 @Component({

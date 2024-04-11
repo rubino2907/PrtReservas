@@ -6,7 +6,7 @@ import { addDays, addMinutes, addMonths, addWeeks, eachDayOfInterval, endOfDay, 
 import { pt } from 'date-fns/locale'; // Importação do idioma local pt
 import { VehicleService } from '../../../services/vehicle.service';
 import { PendantService } from '../../../services/pending.service';
-import { Vehicle } from '../../../models/vehicle';
+import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

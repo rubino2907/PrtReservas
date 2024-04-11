@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { PendantService } from '../../../services/pending.service';
 import { Pending } from '../../../models/pending';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
-import { Vehicle } from '../../../models/vehicle';
+import { Vehicle } from '../../../models/VehicleModels/vehicle';
 
 @Component({
   selector: 'app-create-reserva',

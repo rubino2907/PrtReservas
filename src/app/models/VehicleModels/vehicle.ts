@@ -13,7 +13,7 @@ export class Vehicle
     topology?: string;
     year?: number;
     places?: number;
-    fuel?: number;
+    fuel: string = '';
     defaultLocation?: string;
     defaultCoords?: string;
     color?: string;

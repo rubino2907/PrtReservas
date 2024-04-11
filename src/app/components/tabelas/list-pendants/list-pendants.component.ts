@@ -3,7 +3,7 @@ import { PendantService } from '../../../services/pending.service';
 import { Pending } from '../../../models/pending';
 import { UserService } from '../../../services/user.service';
 import { VehicleService } from '../../../services/vehicle.service';
-import { Vehicle } from '../../../models/vehicle';
+import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { UserDetails } from '../../../models/UserModels/userDetails';
 
 @Component({

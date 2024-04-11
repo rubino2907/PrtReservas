@@ -7,7 +7,7 @@ import { ReserveService } from '../../services/reserve.service';
 import { Reserve } from '../../models/reserve';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
-import { Vehicle } from '../../models/vehicle';
+import { Vehicle } from '../../models/VehicleModels/vehicle';
 
 @Component({
   selector: 'app-edit-pendants',

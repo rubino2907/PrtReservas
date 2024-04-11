@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
 import { VehicleService } from '../../../services/vehicle.service';
 import { PendantService } from '../../../services/pending.service';
-import { Vehicle } from '../../../models/vehicle';
+import { Vehicle } from '../../../models/VehicleModels/vehicle';
 
 @Component({
   selector: 'app-create-reserva-schedule',
