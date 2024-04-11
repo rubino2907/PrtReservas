@@ -1,0 +1,5 @@
+.content {
+    padding-top: 70px; /* Ajuste se necessário de acordo com a altura da navbar */
+    padding-left: 6%; /* Alinhamento com a sidebar */
+    padding-right: 15px; /* Consistência do padding */
+  }

@@ -12,14 +12,7 @@ app-sidebar {
     position: fixed;
     top: 50px;
     left: 0;
-    width: 210px;
+    width: 20%; /* Definindo a largura da barra lateral em relação à largura da tela */
     height: calc(100% - 50px);
     overflow-y: auto;
 }
-
-.content {
-    padding-top: 70px;
-    padding-left: 100px; /* Ajustado para a largura da sidebar (220px) + 10px de margem */
-    padding-right: 20px;
-}
-

@@ -1,120 +1,124 @@
 .popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 40px;
-    z-index: 1000;
-  }
-  
-  .popup-content {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .popup h3 {
-    font-size: 23px;
-    color: #333333;
-  }
-  
-  .matriculation-list {
-    margin-top: 10px;
-  }
-  
-  .matriculation-list .form-check {
-    margin-bottom: 8px;
-  }
-  
-  .popup-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .popup-buttons button {
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .popup-buttons .btn-secondary {
-    background-color: #cccccc;
-    color: #ffffff;
-    border: none;
-  }
-  
-  .popup-buttons .btn-primary {
-    margin-left: 8px;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 40px;
+  z-index: 1000;
+  max-width: 90%; /* Define uma largura máxima para a popup */
+  width: 400px; /* Define uma largura padrão para a popup */
+}
 
-  .checkbox-container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 12px;
-    color: #444444;
-    display: flex;
-    align-items: center; /* Centraliza verticalmente */
-  }
-  
-  .styled-checkbox {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 15px;
-    width: 15px;
-    background-color: #eee;
-    border: 1px solid #ccc;
-  }
-  
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  .styled-checkbox:checked + .checkmark:after {
-    display: block;
-  }
-  
-  .checkmark:after {
-    left: 5px;
-    top: 1px;
-    width: 4px;
-    height: 9px;
-    border: solid #337ab7;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
+.popup-content {
+  max-width: 100%; /* Garante que o conteúdo da popup não ultrapasse sua largura máxima */
+  margin: 0 auto;
+}
 
-  /* Calendario */
-  
-  ::ng-deep .cal-month-view .cal-day-badge {
-    display: none !important;
-  }
+.popup h3 {
+  font-size: 23px;
+  color: #333333;
+}
 
-  ::ng-deep .cal-month-view .cal-event {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 2px;
-  }
-  
-  
-  
-  
+.matriculation-list {
+  margin-top: 10px;
+}
+
+.matriculation-list .form-check {
+  margin-bottom: 8px;
+}
+
+.popup-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-buttons button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup-buttons .btn-secondary {
+  background-color: #cccccc;
+  color: #ffffff;
+  border: none;
+}
+
+.popup-buttons .btn-primary {
+  margin-left: 8px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #444444;
+  display: flex;
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.styled-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.styled-checkbox:checked + .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 9px;
+  border: solid #337ab7;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Calendario */
+
+::ng-deep .cal-month-view .cal-day-badge {
+  display: none !important;
+}
+
+::ng-deep .cal-month-view .cal-event {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 2px;
+}
+
+.content {
+  padding-top: 70px; /* Ajuste se necessário de acordo com a altura da navbar */
+  padding-left: 4.5%; /* Alinhamento com a sidebar */
+  padding-right: 15px; /* Consistência do padding */
+}
