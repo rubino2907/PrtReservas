@@ -2,11 +2,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { SidebarStateGestaoService } from '../../../services/sidebar-gestao.service';
 
 @Component({
-  selector: 'app-sidebar-gestao',
-  templateUrl: './sidebar-gestao.component.html',
-  styleUrl: './sidebar-gestao.component.css'
+  selector: 'app-empty-state-gestao',
+  templateUrl: './empty-state-gestao.component.html',
+  styleUrl: './empty-state-gestao.component.css'
 })
-export class SidebarGestaoComponent {
+export class EmptyStateGestaoComponent {
+  
   reservesListActive: boolean = false; 
   showAprovedListActive: boolean = false;
 
@@ -15,15 +16,10 @@ export class SidebarGestaoComponent {
   @Output() toggleReservesListEvent = new EventEmitter<boolean>(); 
   @Output() toggleToListAprovedEvent = new EventEmitter<boolean>();
 
-  constructor(private sidebarStateService: SidebarStateGestaoService) {
-    this.sidebarStateService.activeItem.subscribe(item => {
-      this.reservesListActive = item === 'reserveList';
-      this.showAprovedListActive = item === 'aproveList';
-      // Isto vai atualizar os botões para refletir o estado ativo
-    });
-  }
+  constructor(private sidebarStateService: SidebarStateGestaoService){}
 
   toggleToAprovedList():void{
+    this.sidebarStateService.changeActiveItem('aproveList');
     if(!this.showAprovedListActive) {
       this.reservesListActive = false; 
       this.showAprovedListActive = true;
@@ -35,6 +31,7 @@ export class SidebarGestaoComponent {
   }
 
   toggleReservesList(): void {
+    this.sidebarStateService.changeActiveItem('reserveList');
     if (!this.reservesListActive) {
       this.reservesListActive = true;
       this.showAprovedListActive = false;

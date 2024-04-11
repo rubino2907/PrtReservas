@@ -19,3 +19,8 @@
 .listaAproves td{
 background-color:#ffff;
 }
+
+.contentEmpty {
+    padding-left: 100px;
+}
+

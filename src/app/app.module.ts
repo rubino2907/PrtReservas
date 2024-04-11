@@ -36,6 +36,7 @@ import { GestaoComponent } from './components/gestao/gestao.component';
 import { SidebarTabelasComponent } from './components/tabelas/sidebar-tabelas/sidebar-tabelas.component';
 import { SidebarGestaoComponent } from './components/gestao/sidebar-gestao/sidebar-gestao.component';
 import { EmptyStateTabelasComponent } from './components/tabelas/empty-state-tabelas/empty-state-tabelas.component';
+import { EmptyStateGestaoComponent } from './components/gestao/empty-state-gestao/empty-state-gestao.component';
 
 registerLocaleData(localePt);
 
@@ -67,7 +68,8 @@ registerLocaleData(localePt);
     GestaoComponent,
     SidebarTabelasComponent,
     SidebarGestaoComponent,
-    EmptyStateTabelasComponent
+    EmptyStateTabelasComponent,
+    EmptyStateGestaoComponent
   ],
   imports: [
     BrowserModule,
