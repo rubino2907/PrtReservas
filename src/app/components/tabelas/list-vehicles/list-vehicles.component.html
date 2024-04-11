@@ -16,14 +16,13 @@
               <input type="text" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0" [(ngModel)]="searchInput" (input)="filterVehicles()" placeholder="Pesquisar por matrícula...">
           </ng-container>
           <!-- Campo de seleção para filtrar por tipo de veículo -->
-            <ng-template #typeSearchInput>
-                <select [(ngModel)]="selectedVehicleType" (change)="filterVehicles()" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0; background-color: #FFFFFF;">
-                    <!-- Opção de placeholder -->
-                    <option value="">Selecione um tipo</option>
-                    <option value="Ligeiro">Ligeiro</option>
-                    <option value="Pesado">Pesado</option>
-                </select>
-            </ng-template>
+          <ng-template #typeSearchInput>
+            <select [(ngModel)]="selectedVehicleType" (change)="filterVehicles()" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0; background-color: #FFFFFF;" name="typeVehicle" id="typeVehicle" class="form-control">
+                <option value="">Selecione um tipo</option>
+                <option *ngFor="let typeVehicle of typeOfVehicles" [value]="typeVehicle">{{ typeVehicle }}</option>
+            </select>
+        </ng-template>
+        
 
           <!-- Botão de pesquisa -->
           <button style="background-color: #337AB7; padding: 8px; margin-right: 30px; width: calc(50px + 1px); height: 42px; border: none; border-radius: 2px; display: flex; justify-content: center; align-items: center;"> <i class="bi bi-search" style="color: #FFFFFF; font-size: 20px;"></i></button>

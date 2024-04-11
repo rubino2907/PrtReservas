@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { VehicleService } from '../../../services/vehicle.service';
+import { TypeVehicleService } from '../../../services/typeVehicle.service';
 
 @Component({
   selector: 'app-list-vehicles',
@@ -17,10 +18,26 @@ export class ListVehiclesComponent {
   selectedVehicleType: string = '';
   filteredVehicles: Vehicle[] = [];
 
-  constructor(private vehicleService: VehicleService) {}
+  typeOfVehicles: string[] = []; // Array para armazenar os tipos
+
+  constructor(private vehicleService: VehicleService, private typeVehicleService: TypeVehicleService) {}
 
   ngOnInit(): void {
     this.getVehicles();
+    this.loadTypeOfVehicles();
+  }
+
+  loadTypeOfVehicles(): void {
+    this.typeVehicleService.getTypeOfVehicle().subscribe(
+        (typeOfVehicles: string[]) => {
+            // Você pode usar as matriculas diretamente aqui
+            this.typeOfVehicles = typeOfVehicles;
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+            // Lide com os erros adequadamente
+        }
+    );
   }
 
   getVehicles(): void {

@@ -24,6 +24,10 @@ export class TypeVehicleService {
         );
     }
 
+    public getTypeOfVehicle(): Observable<string[]> {
+        return this.http.get<string[]>(`${environment.apiUrl}/${this.url}/TypeOfVehicles`);
+    }
+
     public updateTypeVehicle(typeVehicle: TypeVehicle): Observable<TypeVehicle[]> {
         return this.http.put<TypeVehicle[]>(`${environment.apiUrl}/${this.url}`, typeVehicle);
     }

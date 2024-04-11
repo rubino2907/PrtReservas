@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TypeVehicle } from '../../../models/VehicleModels/typeVehicle';
 import { TypeVehicleService } from '../../../services/typeVehicle.service';
 
@@ -12,10 +12,12 @@ export class EditTypeVehiclesComponent {
   @Input() typeVehicle?: TypeVehicle;
   @Output() typeVehicleUpdated = new EventEmitter<TypeVehicle[]>();
 
+  typeVehicles: string[] = []; // Array para armazenar os tipos
+
   isFormEdittypeVehicleVisible: boolean = false; // Variável para controlar a visibilidade do formulário
 
   constructor(private typeVehicleService: TypeVehicleService) {}
-
+  
   showForm(): void {
     this.isFormEdittypeVehicleVisible = true; // Mostra o formulário
   }

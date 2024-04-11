@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { VehicleService } from '../../../services/vehicle.service';
+import { TypeVehicleService } from '../../../services/typeVehicle.service';
 
 @Component({
   selector: 'app-edit-vehicle',
@@ -11,11 +12,28 @@ export class EditVehicleComponent implements OnInit  {
   @Input() vehicle?: Vehicle;
   @Output() vehiclesUpdated = new EventEmitter<Vehicle[]>();
 
+  typeOfVehicles: string[] = []; // Array para armazenar os tipos
+
   isFormEditVehicleVisible: boolean = false; // Variável para controlar a visibilidade do formulário
 
-  constructor(private vehicleService: VehicleService) {}
+  constructor(private vehicleService: VehicleService, private typeVehicleService: TypeVehicleService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadTypeOfVehicles();
+  }
+
+  loadTypeOfVehicles(): void {
+    this.typeVehicleService.getTypeOfVehicle().subscribe(
+        (typeOfVehicles: string[]) => {
+            // Você pode usar as matriculas diretamente aqui
+            this.typeOfVehicles = typeOfVehicles;
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+            // Lide com os erros adequadamente
+        }
+    );
+  }
 
   showForm(): void {
     this.isFormEditVehicleVisible = true; // Mostra o formulário

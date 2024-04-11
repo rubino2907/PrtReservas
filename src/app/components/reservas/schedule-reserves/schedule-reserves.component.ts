@@ -8,6 +8,7 @@ import { VehicleService } from '../../../services/vehicle.service';
 import { PendantService } from '../../../services/pending.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TypeVehicleService } from '../../../services/typeVehicle.service';
 
 @Component({
   selector: 'app-schedule-reserves',
@@ -28,6 +29,8 @@ export class ScheduleReservesComponent implements OnInit {
   selectedMatriculations: { [matriculation: string]: boolean } = {};
   matriculationColors: { [matriculation: string]: string } = {};
   
+  typeOfVehicles: string[] = []; // Array para armazenar os tipos
+
   @Output() refresh: EventEmitter<void> = new EventEmitter<void>();
 
 
@@ -36,11 +39,13 @@ export class ScheduleReservesComponent implements OnInit {
     private reserveService: ReserveService,
     private vehicleService: VehicleService,
     private snackBar: MatSnackBar,
+    private typeVehicleService: TypeVehicleService,
     @Inject(LOCALE_ID) private locale: string
   ) {}
 
   ngOnInit(): void {
     this.loadPendingData();
+    this.loadTypeOfVehicles();
   }
 
   loadPendingData(): void {
@@ -48,6 +53,19 @@ export class ScheduleReservesComponent implements OnInit {
     this.pendingService.getPendings().subscribe((data: any) => {
       this.pending = data;
     });
+  }
+
+  loadTypeOfVehicles(): void {
+    this.typeVehicleService.getTypeOfVehicle().subscribe(
+        (typeOfVehicles: string[]) => {
+            // Você pode usar as matriculas diretamente aqui
+            this.typeOfVehicles = typeOfVehicles;
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+            // Lide com os erros adequadamente
+        }
+    );
   }
 
   loadMatriculations(vehicleType: string): void {
