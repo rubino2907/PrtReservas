@@ -18,15 +18,18 @@ export class TypeVehicleService {
     }
 
     public createTypeVehicle(typeVehicle: TypeVehicle): Observable<TypeVehicle[]> {
-        return this.http.post<TypeVehicle[]>(`${environment.apiUrl}/${this.url}`, typeVehicle);
+        return this.http.post<TypeVehicle[]>
+        (`${environment.apiUrl}/${this.url}/TypeVehicles`,
+        typeVehicle
+        );
     }
 
     public updateTypeVehicle(typeVehicle: TypeVehicle): Observable<TypeVehicle[]> {
         return this.http.put<TypeVehicle[]>(`${environment.apiUrl}/${this.url}`, typeVehicle);
     }
 
-    public deleteTypeVehicle(id: number): Observable<TypeVehicle[]> {
-        return this.http.delete<TypeVehicle[]>(`${environment.apiUrl}/${this.url}/${id}`);
+    public deleteTypeVehicle(typeVehicle: TypeVehicle): Observable<TypeVehicle[]> {
+        return this.http.delete<TypeVehicle[]>(`${environment.apiUrl}/${this.url}/${typeVehicle.groupId}`);
     }
     
 }

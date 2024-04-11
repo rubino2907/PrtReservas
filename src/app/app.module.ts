@@ -39,6 +39,8 @@ import { EmptyStateTabelasComponent } from './components/tabelas/empty-state-tab
 import { EmptyStateGestaoComponent } from './components/gestao/empty-state-gestao/empty-state-gestao.component';
 import { ListTypeVehiclesComponent } from './components/tabelas/list-type-vehicles/list-type-vehicles.component';
 import { ListGroupUsersComponent } from './components/tabelas/list-group-users/list-group-users.component';
+import { EditTypeVehiclesComponent } from './components/tabelas/edit-type-vehicles/edit-type-vehicles.component';
+import { EditGroupUsersComponent } from './components/tabelas/edit-group-users/edit-group-users.component';
 
 registerLocaleData(localePt);
 
@@ -73,7 +75,9 @@ registerLocaleData(localePt);
     EmptyStateTabelasComponent,
     EmptyStateGestaoComponent,
     ListTypeVehiclesComponent,
-    ListGroupUsersComponent
+    ListGroupUsersComponent,
+    EditTypeVehiclesComponent,
+    EditGroupUsersComponent
   ],
   imports: [
     BrowserModule,

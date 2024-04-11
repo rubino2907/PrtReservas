@@ -4,18 +4,23 @@
       <div class="col-md-1">
         <app-sidebar-tabelas (toggleUserListEvent)="showUserList = $event" 
         (toggleVehicleListEvent)="showVehicleList = $event"
-        (togglePendantListEvent)="showPendantList = $event">
+        (togglePendantListEvent)="showPendantList = $event"
+        (toggleCreateGroupUserEvent)="showGroupUsers = $event"
+        (toggleCreateTypeVehicleEvent)="showTypeVehicles = $event">
         </app-sidebar-tabelas>
       </div>
       <!-- Conteúdo principal -->
       <div class="col-md-11">
         <app-navbar></app-navbar> <!-- Aqui incluímos o componente navbar -->
-        <div class="content" [style.padding-left.px]="showUserList || showVehicleList || showPendantList ? 0 : 0">
+        <div class="content" [style.padding-left.px]="showUserList || showVehicleList || showPendantList || showGroupUsers || showTypeVehicles ? 0 : 0">
           <!-- Incluir os componentes aqui -->
           <app-list-users *ngIf="showUserList"></app-list-users>
           <app-list-vehicles *ngIf="showVehicleList"></app-list-vehicles>
           <app-list-pendants *ngIf="showPendantList"></app-list-pendants>
-          <div *ngIf="!showUserList && !showVehicleList && !showPendantList">
+          <app-list-group-users *ngIf="showGroupUsers"></app-list-group-users>
+          <app-list-type-vehicles *ngIf="showTypeVehicles"></app-list-type-vehicles>
+
+          <div *ngIf="!showUserList && !showVehicleList && !showPendantList && !showGroupUsers && !showTypeVehicles">
               <app-empty-state-tabelas (toggleUserListEvent)="showUserList = $event" 
               (toggleVehicleListEvent)="showVehicleList = $event"
               (togglePendantListEvent)="showPendantList = $event"></app-empty-state-tabelas>

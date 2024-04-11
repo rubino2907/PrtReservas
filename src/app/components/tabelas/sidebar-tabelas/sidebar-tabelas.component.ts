@@ -20,15 +20,8 @@ export class SidebarTabelasComponent {
   @Output() toggleUserListEvent = new EventEmitter<boolean>();
   @Output() toggleVehicleListEvent = new EventEmitter<boolean>();
   @Output() togglePendantListEvent = new EventEmitter<boolean>();
-
-  constructor(private sidebarStateService: SidebarStateService) {
-    this.sidebarStateService.activeItem.subscribe(item => {
-      this.userListActive = item === 'userList';
-      this.vehicleListActive = item === 'vehicleList';
-      this.pendantListActive = item === 'pendantList';
-      // Isto vai atualizar os botões para refletir o estado ativo
-    });
-  }
+  @Output() toggleCreateGroupUserEvent = new EventEmitter<boolean>();
+  @Output() toggleCreateTypeVehicleEvent = new EventEmitter<boolean>();
 
   toggleCreateDropdown() {
     this.opentwoOptions = !this.opentwoOptions;
@@ -40,12 +33,16 @@ export class SidebarTabelasComponent {
       this.vehicleListActive = false;
       this.pendantListActive = false; // Adicionado
       this.opentwoOptions = false;
+      this.showCreateTypeVehicleActive = false;
+      this.showCreateGroupUserActive = false;
     } else {
       this.userListActive = false;
     }
     this.toggleUserListEvent.emit(this.userListActive);
     this.toggleVehicleListEvent.emit(false);
     this.togglePendantListEvent.emit(false); // Adicionado
+    this.toggleCreateGroupUserEvent.emit(false);
+    this.toggleCreateTypeVehicleEvent.emit(false);
   }
 
   toggleVehicleList(): void {
@@ -54,12 +51,16 @@ export class SidebarTabelasComponent {
       this.userListActive = false;
       this.pendantListActive = false; // Adicionado
       this.opentwoOptions = false;
+      this.showCreateTypeVehicleActive = false;
+      this.showCreateGroupUserActive = false;
     } else {
       this.vehicleListActive = false;
     }
     this.toggleUserListEvent.emit(false);
     this.toggleVehicleListEvent.emit(this.vehicleListActive);
     this.togglePendantListEvent.emit(false); // Adicionado
+    this.toggleCreateGroupUserEvent.emit(false);
+    this.toggleCreateTypeVehicleEvent.emit(false);
   }
 
   togglePendantList(): void {
@@ -68,20 +69,55 @@ export class SidebarTabelasComponent {
       this.userListActive = false;
       this.vehicleListActive = false;
       this.opentwoOptions = false;
+      this.showCreateTypeVehicleActive = false;
+      this.showCreateGroupUserActive = false;
     } else {
       this.pendantListActive = false;
     }
     this.toggleUserListEvent.emit(false);
     this.toggleVehicleListEvent.emit(false);
     this.togglePendantListEvent.emit(this.pendantListActive); // Adicionado
+    this.toggleCreateGroupUserEvent.emit(false);
+    this.toggleCreateTypeVehicleEvent.emit(false);
   }
 
   toggleCreateGroupUser() {
-
+    if (!this.showCreateGroupUserActive) {
+      this.pendantListActive = false;
+      this.userListActive = false;
+      this.vehicleListActive = false;
+      this.opentwoOptions = false;
+      this.showCreateTypeVehicleActive = false;
+      this.showCreateGroupUserActive = true;
+    } else {
+      this.pendantListActive = false;
+    }
+    this.toggleUserListEvent.emit(false);
+    this.toggleVehicleListEvent.emit(false);
+    this.togglePendantListEvent.emit(false); // Adicionado
+    this.toggleCreateGroupUserEvent.emit(this.showCreateGroupUserActive);
+    this.toggleCreateTypeVehicleEvent.emit(false);
+    
   }
+  
 
   toggleCreateTypeVehicle(){
-
+    if (!this.showCreateTypeVehicleActive) {
+      this.pendantListActive = false;
+      this.userListActive = false;
+      this.vehicleListActive = false;
+      this.opentwoOptions = false;
+      this.showCreateTypeVehicleActive = true;
+      this.showCreateGroupUserActive = false;
+    } else {
+      this.pendantListActive = false;
+    }
+    this.toggleUserListEvent.emit(false);
+    this.toggleVehicleListEvent.emit(false);
+    this.togglePendantListEvent.emit(false); // Adicionado
+    this.toggleCreateGroupUserEvent.emit(false);
+    this.toggleCreateTypeVehicleEvent.emit(this.showCreateTypeVehicleActive);
+    
   }
 
 }

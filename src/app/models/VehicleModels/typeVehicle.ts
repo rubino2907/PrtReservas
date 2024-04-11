@@ -1,7 +1,7 @@
 export class TypeVehicle {
 
-    GroupId?: number;
-    TypeVehicle: string = '';
-    DescTypeVehicle: string = '';
+    groupId?: number;
+    typeVehicle: string = '';
+    descTypeVehicle: string = '';
     
 }

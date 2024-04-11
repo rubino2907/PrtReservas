@@ -10,6 +10,8 @@ export class TabelasComponent {
   showUserList: boolean = false;
   showVehicleList: boolean = false;
   showPendantList: boolean = false;
+  showGroupUsers: boolean = false;
+  showTypeVehicles: boolean = false;
 
   toggleUserList(userListActive: boolean): void {
     this.showUserList = userListActive;
