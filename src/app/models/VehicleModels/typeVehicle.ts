@@ -1,4 +1,4 @@
-export class GroupUsers {
+export class TypeVehicle {
 
     GroupId?: number;
     TypeVehicle: string = '';

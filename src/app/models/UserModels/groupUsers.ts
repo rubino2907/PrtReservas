@@ -1,4 +1,4 @@
-export class GroupUsers {
+export class UserGroup {
 
     GroupId?: number;
     GroupName: string = '';
