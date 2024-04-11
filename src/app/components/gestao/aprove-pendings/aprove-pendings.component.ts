@@ -4,9 +4,9 @@ import { PendantService } from '../../../services/pending.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Reserve } from '../../../models/reserve';
 import { ReserveService } from '../../../services/reserve.service';
-import { UserDetails } from '../../../models/userDetails';
 import { UserService } from '../../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserDetails } from '../../../models/UserModels/userDetails';
 
 @Component({
   selector: 'app-aprove-pendings',

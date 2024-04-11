@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PendantService } from '../../../services/pending.service';
 import { Pending } from '../../../models/pending';
 import { UserService } from '../../../services/user.service';
-import { UserDetails } from '../../../models/userDetails';
 import { VehicleService } from '../../../services/vehicle.service';
 import { Vehicle } from '../../../models/vehicle';
+import { UserDetails } from '../../../models/UserModels/userDetails';
 
 @Component({
   selector: 'app-list-pendants',

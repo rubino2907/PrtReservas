@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
-import { User } from '../../../models/user';
 import { VehicleService } from '../../../services/vehicle.service';
 import { Vehicle } from '../../../models/vehicle';
 import { ReserveService } from '../../../services/reserve.service';
 import { Reserve } from '../../../models/reserve';
 import { CookieService } from 'ngx-cookie-service';
+import { User } from '../../../models/UserModels/user';
 
 @Component({
   selector: 'app-base-admin-dashboard',

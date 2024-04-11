@@ -61,7 +61,6 @@
                 </div>
             </div>
             <div class="row text-left">
-                <div *ngIf="!validateDates()" style="color: rgb(228, 1, 1);">A data de início deve ser anterior à data de fim.</div>
                 <button (click)="createPending(pending)" *ngIf="!pending.pendingID" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; opacity: 1; width: 144px; height: 43px; margin-left: 10px;">
                 <span style="text-align: left; font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Guardar</span>
                 </button>
