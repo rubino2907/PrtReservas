@@ -4,12 +4,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { EditUserComponent } from './components/tabelas/edit-user/edit-user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CookieService } from 'ngx-cookie-service';
-import { EditVehicleComponent } from './components/edit-vehicle/edit-vehicle.component';
+import { EditVehicleComponent } from './components/tabelas/edit-vehicle/edit-vehicle.component';
 import { ReservasComponent } from './components/reservas/reservas.component';
 import { CreateReservaComponent } from './components/reservas/create-reserva/create-reserva.component';
 import { SidebarComponent } from './components/admin-dashboard/sidebar/sidebar.component';
@@ -19,7 +19,7 @@ import { BaseAdminDashboardComponent } from './components/admin-dashboard/base-a
 import { EditReservesComponent } from './components/edit-reserves/edit-reserves.component';
 import { ListReservesComponent } from './components/gestao/list-reserves/list-reserves.component';
 import { ListPendantsComponent } from './components/tabelas/list-pendants/list-pendants.component';
-import { EditPendantsComponent } from './components/edit-pendants/edit-pendants.component';
+import { EditPendantsComponent } from './components/tabelas/edit-pendants/edit-pendants.component';
 import { SidebarReservasComponent } from './components/reservas/sidebar-reservas/sidebar-reservas.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ScheduleReservesComponent } from './components/reservas/schedule-reserves/schedule-reserves.component';
@@ -37,6 +37,8 @@ import { SidebarTabelasComponent } from './components/tabelas/sidebar-tabelas/si
 import { SidebarGestaoComponent } from './components/gestao/sidebar-gestao/sidebar-gestao.component';
 import { EmptyStateTabelasComponent } from './components/tabelas/empty-state-tabelas/empty-state-tabelas.component';
 import { EmptyStateGestaoComponent } from './components/gestao/empty-state-gestao/empty-state-gestao.component';
+import { ListTypeVehiclesComponent } from './components/tabelas/list-type-vehicles/list-type-vehicles.component';
+import { ListGroupUsersComponent } from './components/tabelas/list-group-users/list-group-users.component';
 
 registerLocaleData(localePt);
 
@@ -69,7 +71,9 @@ registerLocaleData(localePt);
     SidebarTabelasComponent,
     SidebarGestaoComponent,
     EmptyStateTabelasComponent,
-    EmptyStateGestaoComponent
+    EmptyStateGestaoComponent,
+    ListTypeVehiclesComponent,
+    ListGroupUsersComponent
   ],
   imports: [
     BrowserModule,

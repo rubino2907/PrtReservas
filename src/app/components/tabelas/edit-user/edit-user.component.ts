@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
 import { CookieService } from 'ngx-cookie-service';
-import { User } from '../../models/UserModels/user';
+import { User } from '../../../models/UserModels/user';
 
 @Component({
   selector: 'app-edit-user',

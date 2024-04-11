@@ -8,7 +8,7 @@
     width: 220px; /* Defina a largura desejada para a barra lateral */
     z-index: 600;
     text-align: center;
-    background-color: rgb(85, 85, 85);
+    background-color: rgb(88, 88, 88);
     overflow-y: hidden;
   }
   

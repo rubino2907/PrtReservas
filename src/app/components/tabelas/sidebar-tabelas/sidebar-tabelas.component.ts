@@ -11,8 +11,11 @@ export class SidebarTabelasComponent {
   userListActive: boolean = false;
   vehicleListActive: boolean = false;
   pendantListActive: boolean = false; 
+  opentwoOptions: boolean = false;
+  showOptions: boolean = false;
+  showCreateTypeVehicleActive: boolean = false;
+  showCreateGroupUserActive: boolean = false;
 
-  showOptions: boolean = true;
   
   @Output() toggleUserListEvent = new EventEmitter<boolean>();
   @Output() toggleVehicleListEvent = new EventEmitter<boolean>();
@@ -27,11 +30,16 @@ export class SidebarTabelasComponent {
     });
   }
 
+  toggleCreateDropdown() {
+    this.opentwoOptions = !this.opentwoOptions;
+  }
+
   toggleUserList(): void {
     if (!this.userListActive) {
       this.userListActive = true;
       this.vehicleListActive = false;
       this.pendantListActive = false; // Adicionado
+      this.opentwoOptions = false;
     } else {
       this.userListActive = false;
     }
@@ -45,6 +53,7 @@ export class SidebarTabelasComponent {
       this.vehicleListActive = true;
       this.userListActive = false;
       this.pendantListActive = false; // Adicionado
+      this.opentwoOptions = false;
     } else {
       this.vehicleListActive = false;
     }
@@ -58,12 +67,21 @@ export class SidebarTabelasComponent {
       this.pendantListActive = true;
       this.userListActive = false;
       this.vehicleListActive = false;
+      this.opentwoOptions = false;
     } else {
       this.pendantListActive = false;
     }
     this.toggleUserListEvent.emit(false);
     this.toggleVehicleListEvent.emit(false);
     this.togglePendantListEvent.emit(this.pendantListActive); // Adicionado
+  }
+
+  toggleCreateGroupUser() {
+
+  }
+
+  toggleCreateTypeVehicle(){
+
   }
 
 }

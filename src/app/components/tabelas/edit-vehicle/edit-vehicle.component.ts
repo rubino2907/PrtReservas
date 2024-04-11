@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Vehicle } from '../../models/VehicleModels/vehicle';
-import { VehicleService } from '../../services/vehicle.service';
+import { Vehicle } from '../../../models/VehicleModels/vehicle';
+import { VehicleService } from '../../../services/vehicle.service';
 
 @Component({
   selector: 'app-edit-vehicle',
