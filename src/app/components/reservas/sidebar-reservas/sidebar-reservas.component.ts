@@ -18,6 +18,9 @@ export class SidebarReservasComponent implements OnInit {
 
   ngOnInit(): void {
     this.showCalendareActive = true;
+    if (this.showCalendareActive) {
+      this.opentwoOptions = true; // Definir opentwoOptions como verdadeiro se showCalendario estiver ativo
+    }
   }
 
   // toggleCreate() {
