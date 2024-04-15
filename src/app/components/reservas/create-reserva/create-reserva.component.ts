@@ -79,6 +79,14 @@ export class CreateReservaComponent implements OnInit {
       return; // Sai do método sem criar o pendente
     }
 
+    // Verificar se a data de início e a data final estão no futuro
+    const currentDate = new Date();
+    if (new Date(newPending.dateStart) < currentDate || new Date(newPending.dateEnd) < currentDate) {
+        console.error("Atenção datas ultrapassadas.");
+        this.openErrorPopup('Atenção datas ultrapassadas.');
+        return;
+    }
+
     newPending.createdBy = this.cookieService.get('userName');
 
     // Verificar se o usuário forneceu uma matrícula

@@ -79,9 +79,9 @@ export class CreateReservaScheduleComponent implements OnInit{
     );
   }
 
-createPending(newPending: Pending): void {
+  createPending(newPending: Pending): void {
     // Verificar se todos os campos obrigatórios estão preenchidos
-    if (!newPending.matriculation || !newPending.dateStart || !newPending.dateEnd || !newPending.description) {
+    if ( !newPending.vehicleType || !newPending.matriculation || !newPending.dateStart || !newPending.dateEnd || !newPending.description) {
       // Se algum campo estiver vazio, exibir uma mensagem de erro ao usuário
       console.error("Todos os campos são obrigatórios.");
       this.openErrorPopup('Todos os campos são obrigatórios. Preencha todos os campos antes de enviar o pedido.');
@@ -93,6 +93,14 @@ createPending(newPending: Pending): void {
       console.error("A data final deve ser posterior à data inicial.");
       this.openErrorPopup('A data final deve ser posterior à data inicial.');
       return; // Sai do método sem criar o pendente
+    }
+
+    // Verificar se a data de início e a data final estão no futuro
+    const currentDate = new Date();
+    if (new Date(newPending.dateStart) < currentDate || new Date(newPending.dateEnd) < currentDate) {
+        console.error("Atenção datas ultrapassadas.");
+        this.openErrorPopup('Atenção datas ultrapassadas.');
+        return;
     }
 
     newPending.createdBy = this.cookieService.get('userName');
@@ -122,7 +130,6 @@ createPending(newPending: Pending): void {
           console.log("Pendentes criados com sucesso!", pendants);
           this.success = true; // Define 'success' como true quando o pedido é criado com sucesso
           this.pendingsUpdated.emit(pendants);
-          
           // Limpar o formulário
           this.pending = new Pending(); // Ou qualquer outra forma de criar um novo objeto vazio
 

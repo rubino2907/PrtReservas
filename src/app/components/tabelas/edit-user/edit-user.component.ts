@@ -100,25 +100,50 @@ export class EditUserComponent implements OnInit {
   }
 
   changePassword(): void {
-    if (this.newPassword === this.confirmPassword && this.user) { // Verifica se user não é undefined
-        // Atualiza a senha no objeto do usuário
-        this.user.password = this.newPassword;
-
-        // Chama o método para atualizar o usuário, incluindo a nova senha
-        this.updateUser(this.user);
-
-        // Limpa os campos de nova senha e confirmação
-        this.newPassword = '';
-        this.confirmPassword = '';
-
-        // Fecha a popup de alteração de senha
-        this.isChangePasswordVisible = false;
-
-        console.log('Password alterada com sucesso!');
+    if (!this.isValidPassword(this.newPassword)) {
+      alert('A senha deve ter pelo menos 8 caracteres, incluir letras maiúsculas, minúsculas, números e um caractere especial.');
+      return;
+    }
+  
+    if (this.newPassword !== this.confirmPassword) {
+      alert('As senhas não coincidem.');
+      return;
+    }
+  
+    if (this.user) { // Verifica se user não é undefined
+      // Atualiza a senha no objeto do usuário
+      this.user.password = this.newPassword;
+  
+      // Chama o método para atualizar o usuário, incluindo a nova senha
+      this.updateUser(this.user);
+  
+      // Limpa os campos de nova senha e confirmação
+      this.newPassword = '';
+      this.confirmPassword = '';
+  
+      // Fecha a popup de alteração de senha
+      this.isChangePasswordVisible = false;
+  
+      alert('Password alterada com sucesso!');
     } else {
-        console.log('As Password não coincidem ou o usuário não está definido. Por favor, tente novamente.');
+      alert('Usuário não está definido. Por favor, tente novamente.');
     }
   }
+  
+
+  isValidPassword(password: string): boolean {
+    // Esta regex verifica:
+    // ^ - início da entrada
+    // (?=.*[a-z]) - pelo menos uma letra minúscula
+    // (?=.*[A-Z]) - pelo menos uma letra maiúscula
+    // (?=.*\d) - pelo menos um dígito numérico
+    // (?=.*[\W_]) - pelo menos um caractere especial
+    // .{8,} - pelo menos 8 caracteres no total
+    // $ - fim da entrada
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return regex.test(password);
+  }
+  
 
   // No seu componente TypeScript
 
