@@ -1,18 +1,73 @@
 <div class="content" style="margin-left: 20px; margin-right: 20px; overflow-x: auto;">
-    <table class="table table-center-align table-sm" style="margin-top: 20px; position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px;">
-        <thead style="text-align: left; font: normal normal normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;" >
-            <tr style="border-bottom: #337AB7;">
-                <th scope="col" style="color: #337AB7;">DATA INÍCIO</th>
-                <th scope="col" style="color: #337AB7;">DATA DE FIM</th>
-                <th scope="col" style="color: #337AB7;">APROVADO</th>
-                <th scope="col" style="color: #337AB7;">APROVADO POR</th>
+    <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px; display: flex; align-items: center;">
+        <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="width: 24px; height: 24px; margin-right: 10px;">
+        <h1 class="text-left py-3 mb-0" style="top: 177px; left: 318px; text-align: left; font: normal 600 30px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">Lista de Pedidos</h1>
+    </div>
+    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+        <!-- Label e select para as matrículas -->
+        <div style="margin-right: 10px;">
+            <label for="matricula-select" style="margin-right: 5px;">Selecione uma matrícula:</label>
+            <div style="position: relative; display: flex; align-items: center;">
+                <select name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; width: 300px; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;" [(ngModel)]="selectedMatricula" (change)="applyFilters()">
+                    <option value="">Selecionar Uma Matrícula</option>
+                    <!-- Utilize ngFor para iterar sobre as matriculas e criar as opções dinamicamente -->
+                    <option *ngFor="let matricula of matriculations" [value]="matricula">{{ matricula }}</option>
+                </select>
+                <i class="bi bi-caret-down-fill" style="color: #337AB7; position: absolute; right: 10px; top: calc(50% - 8px);"></i>
+            </div>
+        </div>
+
+        <!-- Labels e inputs para datas -->
+        <div style="display: flex; margin-left: 20px;">
+            <div style="margin-right: 30px;">
+                <label for="data-inicial" style="margin-right: 5px;">Data Inicial:</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="date" id="data-inicial" [(ngModel)]="startDate" (change)="applyFilters()" style="height: 36px;">
+                    <button class="clear-button" (click)="clearDate('startDate')" style="background-color: #337AB7; border: none; border-radius: 1px; height: 36px; display: flex; align-items: center; padding: 0 10px;"><i class="bi bi-trash-fill" style="color: #FFFFFF;"></i></button>
+                </div>
+            </div>
+            <div>
+                <label for="data-final" style="margin-right: 5px;">Data Final:</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="date" id="data-final" [(ngModel)]="endDate" (change)="applyFilters()" style="height: 36px;">
+                    <button class="clear-button" (click)="clearDate('endDate')" style="background-color: #337AB7; border: none; border-radius: 1px; height: 36px; display: flex; align-items: center; padding: 0 10px;"><i class="bi bi-trash-fill" style="color: #FFFFFF;"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra azul -->
+    <div style="height: 2px; background-color: #337AB7;"></div>
+
+    <table *ngIf="filteredPendings.length > 0" class="table table-center-align table-sm listaAproves" style="position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px; width: 100%; margin-top: 30px;">
+        <thead style="text-align: left; font: normal bold normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;">
+            <tr>
+                <th scope="col">Matrícula</th>
+                <!-- No seu template HTML -->
+                <th scope="col">
+                    Data de Início
+                    <i class="bi bi-caret-down-fill" style="cursor: pointer;" (click)="sortTableByStartDateIcon()"></i>
+                </th>
+                <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Data de Fim</th>
+                <!-- Adicione o ícone de seta para baixo ao lado do cabeçalho "Aprovado" -->
+                <th scope="col" (click)="sortTableByApproval()" style="cursor: pointer;">
+                    Aprovado
+                    <i class="bi bi-caret-down-fill" *ngIf="sortDirection === 'desc' && sortColumn === 'aproved'"></i>
+                    <i class="bi bi-caret-up-fill" *ngIf="sortDirection === 'asc' && sortColumn === 'aproved'"></i>
+                </th>
+                <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Aprovado Por</th>
             </tr>
         </thead>
-        <tbody style="font: normal normal normal 12px/16px 'Open Sans', sans-serif; text-align: left; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">
-            <tr *ngFor="let pending of pendings" style="height: 50px; border-bottom: #505050;">
-                <td style="vertical-align: middle;">{{ pending.dateStart }}</td>
-                <td style="vertical-align: middle;">{{ pending.dateEnd }}</td>
-                <td style="vertical-align: middle;">
+        <tbody>
+            <tr *ngFor="let pending of filteredPendings" >
+                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{pending.matriculation}}</td>
+                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
+                    {{ pending.dateStart | date:'yyyy-MM-dd HH:mm:ss' }}
+                </td>
+                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
+                    {{ pending.dateEnd | date:'yyyy-MM-dd HH:mm:ss' }}
+                </td>   
+                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
                     <ng-container *ngIf="pending.aproved === 'APROVADO';">
                         APROVADO
                     </ng-container>
@@ -23,7 +78,7 @@
                         EM ESPERA
                     </ng-container>
                 </td>
-                <td style="vertical-align: middle;">
+                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
                     <ng-container *ngIf="pending.aproved === 'APROVADO';">{{ pending.aprovedBy }}</ng-container>
                 </td>
             </tr>
