@@ -22,6 +22,8 @@ export class AprovePendingsComponent implements OnInit {
   // Variável para acompanhar a linha selecionada
   selectedPending: any = null;
 
+  isDeleteConfirmationVisible: boolean = false;
+
   constructor(private cookieService: CookieService, private snackBar: MatSnackBar, private reserveService: ReserveService, private pendantService: PendantService, private userService: UserService) {}
 
   ngOnInit(): void {
@@ -144,16 +146,50 @@ export class AprovePendingsComponent implements OnInit {
     // Ocultar o formulário de edição
     this.isFormEditPendingVisible = false;
   }
-  
-  deletePending(pending: Pending): void {
-    this.pendantService
-      .deletePendings(pending)
-      .subscribe((pendants: Pending[]) => {
-        this.pendingsUpdated.emit(pendants);
-        this.loadPendings()
-        this.isFormEditPendingVisible = false;
-      });
+
+  showDeleteConfirmation(): void {
+    this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação
   }
+  
+  cancelDelete(): void {
+    this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
+  }
+  
+  recusePending(pending: Pending): void {
+    // Verifica se o estado do pedido não é 'RECUSADO'
+    if (pending.aproved !== 'RECUSADO') {
+        // Altera o estado do pedido para 'RECUSADO'
+        pending.aproved = 'RECUSADO';
+
+        // Envia a solicitação para atualizar o estado do pedido
+        this.pendantService
+            .updatePendings(pending)
+            .subscribe(
+                (pendants: Pending[]) => {
+                    // Emite o evento para informar que os pendentes foram atualizados
+                    this.pendingsUpdated.emit(pendants);
+                    // Recarrega os pendentes após a recusa do pedido
+                    this.loadPendings();
+                    // Fecha o formulário apenas se a recusa for bem-sucedida
+                    this.isFormEditPendingVisible = false;
+                },
+                (error) => {
+                    console.error("Erro ao recusar o pedido:", error);
+                    // Se ocorrer um erro na solicitação para recusar o pedido
+                    // Exibe um toast com a mensagem de erro
+                    this.snackBar.open('Erro ao recusar o pedido: ' + error.error, 'Fechar', {
+                        duration: 5000 // Duração em milissegundos
+                    });
+                    
+                    this.loadPendings()
+                    this.isFormEditPendingVisible = false;
+                }
+            );
+    } else {
+        // Se o estado já for 'RECUSADO', não é necessário realizar mais nenhuma ação
+        console.log('O pedido já está recusado.');
+    }
+}
 
   // Função para retornar a classe com base no estado do pedido
   getPendingStatusClass(status: string | undefined): string {

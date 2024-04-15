@@ -173,7 +173,7 @@ export class ListPendantsComponent implements OnInit {
       return 'approved';
     } else if (status === 'EM ESPERA') {
       return 'pending';
-    } else if (status === 'NÃO APROVADO') {
+    } else if (status === 'RECUSADO') {
       return 'not-approved';
     } else {
       return ''; // Retorna uma string vazia se o status for undefined
