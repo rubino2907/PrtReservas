@@ -146,6 +146,7 @@ export class ListPendantsComponent implements OnInit {
 
   updatePendingList(pendings: Pending[]): void {
     this.pendings = pendings;
+    this.filteredPendings = [...this.pendings];
     this.isFormEditPendingVisible = false;
   }
 

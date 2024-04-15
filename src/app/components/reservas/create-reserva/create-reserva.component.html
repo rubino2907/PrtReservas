@@ -71,5 +71,31 @@
             </div>
         </div>
     </div>
+
+    <!-- Popup de confirmação de sucesso -->
+    <div class="popup-background" *ngIf="isSuccessPopupVisible">
+        <div class="popup-content" style="width: 300px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+            <h3 style="border-bottom: 2px solid #4CAF50; padding-bottom: 15px; margin-bottom: 20px; color: #333; text-align: center;">Sucesso!</h3>
+            <div class="text-center" style="margin-bottom: 20px;">
+                <p style="color: #333;">O pedido foi submetido com sucesso.</p>
+                <button class="btn btn-primary" style="background-color: #4CAF50; border-color: #4CAF50;" (click)="closeSuccessPopup()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-background" *ngIf="isErrorPopupVisible">
+        <div class="popup-content" style="width: 300px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+            <h3 style="border-bottom: 2px solid #dd0e0e; padding-bottom: 15px; margin-bottom: 20px; color: #dd0e0e; text-align: center;">Erro!</h3>
+            <div class="text-center" style="margin-bottom: 20px;">
+                <p >{{ errorMessage }}</p>
+                <button class="btn btn-primary" style="background-color: #dd0e0e; border-color: #dd0e0e;" (click)="closeErrorPopup()">Fechar</button>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
 </div>
 
