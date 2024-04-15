@@ -17,6 +17,7 @@ import { Vehicle } from '../../../models/VehicleModels/vehicle';
 export class EditPendantsComponent {
   @Input() pending?: Pending;
   @Output() pendingsUpdated = new EventEmitter<Pending[]>();
+  isDeleteConfirmationVisible: boolean = false;
   matriculations: string[] = [];
 
   isFormEditPendingVisible: boolean = false; // Variável para controlar a visibilidade do formulário
@@ -27,6 +28,14 @@ export class EditPendantsComponent {
 
   showForm(): void {
     this.isFormEditPendingVisible = true; // Mostra o formulário
+  }
+
+  showDeleteConfirmation(): void {
+    this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação
+  }
+
+  cancelDelete(): void {
+    this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
   }
 
   loadMatriculations(vehicleType: string): void {

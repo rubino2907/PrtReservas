@@ -11,6 +11,7 @@ import { TypeVehicleService } from '../../../services/typeVehicle.service';
 export class EditVehicleComponent implements OnInit  {
   @Input() vehicle?: Vehicle;
   @Output() vehiclesUpdated = new EventEmitter<Vehicle[]>();
+  isDeleteConfirmationVisible: boolean = false;
 
   typeOfVehicles: string[] = []; // Array para armazenar os tipos
 
@@ -37,6 +38,14 @@ export class EditVehicleComponent implements OnInit  {
 
   showForm(): void {
     this.isFormEditVehicleVisible = true; // Mostra o formulário
+  }
+
+  showDeleteConfirmation(): void {
+    this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação
+  }
+
+  cancelDelete(): void {
+    this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
   }
 
   createVehicle(vehicle: Vehicle): void {
