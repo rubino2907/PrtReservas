@@ -6,6 +6,7 @@ import { PendantService } from '../../../services/pending.service';
 import { Pending } from '../../../models/pending';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
+import { TypeVehicleService } from '../../../services/typeVehicle.service';
 
 @Component({
   selector: 'app-create-reserva',
@@ -23,29 +24,48 @@ export class CreateReservaComponent implements OnInit {
   isErrorPopupVisible: boolean = false;
   errorMessage: string = ''; // Propriedade para armazenar a mensagem de erro específica
 
-  constructor(private vehicleService: VehicleService, private pendantService: PendantService, private cookieService: CookieService, private snackBar: MatSnackBar) { }
+  vehicleType: string[] = []; // Array para armazenar os tipos
+  constructor(private vehicleService: VehicleService, private typeVehicleService: TypeVehicleService, private pendantService: PendantService, private cookieService: CookieService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.loadTypeOfVehicles();
   }
 
-  loadMatriculations(vehicleType: string): void {
-    this.vehicleService.getVehiclesByType(vehicleType).subscribe(
-      (vehicles: Vehicle[]) => {
-        // Filtrar matrículas não definidas e extrair as matrículas dos veículos retornados
-        this.matriculations = vehicles
-          .filter(vehicle => !!vehicle.matriculation)
-          .map(vehicle => vehicle.matriculation!);
-      },
-      (error) => {
-        console.error("Erro ao carregar matrículas por tipo:", error);
-        // Lide com os erros adequadamente
-      }
+  loadTypeOfVehicles(): void {
+    this.typeVehicleService.getTypeOfVehicle().subscribe(
+        (vehicleType: string[]) => {
+            // Você pode usar as matriculas diretamente aqui
+            this.vehicleType = vehicleType;
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+            // Lide com os erros adequadamente
+        }
     );
   }
 
+  loadMatriculations(vehicleType: string): void {
+    if (!vehicleType) {
+        this.matriculations = [];
+        return;
+    }
+
+    this.vehicleService.getVehiclesByType(vehicleType).subscribe(
+        (vehicles: Vehicle[]) => {
+            // Ensure only non-undefined matriculations are included
+            this.matriculations = vehicles.map(vehicle => vehicle.matriculation).filter((matriculation): matriculation is string => matriculation !== null && matriculation !== undefined);
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+        }
+    );
+  }
+
+
+
   createPending(newPending: Pending): void {
     // Verificar se todos os campos obrigatórios estão preenchidos
-    if (!newPending.matriculation || !newPending.dateStart || !newPending.dateEnd || !newPending.description) {
+    if ( !newPending.vehicleType || !newPending.matriculation || !newPending.dateStart || !newPending.dateEnd || !newPending.description) {
       // Se algum campo estiver vazio, exibir uma mensagem de erro ao usuário
       console.error("Todos os campos são obrigatórios.");
       this.openErrorPopup('Todos os campos são obrigatórios. Preencha todos os campos antes de enviar o pedido.');

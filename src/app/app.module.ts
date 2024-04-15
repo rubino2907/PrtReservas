@@ -27,7 +27,6 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-import { SelectScheduleOrPendingsComponent } from './components/reservas/select-schedule-or-pendings/select-schedule-or-pendings.component';
 import { ListUserPendingsComponent } from './components/reservas/list-user-pendings/list-user-pendings.component';
 import { CreateReservaScheduleComponent } from './components/reservas/create-reserva-schedule/create-reserva-schedule.component';
 import { AprovePendingsComponent } from './components/gestao/aprove-pendings/aprove-pendings.component';
@@ -64,7 +63,6 @@ registerLocaleData(localePt);
     EditPendantsComponent,
     SidebarReservasComponent,
     ScheduleReservesComponent,
-    SelectScheduleOrPendingsComponent,
     ListUserPendingsComponent,
     CreateReservaScheduleComponent,
     AprovePendingsComponent,

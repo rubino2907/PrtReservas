@@ -8,7 +8,7 @@
         <div style="margin-right: 10px;">
             <label for="matricula-select" style="margin-right: 5px;">Selecione uma matrícula:</label>
             <div style="position: relative; display: flex; align-items: center;">
-                <select name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; width: 300px; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;" [(ngModel)]="selectedMatricula" (change)="applyFilters()">
+                <select name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; width: 300px; border: 1px solid #707070; border-radius: 5px;" [(ngModel)]="selectedMatricula" (change)="applyFilters()">
                     <option value="">Selecionar Uma Matrícula</option>
                     <!-- Utilize ngFor para iterar sobre as matriculas e criar as opções dinamicamente -->
                     <option *ngFor="let matricula of matriculations" [value]="matricula">{{ matricula }}</option>

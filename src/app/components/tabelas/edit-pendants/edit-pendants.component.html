@@ -2,9 +2,9 @@
     <div class="row">
         <div class="form-group" style="margin-top: 20px;">
             <label style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;" for="vehicleType">Tipo De Veículo:</label>
-            <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; height: 31px; width: 312px;" (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
-                <option value="Ligeiro">Ligeiro</option>
-                <option value="Pesado">Pesado</option>
+            <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;" (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
+                <option value="">Selecione um tipo</option>
+                <option *ngFor="let typeVehicle of vehicleType" [value]="typeVehicle">{{ typeVehicle }}</option>
             </select>
         </div>
 

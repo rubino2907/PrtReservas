@@ -9,6 +9,7 @@ import { UserService } from '../../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { ChangeDetectorRef } from '@angular/core';
+import { TypeVehicleService } from '../../../services/typeVehicle.service';
 
 @Component({
   selector: 'app-edit-pendants',
@@ -28,10 +29,45 @@ export class EditPendantsComponent{
 
   success: boolean = false; // Propriedade para indicar se a criação do pedido foi bem-sucedida
 
-  constructor(private cookieService: CookieService, private cdr: ChangeDetectorRef ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService, private userService: UserService, private snackBar: MatSnackBar) {}
+  vehicleType: string[] = []; // Array para armazenar os tipos
+  constructor(private cookieService: CookieService, private typeVehicleService: TypeVehicleService, private cdr: ChangeDetectorRef ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService, private userService: UserService, private snackBar: MatSnackBar) {}
 
   showForm(): void {
     this.isFormEditPendingVisible = true; // Mostra o formulário
+  }
+
+  ngOnInit(): void {
+    this.loadTypeOfVehicles();
+  }
+
+  loadTypeOfVehicles(): void {
+    this.typeVehicleService.getTypeOfVehicle().subscribe(
+        (vehicleType: string[]) => {
+            // Você pode usar as matriculas diretamente aqui
+            this.vehicleType = vehicleType;
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+            // Lide com os erros adequadamente
+        }
+    );
+  }
+
+  loadMatriculations(vehicleType: string): void {
+    if (!vehicleType) {
+        this.matriculations = [];
+        return;
+    }
+
+    this.vehicleService.getVehiclesByType(vehicleType).subscribe(
+        (vehicles: Vehicle[]) => {
+            // Ensure only non-undefined matriculations are included
+            this.matriculations = vehicles.map(vehicle => vehicle.matriculation).filter((matriculation): matriculation is string => matriculation !== null && matriculation !== undefined);
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+        }
+    );
   }
 
   showDeleteConfirmation(): void {
@@ -40,21 +76,6 @@ export class EditPendantsComponent{
 
   cancelDelete(): void {
     this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
-  }
-
-  loadMatriculations(vehicleType: string): void {
-    this.vehicleService.getVehiclesByType(vehicleType).subscribe(
-        (vehicles: Vehicle[]) => {
-            // Filtrar matrículas não definidas e extrair as matrículas dos veículos retornados
-            this.matriculations = vehicles
-                .filter(vehicle => !!vehicle.matriculation)
-                .map(vehicle => vehicle.matriculation!);
-        },
-        (error) => {
-            console.error("Erro ao carregar matrículas por tipo:", error);
-            // Lide com os erros adequadamente
-        }
-    );
   }
 
   createPending(newPending: Pending): void {

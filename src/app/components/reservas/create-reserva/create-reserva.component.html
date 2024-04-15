@@ -13,9 +13,9 @@
                 <div class="form-group" style="margin-top: 20px;">
                     <label style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;" for="vehicleType">TIPO DE VEÍCULO:</label>
                     <div class="select-wrapper" style="position: relative;">
-                        <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; " (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
-                            <option value="Ligeiro">Ligeiro</option>
-                            <option value="Pesado">Pesado</option>
+                        <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; " (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
+                            <option value="">Selecione um tipo</option>
+                            <option *ngFor="let typeVehicle of vehicleType" [value]="typeVehicle">{{ typeVehicle }}</option>
                         </select>
                         <i class="bi bi-caret-down-fill" style="color: #337AB7; position: absolute; right: 10px; top: calc(50% - 8px);"></i>
                     </div>
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label for="matriculation" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">MATRÍCULA:</label>
                     <div class="select-wrapper" style="position: relative;">
-                        <select [(ngModel)]="pending.matriculation" name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; ">
+                        <select [(ngModel)]="pending.matriculation" name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; ">
                             <option value="">Selecionar Matrícula</option>
                             <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
                         </select>
@@ -54,7 +54,7 @@
 
                 <div class="form-group" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">
                     <label for="description" style="margin-bottom: 5px;">Motivo Da Reserva:</label>
-                    <textarea [(ngModel)]="pending.description" name="description" id="description" class="form-control" style="resize: none; height: 107px; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;"></textarea>
+                    <textarea [(ngModel)]="pending.description" name="description" id="description" class="form-control" style="resize: none; height: 107px; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;"></textarea>
                 </div>
     
                 <div class="text-center" style=" margin-top: 50px;"> <!-- Adicionando a classe text-center para centralizar o botão -->
