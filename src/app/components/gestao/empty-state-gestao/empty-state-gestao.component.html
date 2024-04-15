@@ -1,31 +1,12 @@
-<!-- Mensagem "Por favor, selecione uma opção" -->
-<div class="row justify-content-center mt-4 contentEmptyText">
-    <p class="text-muted">Selecione uma opção</p>
+<!-- Empty Screen -->
+<div class="empty-screen">
+    <div class="icon-container">
+        <i class="bi bi-gear-fill" style="font-size: 5rem; color: #337AB7;"></i>
+        <p style="margin-top: 10px; text-align: center; font-size: 1.5rem; color: #333;">Aqui nesta área pode administrar Aprovação de Pedidos e Reservas.</p>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Wave Reservas v1.0 © 2024</span>
+        </div>
+    </footer>
 </div>
-
-<!-- Botões no empty state -->
-<div class="row contentEmpty" style="align-items: flex-end;">
-    <!-- Caixa 1 - Total Utilizadores -->
-    <div class="col-4">
-        <button class="p-4 btn btn-outline-primary" style="border-radius: 8px;" [class.active]="showAprovedListActive"  (click)="toggleToAprovedList()">
-            <h5 class="text-center mb-0">
-                <i class="bi bi-check-circle-fill" style="margin-right: 10px;"></i>Aprovar Pedidos
-            </h5>
-        </button>
-    </div>
-    <!-- Caixa 2 - Total Veículos -->
-    <div class="col-4">
-        <button class="p-4 btn btn-outline-primary" style="border-radius: 8px;" [class.active]="reservesListActive"  (click)="toggleReservesList()">
-            <h5 class="text-center mb-0">
-                <i class="bi bi-clock-fill" style="margin-right: 10px;"></i>Reservas
-            </h5>
-        </button>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">Wave Reservas v1.0 © 2024</span>
-    </div>
-</footer>

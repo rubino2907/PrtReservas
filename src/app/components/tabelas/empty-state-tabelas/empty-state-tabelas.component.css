@@ -8,8 +8,25 @@ footer.footer {
     text-align: center;
 }
 
+.empty-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Garante que a tela inteira seja preenchida */
+    text-align: center;
+}
+
+.icon-container {
+    margin-bottom: 30px;
+}
+
+body {
+    overflow: hidden;
+}
+
 .contentEmpty {
     justify-content: center;
     align-items: flex-end;
-    padding-left: 200px; /* Adicionando preenchimento à esquerda */
+    padding-left: 400px; /* Adicionando preenchimento à esquerda */
 }

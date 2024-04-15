@@ -1,40 +1,12 @@
-<!-- Mensagem "Por favor, selecione uma opção" -->
-<div class="row justify-content-center mt-4 contentEmpty">
-    <p class="text-muted">Selecione uma opção</p>
+<!-- Empty Screen -->
+<div class="empty-screen">
+    <div class="icon-container">
+        <i class="bi bi-table" style="font-size: 5rem; color: #337AB7;"></i>
+        <p style="margin-top: 10px; text-align: center; font-size: 1.5rem; color: #333;">Aqui nesta área pode administrar utilizadores, veículos e pedidos.</p>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Wave Reservas v1.0 © 2024</span>
+        </div>
+    </footer>
 </div>
-
-<!-- Botões no empty state -->
-<div class="row justify-content-center contentEmpty" style="align-items: flex-end;">
-    <!-- Caixa 1 - Total Utilizadores -->
-    <div class="col-4">
-        <button class="p-4 btn btn-outline-primary" style="border-radius: 8px;" [class.active]="userListActive"  (click)="toggleUserList()">
-            <h5 class="text-center mb-0">
-                <i class="bi bi-people-fill" style="margin-right: 10px;"></i>Utilizadores
-            </h5>
-        </button>
-    </div>
-    <!-- Caixa 2 - Total Veículos -->
-    <div class="col-4">
-        <button class="p-4 btn btn-outline-primary" style="border-radius: 8px;" [class.active]="vehicleListActive"  (click)="toggleVehicleList()">
-            <h5 class="text-center mb-0">
-                <i class="bi bi-car-front-fill" style="margin-right: 10px;"></i>Veículos
-            </h5>
-        </button>
-    </div>
-    <!-- Caixa 3 - Total Reservas -->
-    <div class="col-4">
-        <button class="p-4 btn btn-outline-primary" style="border-radius: 8px;" [class.active]="pendantListActive"  (click)="togglePendantList()">
-            <h5 class="text-center mb-0">
-                <i class="bi bi-calendar2-week-fill" style="margin-right: 10px;"></i>Pedidos
-            </h5>
-        </button>
-    </div>
-</div>
-
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">Wave Reservas v1.0 © 2024</span>
-    </div>
-</footer>
