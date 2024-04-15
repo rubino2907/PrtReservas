@@ -1,23 +1,49 @@
+.notification-container {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateX(-82%);
+  z-index: 2000;
+  width: 300px;
+}
+
+.notification-container .dropdown-message {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 2000;
+  border-radius: 5px;
+  padding: 10px;
+  white-space: nowrap;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.notification-container.show-dropdown-message .dropdown-message {
+  display: block;
+}
+
+/* Restauração da formatação da navbar */
 .navbar {
   display: flex;
-  min-height: 18px; /* Definindo a altura mínima igual à altura da logo */
-  justify-content: flex-end; /* Alinhar os itens da navbar à direita */
+  min-height: 40px; /* Ajuste a altura conforme necessário */
+  justify-content: flex-end;
   align-items: center;
   background-color: rgb(80, 80, 80);
   overflow: hidden;
   cursor: pointer;
-  position: fixed; /* Fixa a posição da navbar */
-  top: 0; /* Ancora a navbar no topo da tela */
-  left: 220px; /* Deixa espaço para a barra lateral */
-  right: 0; /* Define a largura da navbar até o canto superior direito */
+  position: fixed;
+  top: 0;
+  left: 220px;
+  right: 0;
   z-index: 999;
   padding: 7px;
 }
 
 .navbar a {
-  color: #fff; /* Cor do texto */
-  text-decoration: none; /* Removida a sublinhado do texto */
-  margin-right: 10px; /* Adicionado espaçamento entre os elementos */
+  color: #fff;
+  text-decoration: none;
+  margin-right: 10px;
 }
 
 .navbar a:hover {
@@ -45,5 +71,5 @@
 }
 
 .navbar a.active {
-  border-bottom: 3px solid #337AB7; /* Adicione o estilo da borda aqui */
+  border-bottom: 3px solid #337AB7;
 }

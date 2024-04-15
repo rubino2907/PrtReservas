@@ -63,6 +63,9 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  showDropdownMessage: boolean = false;
+
+
   GoToReservas(){
     this.router.navigate(['/reservas']);
   }
@@ -91,7 +94,7 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleNotification() {
-    this.showNotification = !this.showNotification;
+    this.showDropdownMessage = !this.showDropdownMessage;
   }
 
   hideNotification() {

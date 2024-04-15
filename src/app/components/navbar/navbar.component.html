@@ -17,10 +17,17 @@
     <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer;">Gestão</label>
 </a> 
   <div class="logout-btn" style="padding: 5px;">
-      <a *ngIf="isAdmin" (click)="toggleNotification()">
-          <i class="bi bi-bell-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;"></i>
-          <span class="badge" *ngIf="pendingCount > 0">{{pendingCount}}</span>
-      </a>
+    <a *ngIf="isAdmin" (click)="toggleNotification()" style="padding: 5px; position: relative;">
+        <i class="bi bi-bell-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;"></i>
+        <span class="badge" *ngIf="pendingCount > 0">{{pendingCount}}</span>
+        <!-- Dropdown message -->
+        <div *ngIf="showDropdownMessage" class="notification-container" [ngClass]="{'show-dropdown-message': showDropdownMessage}">
+            <p *ngIf="pendingCount === 0">Não tem Pedidos por aprovar</p>
+            <p *ngIf="pendingCount > 0">Tem {{ pendingCount }} pedidos por aprovar recentes</p>
+        </div>
+    </a>
+    
+    
       <a style="padding: 5px;">
           <i class="bi bi-person-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;" ></i>
           <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">{{username}}</label>
