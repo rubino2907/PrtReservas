@@ -20,6 +20,10 @@ export class CreateReservaScheduleComponent implements OnInit{
   @Output() matriculationSelected = new EventEmitter<string>(); // Evento de saída para a matrícula selecionada
   success: boolean = false; // Propriedade para indicar se a criação do pedido foi bem-sucedida
 
+  isSuccessPopupVisible: boolean = false;
+  isErrorPopupVisible: boolean = false;
+  errorMessage: string = ''; // Propriedade para armazenar a mensagem de erro específica
+
   constructor(private vehicleService: VehicleService, private pendantService: PendantService, private cookieService: CookieService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -59,46 +63,35 @@ export class CreateReservaScheduleComponent implements OnInit{
     );
 }
 
-  createPending(newPending: Pending): void {
-    console.log("Pendente antes de ser enviado:", newPending);
-
+createPending(newPending: Pending): void {
     // Verificar se todos os campos obrigatórios estão preenchidos
     if (!newPending.matriculation || !newPending.dateStart || !newPending.dateEnd || !newPending.description) {
-        // Se algum campo estiver vazio, exibir uma mensagem de erro ao usuário
-        console.error("Todos os campos são obrigatórios.");
-        this.snackBar.open('Todos os campos são obrigatórios. Preencha todos os campos antes de enviar o pedido.', 'Fechar', {
-            duration: 5000, // Duração em milissegundos
-            panelClass: ['center-snackbar'] // Aplicando a classe CSS personalizada
-        });
-        return; // Sai do método sem criar o pendente
+      // Se algum campo estiver vazio, exibir uma mensagem de erro ao usuário
+      console.error("Todos os campos são obrigatórios.");
+      this.openErrorPopup('Todos os campos são obrigatórios. Preencha todos os campos antes de enviar o pedido.');
+      return; // Sai do método sem criar o pendente
     }
 
     // Verificar se a data final é posterior à data inicial
     if (new Date(newPending.dateEnd) <= new Date(newPending.dateStart)) {
-        console.error("A data final deve ser posterior à data inicial.");
-        this.snackBar.open('A data final deve ser posterior à data inicial.', 'Fechar', {
-            duration: 5000, // Duração em milissegundos
-            panelClass: ['center-snackbar'] // Aplicando a classe CSS personalizada
-        });
-        return; // Sai do método sem criar o pendente
+      console.error("A data final deve ser posterior à data inicial.");
+      this.openErrorPopup('A data final deve ser posterior à data inicial.');
+      return; // Sai do método sem criar o pendente
     }
 
     newPending.createdBy = this.cookieService.get('userName');
 
     // Verificar se o usuário forneceu uma matrícula
     if (!newPending.matriculation) {
-        newPending.matriculation = ""; // Atribuir uma string vazia à matrícula
+      newPending.matriculation = ""; // Atribuir uma string vazia à matrícula
     } else {
-        // Se o usuário fornecer uma matrícula, verificar se está disponível
-        if (!this.matriculations.includes(newPending.matriculation)) {
-            // Se a matrícula não estiver disponível, exibir uma mensagem de erro ao usuário
-            console.error("A matrícula fornecida não está disponível.");
-            this.snackBar.open('Impossível criar pedido. A matrícula fornecida não está disponível.', 'Fechar', {
-                duration: 5000, // Duração em milissegundos
-                panelClass: ['center-snackbar'] // Aplicando a classe CSS personalizada
-            });
-            return; // Sai do método sem criar o pendente
-        }
+      // Se o usuário fornecer uma matrícula, verificar se está disponível
+      if (!this.matriculations.includes(newPending.matriculation)) {
+        // Se a matrícula não estiver disponível, exibir uma mensagem de erro ao usuário
+        console.error("A matrícula fornecida não está disponível.");
+        this.openErrorPopup('Impossível criar pedido. A matrícula fornecida não está disponível.');
+        return; // Sai do método sem criar o pendente
+      }
     }
 
     newPending.changeDateTime = new Date(); // criando um novo objeto Date com a data atual
@@ -107,36 +100,57 @@ export class CreateReservaScheduleComponent implements OnInit{
     newPending.aprovedBy = this.cookieService.get('userName');
 
     this.pendantService
-        .createPendingWithType(newPending)
-        .subscribe(
-            (pendants: Pending[]) => {
-                console.log("Pendentes criados com sucesso!", pendants);
-                this.success = true; // Define 'success' como true quando o pedido é criado com sucesso
-                this.pendingsUpdated.emit(pendants);
-                // Limpar o formulário
-                this.pending = new Pending(); // Ou qualquer outra forma de criar um novo objeto vazio
+      .createPendingWithType(newPending)
+      .subscribe(
+        (pendants: Pending[]) => {
+          console.log("Pendentes criados com sucesso!", pendants);
+          this.success = true; // Define 'success' como true quando o pedido é criado com sucesso
+          this.pendingsUpdated.emit(pendants);
+          
+          // Limpar o formulário
+          this.pending = new Pending(); // Ou qualquer outra forma de criar um novo objeto vazio
 
-                // Limpar as mensagens de erro
-                this.snackBar.dismiss();
-            },
-            (error) => {
-                console.error("Erro ao criar Pendentes:", error);
-                if (error.error) {
-                    // Verifique se há um corpo de resposta contendo detalhes do erro
-                    const errorMessage = error.error;
-                    console.error("Mensagem de erro:", errorMessage);
-                    this.snackBar.open(errorMessage, 'Fechar', {
-                        duration: 5000,
-                    });
-                } else {
-                    // Se não houver corpo de resposta, use uma mensagem de erro padrão
-                    console.error("Mensagem de erro:", "Erro do lado do cliente ao criar pendente.");
-                    this.snackBar.open('Erro ao criar pendente. Tente novamente mais tarde.', 'Fechar', {
-                        duration: 5000, // Duração em milissegundos
-                    });
-                }
-            }
-        );
+          // Exibir a popup de sucesso
+          this.openSuccessPopup('O pedido foi submetido com sucesso.');
+
+          // Limpar as mensagens de erro
+          this.snackBar.dismiss();
+        },
+        (error) => {
+          console.error("Erro ao criar Pendentes:", error);
+          if (error.error) {
+            // Verifique se há um corpo de resposta contendo detalhes do erro
+            const errorMessage = error.error;
+            console.error("Mensagem de erro:", errorMessage);
+            this.errorMessage = errorMessage; // Defina a mensagem de erro específica
+            this.openErrorPopup(errorMessage); // Exibe a popup de erro
+          } else {
+            // Se não houver corpo de resposta, use uma mensagem de erro padrão
+            console.error("Mensagem de erro:", "Erro do lado do cliente ao criar pendente.");
+            this.errorMessage = 'Erro ao criar pendente. Tente novamente mais tarde.'; // Mensagem de erro padrão
+            this.openErrorPopup(this.errorMessage); // Exibe a popup de erro
+          }
+        }
+      );
+
+      console.log(this.errorMessage)
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+  }
+
+  openErrorPopup(message: string): void {
+    this.isErrorPopupVisible = true;
+    this.errorMessage = message;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
+  }
+
+  closeErrorPopup(): void {
+    this.isErrorPopupVisible = false;
   }
 
   validateDates(): boolean {
