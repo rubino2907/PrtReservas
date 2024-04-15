@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../../models/UserModels/user';
+import { UserGroupService } from '../../../services/groupUser.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -16,11 +17,28 @@ export class EditUserComponent implements OnInit {
   @Input() user?: User;
   @Output() usersUpdated = new EventEmitter<User[]>();
 
+  groups: string[] = []; // Array para armazenar os tipos
+
   isFormVisible: boolean = false; // Variável para controlar a visibilidade do formulário
 
-  constructor(private userService: UserService, private cookieService: CookieService) {}
+  constructor(private userService: UserService, private cookieService: CookieService, private userGroups: UserGroupService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadGroups();
+  }
+
+  loadGroups(): void {
+    this.userGroups.getGroupNames().subscribe(
+        (groups: string[]) => {
+            // Você pode usar as matriculas diretamente aqui
+            this.groups = groups;
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+            // Lide com os erros adequadamente
+        }
+    );
+  }
 
   showForm(): void {
     this.isFormVisible = true; // Mostra o formulário

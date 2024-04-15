@@ -18,15 +18,22 @@ export class UserGroupService {
     }
 
     public createUserGroup(userGroup: UserGroup): Observable<UserGroup[]> {
-        return this.http.post<UserGroup[]>(`${environment.apiUrl}/${this.url}`, userGroup);
+        return this.http.post<UserGroup[]>
+        (`${environment.apiUrl}/${this.url}/GroupUsers`,
+        userGroup
+        );
+    }
+
+    public getGroupNames(): Observable<string[]> {
+        return this.http.get<string[]>(`${environment.apiUrl}/${this.url}/GroupNames`);
     }
 
     public updateUserGroup(userGroup: UserGroup): Observable<UserGroup[]> {
         return this.http.put<UserGroup[]>(`${environment.apiUrl}/${this.url}`, userGroup);
     }
 
-    public deleteUserGroup(id: number): Observable<UserGroup[]> {
-        return this.http.delete<UserGroup[]>(`${environment.apiUrl}/${this.url}/${id}`);
+    public deleteUserGroup(userGroup: UserGroup): Observable<UserGroup[]> {
+        return this.http.delete<UserGroup[]>(`${environment.apiUrl}/${this.url}/${userGroup.groupId}`);
     }
     
 }

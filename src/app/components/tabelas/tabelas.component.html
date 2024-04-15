@@ -19,6 +19,7 @@
           <app-list-pendants *ngIf="showPendantList"></app-list-pendants>
           <app-list-group-users *ngIf="showGroupUsers"></app-list-group-users>
           <app-list-type-vehicles *ngIf="showTypeVehicles"></app-list-type-vehicles>
+          <app-list-group-users *ngIf="showGroupUsers"></app-list-group-users>
 
           <div *ngIf="!showUserList && !showVehicleList && !showPendantList && !showGroupUsers && !showTypeVehicles">
               <app-empty-state-tabelas (toggleUserListEvent)="showUserList = $event" 

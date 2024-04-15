@@ -1,7 +1,7 @@
 export class UserGroup {
 
-    GroupId?: number;
-    GroupName: string = '';
-    DescGroupName: string = '';
+    groupId?: number;
+    groupName: string = '';
+    descGroupName: string = '';
     
 }
