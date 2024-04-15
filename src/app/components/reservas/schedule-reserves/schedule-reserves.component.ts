@@ -331,6 +331,7 @@ loadAvailableDays(): void {
       this.events = []; // Limpa a lista de eventos
       this.pending = {}; // Limpa os dados do formulário
       this.selectedMatriculation = ''; // Limpa a matrícula selecionada
+      this.matriculations = [];
     }
 
     onSave(): void {
