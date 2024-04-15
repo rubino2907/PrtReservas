@@ -37,7 +37,7 @@
       </div>
   </div>
 
-  <div  class="col-lg-6" style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-left: 10px; position: relative; height: 90vh; width: 45vw;">
+  <div *ngIf="isFormEditUserGroupVisible" class="col-lg-6" style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-left: 10px; position: relative; height: 90vh; width: 45vw;">
     <div style="position: absolute; top: 0; right: 0; padding: 10px;" (click)="fecharForm()">
         <button class="btn btn-sm" style="background: transparent; border: none; font-size: 16px;">
             <span style="color: #337AB7;" >X</span>
@@ -50,7 +50,7 @@
         </h2>
     </div>
     <div style="margin-left: 10px; margin-right: 10px;">
-        <app-edit-group-users  [userGroup]="userGroupToEdit" (UserGroupUpdated)="updateUserGroup($event)"></app-edit-group-users>
+        <app-edit-group-users *ngIf="isFormEditUserGroupVisible"  [userGroup]="userGroupToEdit" (UserGroupUpdated)="updateUserGroup($event)"></app-edit-group-users>
     </div>
 </div>
 

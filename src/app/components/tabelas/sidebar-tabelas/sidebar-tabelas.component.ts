@@ -86,7 +86,6 @@ export class SidebarTabelasComponent {
       this.pendantListActive = false;
       this.userListActive = false;
       this.vehicleListActive = false;
-      this.opentwoOptions = false;
       this.showCreateTypeVehicleActive = false;
       this.showCreateGroupUserActive = true;
     } else {
@@ -106,7 +105,6 @@ export class SidebarTabelasComponent {
       this.pendantListActive = false;
       this.userListActive = false;
       this.vehicleListActive = false;
-      this.opentwoOptions = false;
       this.showCreateTypeVehicleActive = true;
       this.showCreateGroupUserActive = false;
     } else {

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="form-group" style="margin-top: 20px;">
             <label style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;" for="vehicleType">Tipo De Veículo:</label>
-            <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; height: 31px; width: 312px;" (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
+            <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; height: 31px; width: 312px;" (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
                 <option value="Ligeiro">Ligeiro</option>
                 <option value="Pesado">Pesado</option>
             </select>
@@ -10,7 +10,7 @@
 
         <div class="form-group" style="margin-bottom: 14px;">
             <label for="matriculation" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Matrícula:</label>
-            <select [(ngModel)]="pending.matriculation" name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; height: 31px; width: 312px;">
+            <select [(ngModel)]="pending.matriculation" name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; height: 31px; width: 312px;">
                 <option value="">Selecionar Matrícula</option>
                 <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
             </select>
@@ -35,8 +35,8 @@
         </div>
 
         <div class="form-group" style="margin-bottom: 14px;">
-            <label for="description" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Descrição:</label>
-            <textarea [(ngModel)]="pending.description" name="description" id="description" class="form-control" placeholder="Descrição" style="resize: none; height: 120px; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;"></textarea>
+            <label for="description" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; margin-bottom: 2px;">Descrição:</label>
+            <textarea [(ngModel)]="pending.description" name="description" id="description" class="form-control" placeholder="Descrição" style="resize: none; height: 120px; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;"></textarea>
         </div>
 
         <!-- Campos adicionais
