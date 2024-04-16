@@ -12,23 +12,21 @@
           <h2 class="text-left py-3 mb-0" style="top: 177px; left: 318px; width: 116px; text-align: left; font: normal 600 20px/27px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">Reservas</h2>
       </div>
       <div style="overflow-x: auto;">
-          <table *ngIf="reserves.length > 0" class="table table-sm" style="position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px;">
-              <thead style="text-align: left; font: normal bold normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;" >
+          <table *ngIf="reserves.length > 0" class="table table-center-align table-sm listaAproves" style="position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px; width: 100%;">
+              <thead style="text-align: left; font: normal bold normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;">
                   <tr>
                       <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Matrícula</th>
                       <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Data De Início</th>
                       <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Data De Fim</th>
                       <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Estado</th>
-                      <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Actions</th>
                   </tr>
               </thead>
-              <tbody style="font: normal normal normal 12px/16px 'Open Sans', sans-serif; text-align: left; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">
-                  <tr *ngFor="let reserve of reserves">
+              <tbody>
+                  <tr *ngFor="let reserve of reserves" (click)="editReserve(reserve)">
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.matriculation }}</td>
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.dateStart | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.dateEnd  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ reserve.state }}</td>
-                      <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"><button class="btn btn-sm" (click)="editReserve(reserve)" style="text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">Editar</button></td>
                   </tr>
               </tbody>
           </table>    

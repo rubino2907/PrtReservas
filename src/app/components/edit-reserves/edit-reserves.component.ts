@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class EditReservesComponent {
   @Input() reserve?: Reserve;
   @Output() reservesUpdated = new EventEmitter<Reserve[]>();
+  isDeleteConfirmationVisible: boolean = false;
   matriculations: string[] = [];
 
   isFormEditReserveVisible: boolean = false; // Variável para controlar a visibilidade do formulário
@@ -89,4 +90,14 @@ export class EditReservesComponent {
         this.isFormEditReserveVisible = false; // Esconde o formulário após excluir o usuário
       });
   }
+
+  showDeleteConfirmation(): void {
+    this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação
+  }
+
+  cancelDelete(): void {
+    this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
+  }
+
+  
 }
