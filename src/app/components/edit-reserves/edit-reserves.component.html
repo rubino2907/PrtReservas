@@ -3,31 +3,33 @@
         <div class="col-md-6">
             <div class="form-group" style="margin-top: 20px; margin-bottom: 8px;">
                 <label for="Matriculation" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Matrícula:</label>
-                <select [(ngModel)]="reserve.matriculation" name="Matriculation" id="Matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; height: 31px;">
+                <select [(ngModel)]="reserve.matriculation" name="Matriculation" id="Matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; height: 31px;">
                     <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
                 </select>
             </div>
-            <div class="form-group" style="margin-top: 20px; margin-bottom: 8px;">
-                <label for="DateStart" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Data De Início:</label>
-                <input [(ngModel)]="reserve.dateStart" name="DateStart" id="DateStart" type="date" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; height: 31px;">
+            <div class="form-group">
+                <label for="dateStart" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;" class="mb-1">Selecione a Data de Início da Reserva:</label>
+                <input [(ngModel)]="reserve.dateStart" name="dateStart" id="dateStart" type="datetime-local" class="form-control" required #dateStartInput="ngModel"
+                    [class.is-invalid]="dateStartInput.invalid && (dateStartInput.dirty || dateStartInput.touched)">
             </div>
-            <div class="form-group" style="margin-top: 20px; margin-bottom: 8px;">
-                <label for="DateEnd" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Data De Termino:</label>
-                <input [(ngModel)]="reserve.dateEnd" name="DateEnd" id="DateEnd" type="date" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; height: 31px;">
+            <div class="form-group">
+                <label for="dateEnd" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;" class="mb-1">Selecione a Data de Fim da Reserva:</label>
+                <input [(ngModel)]="reserve.dateEnd" name="dateEnd" id="dateEnd" type="datetime-local" class="form-control" [min]="reserve.dateStart" required #dateEndInput="ngModel"
+                    [class.is-invalid]="dateEndInput.invalid && (dateEndInput.dirty || dateEndInput.touched)">
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group" style="margin-top: 20px; margin-bottom: 8px;">
                 <label for="State" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Estado:</label>
-                <input [(ngModel)]="reserve.state" name="State" id="State" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; height: 31px;">
+                <input [(ngModel)]="reserve.state" name="State" id="State" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; height: 31px;">
             </div>
             <div class="form-group" style="margin-top: 20px; margin-bottom: 8px;">
                 <label for="Description" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Descrição:</label>
-                <input [(ngModel)]="reserve.description" name="Description" id="Description" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23; height: 31px;">
+                <input [(ngModel)]="reserve.description" name="Description" id="Description" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; height: 31px;">
             </div>
             <div class="form-group" style="margin-top: 20px; margin-bottom: 8px;">
                 <label for="Obs" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Observações:</label>
-                <textarea [(ngModel)]="reserve.obs" name="Obs" id="Obs" class="form-control" style="resize: none; height: 120px; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;"></textarea>
+                <textarea [(ngModel)]="reserve.obs" name="Obs" id="Obs" class="form-control" style="resize: none; height: 120px; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;"></textarea>
             </div>
             <!-- Adicione outros campos do modelo Reserve aqui -->
         </div>
@@ -36,18 +38,13 @@
         <div class="col-md-6 text-center" style="margin-top: 20px;">
         <div class="row text-left">
             <div class="d-flex">
-                <button (click)="updateReserve(reserve)" *ngIf="reserve.reserveID" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px;">
+                <button (click)="updateReserve(reserve)" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px;">
                     <span style="font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Salvar</span>
                 </button>
-                <button (click)="showDeleteConfirmation()" *ngIf="reserve.reserveID" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px; margin-left: 18px;"> 
+                <button (click)="showDeleteConfirmation()" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px; margin-left: 18px;"> 
                     <span style="font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Apagar</span> 
                 </button>
             </div>
-        </div>
-        <div class="row text-left">
-            <button (click)="createReserve(reserve)" *ngIf="!reserve.reserveID" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; opacity: 1; width: 144px; height: 43px; margin-left: 10px;">
-                <span style="text-align: left; font: normal normal normal 13px/18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Guardar</span>
-            </button>
         </div>
         
     </div>

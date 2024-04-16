@@ -26,7 +26,8 @@ export class ListReservesComponent implements OnInit {
         console.error('Error fetching reserves:', error);
       });
 
-    this.isFormEditReserveVisible = false;
+      this.reservesToEdit = this.isFormEditReserveVisible ? undefined : new Reserve();
+      this.isFormEditReserveVisible = !this.isFormEditReserveVisible;
   }
 
   sortReservesByState() {
@@ -40,19 +41,6 @@ export class ListReservesComponent implements OnInit {
         return 1;
       }
       return 0;
-    });
-  }
-
-  initNewReserva(){
-    console.log('initNewReserva triggered');
-    this.reservesToEdit = this.isFormEditReserveVisible ? undefined : new Reserve();
-    this.isFormEditReserveVisible = !this.isFormEditReserveVisible;
-  
-    // Chama o serviço para obter a lista atualizada de veículos após adicionar um novo veículo
-    this.reserveService.getReserves().subscribe((result: Reserve[]) => {
-      this.reserves = result;
-      console.log('Reserves after addition:', this.reserves);
-      this.sortReservesByState(); // Chamando a função de ordenação após adicionar nova reserva
     });
   }
 

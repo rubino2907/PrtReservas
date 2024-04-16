@@ -253,8 +253,7 @@ export class EditPendantsComponent{
         }
     );
   }
-
-
+  
   deletePending(pending: Pending): void {
     this.pendantService
       .deletePendings(pending)
