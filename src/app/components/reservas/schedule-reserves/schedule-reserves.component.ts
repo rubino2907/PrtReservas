@@ -98,7 +98,7 @@ loadReservesByMatriculation(matriculations: string[]): void {
       reserves.forEach(reserve => {
         console.log('Adicionando reserva:', reserve);
         if (reserve.dateStart && reserve.dateEnd && reserve.matriculation && typeof reserve.matriculation === 'string') {
-          const title = ` Matrícula: ${reserve.matriculation} | Descrição: ${reserve.description} | Criado por: ${reserve.createdBy}`;
+          const title = ` <br> <br> Matrícula: ${reserve.matriculation} <br> Descrição: ${reserve.description} <br> Data Inicio: ${this.formatDate(reserve.dateStart.toString())} <br> Data Fim: ${this.formatDate(reserve.dateEnd.toString())} <br> <br> <br>`;
 
           // Verifica se já existe uma cor atribuída a esta matrícula
           if (!this.matriculationColors.hasOwnProperty(reserve.matriculation)) {
@@ -122,13 +122,17 @@ loadReservesByMatriculation(matriculations: string[]): void {
       this.refresh.emit();
 
       console.log('Eventos:', this.events); // Lista os eventos
-      // Atualiza o calendário para refletir as novas reservas
-      this.loadAvailableDays();
     },
     (error) => {
       console.error('Erro ao carregar reservas:', error);
     });
 }
+
+
+formatDate(date: string): string {
+  return format(new Date(date), 'dd/MM/yyyy HH:mm', { locale: pt });
+}
+
 
 getRandomColor(): string {
   // Gera uma cor hexadecimal aleatória em tons mais claros
@@ -143,58 +147,6 @@ getRandomColor(): string {
   } while (color === '#A5D6A7'); // Repete a geração da cor se ela for #A5D6A7
 
   return color;
-}
-
-
-
-
-loadAvailableDays(): void {
-  this.events = this.events.filter(event => {
-    // Remova eventos 'Dia Livre' anteriormente adicionados
-    return event.title !== 'Dia Livre';
-  });
-
-  let startInterval: Date;
-  let endInterval: Date;
-
-  if (this.view === 'Mês') {
-    startInterval = startOfMonth(this.viewDate);
-    endInterval = endOfMonth(this.viewDate);
-  } else if (this.view === 'Semana') {
-    startInterval = startOfWeek(this.viewDate, { weekStartsOn: 1 });
-    endInterval = endOfWeek(this.viewDate, { weekStartsOn: 1 });
-  } else { // Dia
-    startInterval = startOfDay(this.viewDate);
-    endInterval = endOfDay(this.viewDate);
-  }
-
-  let allDays = eachDayOfInterval({ start: startInterval, end: endInterval });
-
-  allDays.forEach(day => {
-    let dayStart = startOfDay(day);
-    let dayEnd = endOfDay(day);
-    let isDayFree = !this.events.some(event => {
-      if (!event.start || !event.end) return false; // Garanta que start e end não são undefined
-
-      let eventStart = startOfDay(event.start);
-      let eventEnd = endOfDay(event.end);
-      return (dayStart >= eventStart && dayStart <= eventEnd) || (dayEnd >= eventStart && dayEnd <= eventEnd);
-    });
-
-    if (isDayFree) {
-      this.events.push({
-        start: dayStart,
-        end: dayEnd,
-        title: 'Dia Livre',
-        color: {
-          primary: '#A5D6A7', // Cor verde clara
-          secondary: '#A5D6A7'
-        }
-      });
-    }
-  });
-
-  this.refresh.emit();
 }
   
   // Adiciona as reservas à lista de eventos
@@ -262,7 +214,6 @@ loadAvailableDays(): void {
 
   setView(view: 'Mês' | 'Dia' | 'Semana'): void { // Alteração dos valores aqui
     this.view = view;
-    this.loadAvailableDays(); // Carrega os dias disponíveis ao mudar a visualização do calendário
 
     // Limpa os eventos antes de carregar as reservas do novo dia
     this.events = [];
@@ -287,9 +238,6 @@ loadAvailableDays(): void {
   this.events = [];
 
   this.loadReservesByMatriculation(this.matriculations)
-
-  // Carrega as reservas do novo dia
-  this.loadAvailableDays();
 }
 
   
@@ -310,8 +258,6 @@ loadAvailableDays(): void {
       this.events = [];
 
       this.loadReservesByMatriculation(this.matriculations)
-
-      this.loadAvailableDays(); // Carrega os dias disponíveis após retroceder na visualização do calendário
     }
   
     getIndicator(): string {
@@ -346,9 +292,6 @@ loadAvailableDays(): void {
         });
         return;
       }
-      
-      // Continue com a lógica existente
-      console.log('Matrículas selecionadas:', selectedMatriculationsList);
     
       this.matriculations = selectedMatriculationsList
     
@@ -365,12 +308,21 @@ loadAvailableDays(): void {
 
     showPopup: boolean = false;
     showPopupDescReserva: boolean = false;
+    showPopupLegendaMatriculas: boolean = false;
 
     openPopupe(): void {
       this.showPopup = true;
       this.showPopupDescReserva = false;
     }
 
+    openPopupLegendaMatriculas(): void {
+      this.showPopupLegendaMatriculas = true;
+    }
+    
+    closePopupLegendaMatriculas(): void {
+      this.showPopupLegendaMatriculas = false;
+    }
+    
     closePopupe(): void {
       // Limpar as matrículas selecionadas
       this.selectedMatriculations = {};

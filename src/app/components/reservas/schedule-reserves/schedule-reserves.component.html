@@ -29,22 +29,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 d-flex align-items-center"> <!-- Usando flex para alinhar verticalmente -->
-            <div class="mt-3 mb-3" >
-                <label for="matriculation" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">Viaturas ( até 5 ):</label>
-                <div class="d-flex flex-row align-items-center"> <!-- Usando flexbox para alinhar os botões -->
-                  <!-- Botão "Selecionar Viaturas" -->
-                  <button type="button" class="btn btn-primary mr-2" style="border-radius: 5px; opacity: 1; width: auto; margin-right: 5px;" (click)="openPopupe()">
-                      <i class="bi bi-car-front-fill" style="margin-right: 5px; font-size: 11px;"> </i>Selecionar Viatura
+        <div class="col-md-5 d-flex align-items-center"> <!-- Usando flex para alinhar verticalmente -->
+          <div class="mt-3 mb-3">
+              <label for="matriculation" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">Viaturas ( até 5 ):</label>
+              <div class="d-flex flex-row align-items-center"> <!-- Usando flexbox para alinhar os botões -->
+                  <!-- Botão "Selecionar Veículos" -->
+                  <button type="button" class="btn btn-primary mr-2 align-items-center" style="border-radius: 5px; opacity: 1; width: auto; margin-right: 5px;" (click)="openPopupe()">
+                      <i class="bi bi-car-front-fill" style="margin-right: 5px; font-size: 14px;"></i>Selecionar Veículo
                   </button>
-  
+      
                   <!-- Botão "Lixo" -->
-                  <button class="btn btn-danger" style="border-radius: 5px; opacity: 1; width: auto;" (click)="clearReservations()">
+                  <button class="btn btn-danger align-items-center" style="border-radius: 5px; opacity: 1; width: auto; margin-right: 5px;">
                       <i class="bi bi-trash-fill"></i>
                   </button>
+      
+                  <!-- Botão de informação -->
+                  <div class="info-button align-items-center" style="border-radius: 5px; opacity: 1; width: auto;">
+                      <button class="btn btn-info" (mouseover)="showPopupLegendaMatriculas = true" (mouseleave)="showPopupLegendaMatriculas = false">
+                          <i class="bi bi-palette-fill"></i>
+                      </button>
+                  </div>
               </div>
-            </div>
-        </div>
+          </div>
+      </div>
+      
     </div>
     
       <!-- Navegação e exibição do calendário -->
@@ -97,34 +105,44 @@
           ></mwl-calendar-week-view>
         </ng-container>
 
-        <!-- Janela de popup -->
-        <div class="popup" *ngIf="showPopupDescReserva">
-          <div class="popup-content">
-            <div class="popup-header">
-              <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 15px; margin-bottom: 30px;" >
-                <i class="bi bi-list-task" style="margin-right: 5px;"></i> Detalhes da Reserva
-                <button class="close-btn" (click)="closePopupDescReserva()" style="float: right; color: red; background: none; border: none; font-size: 20px;">&times;</button>
-              </h3>
-            </div>
-            <div class="popup-body">
-              <p><strong>Data de Início:</strong> {{ selectedEvent?.start | date: 'dd/MM/yyyy HH:mm' }}</p>
-              <p><strong>Data de Fim:</strong> {{ selectedEvent?.end | date: 'dd/MM/yyyy HH:mm' }}</p>
-              <p><strong>Detalhes:</strong> {{ selectedEvent?.title }}</p>
-            </div>
-          </div>
+                <!-- Janela de popup -->
+                <div class="popup" *ngIf="showPopupDescReserva">
+                  <div class="popup-content">
+                    <div class="popup-header">
+                      <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 15px; margin-bottom: 30px;" >
+                        <i class="bi bi-list-task" style="margin-right: 5px;"></i> Detalhes da Reserva
+                        <button class="close-btn" (click)="closePopupDescReserva()" style="float: right; color: red; background: none; border: none; font-size: 20px;">&times;</button>
+                      </h3>
+                    </div>
+                    <div class="popup-body">
+                      <p><strong>Data de Início:</strong> <span [innerHTML]="selectedEvent?.start | date: 'dd/MM/yyyy HH:mm'"></span></p>
+                      <p><strong>Data de Fim:</strong> <span [innerHTML]="selectedEvent?.end | date: 'dd/MM/yyyy HH:mm'"></span></p>
+                      <p><strong>Detalhes:</strong> <span [innerHTML]="selectedEvent?.title"></span></p>
+                    </div>
+                </div>
         </div>
-        
-
-
       </div>
     </div>
     <!-- Container do formulário -->
-    <div class="col-lg-4 col-md-4" style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; position: relative; margin-left: 8px; width: 38%;">
-      <div style="position: absolute; top: 0; right: 0; padding: 10px;">
-          <button class="btn btn-sm" style="background: transparent; border: none; font-size: 16px;">
-              <span style="color: #337AB7;" >X</span>
-          </button>
+    <div class="col-lg-4 col-md-4">
+      <!-- <div class="row" style=" box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; position: relative; margin-left: 8px; width: auto;">
+        <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #337AB7; opacity: 1;">
+          <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 20px/27px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
+              <img src="assets\Iconly-Bold-Document[152].svg" alt="Ícone de Reservas" style="width: 22px; height: 22px; opacity: 1; margin-right: 10px;">
+              Legendas Matriculas
+          </h2>
       </div>
+      <div class="matriculation-list">
+        <ng-container *ngFor="let matriculation of matriculations">
+          <div class="matriculation-item">
+            <span class="matriculation-text">{{ matriculation }}</span>
+            <div class="matriculation-color" [style.background-color]="matriculationColors[matriculation] ? matriculationColors[matriculation] : ''"></div>
+          </div>
+        </ng-container>
+      </div>
+      
+      </div> -->
+      <div class="row" style=" box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; position: relative; margin-left: 8px; width: auto; height: 95vh;">
       <div>
           <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px;  border-bottom: 1px solid #337AB7; opacity: 1;">
               <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 20px/27px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
@@ -136,6 +154,7 @@
       <div style="margin-left: 10px; margin-right: 10px;">
           <app-create-reserva-schedule [pending]="pending"></app-create-reserva-schedule>
       </div>
+      </div>
   </div>
 </div>
 
@@ -146,7 +165,7 @@
                   <div class="popup" *ngIf="showPopup">
                     <div class="popup-content" style="width: 250px;">
                       <!-- Conteúdo da popup aqui -->
-                      <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 15px; margin-bottom: 30px;"> <i class="bi bi-car-front-fill"> </i> Viaturas</h3>
+                      <h3 style="border-bottom: 2px solid #337AB7; padding-bottom: 15px; margin-bottom: 30px; color: #337AB7;"> <i class="bi bi-car-front-fill" style="color: #337AB7;"> </i> Viaturas</h3>
                       <div class="matriculation-list d-flex flex-column"> <!-- Adicionando 'align-items-center' para centralizar verticalmente -->
                         <ng-container *ngFor="let matriculation of matriculations">
                           <div class="form-check d-flex justify-content-between">
@@ -159,10 +178,32 @@
                         </ng-container>
                       </div>
                       <!-- Botões para salvar e fechar a popup -->
-                      <div class="popup-buttons" style="border-top: 2px solid #ccc; padding-top: 15px;">
+                      <div class="popup-buttons" style="border-top: 2px solid #337AB7; padding-top: 15px;">
                         <button class="btn btn-secondary" style="background-color: rgb(236, 71, 88);" (click)="closePopupe()"><i class="bi bi-x-lg"></i></button>
                         <button class="btn btn-primary" style="background-color: rgb(26, 123, 185);" (click)="onSave()"><i class="bi bi-check-lg"></i></button>
                       </div>
                     </div>
                   </div>
+                  
+                  <!-- Janela de popup -->
+                  <div class="popupLegendaColors" *ngIf="showPopupLegendaMatriculas">
+                    <div class="popup-contentLegendaColors">
+                      <div class="popup-headerLegendaColors">
+                        <h3 style="border-bottom: 2px solid #337AB7; padding-bottom: 15px; margin-bottom: 30px; color: #337AB7;">
+                          <i class="bi bi-palette-fill" style="margin-right: 5px; color: #337AB7;"></i> Legenda Matrículas
+                          <button class="close-btn" (click)="closePopupDescReserva()" style="float: right; color: red; background: none; border: none; font-size: 20px;">&times;</button>
+                        </h3>
+                      </div>
+                      <div class="matriculation-list d-flex flex-column">
+                        <ng-container *ngFor="let matriculation of matriculations">
+                          <div class="matriculation-item">
+                            <span class="matriculation-text">{{ matriculation }}</span>
+                            <div class="matriculation-color" [style.background-color]="matriculationColors[matriculation] ? matriculationColors[matriculation] : ''"></div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+
+
 
