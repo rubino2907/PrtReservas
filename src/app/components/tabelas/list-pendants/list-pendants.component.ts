@@ -38,12 +38,16 @@ export class ListPendantsComponent implements OnInit {
   loadPendings(): void {
     this.pendantService.getPendings()
       .subscribe((result: Pending[]) => {
-        // Classifique os pedidos de acordo com o estado, colocando "EM ESPERA" primeiro
+        // Classificar os pendentes com base no status
         result.sort((a, b) => {
           if (a.aproved === 'EM ESPERA' && b.aproved !== 'EM ESPERA') {
             return -1; // "EM ESPERA" vem antes de outros estados
           } else if (a.aproved !== 'EM ESPERA' && b.aproved === 'EM ESPERA') {
             return 1; // Outros estados vêm depois de "EM ESPERA"
+          } else if (a.aproved === 'APROVADO' && b.aproved !== 'APROVADO') {
+            return -1; // "APROVADO" vem antes de "RECUSADO"
+          } else if (a.aproved === 'RECUSADO' && b.aproved !== 'RECUSADO') {
+            return 1; // "RECUSADO" vem depois de "APROVADO"
           } else {
             return 0; // Mantém a ordem atual entre pedidos com o mesmo estado
           }
@@ -58,6 +62,8 @@ export class ListPendantsComponent implements OnInit {
   
     this.isFormEditPendingVisible = false;
   }
+  
+  
 
   clearDate(field: string) {
     if (field === 'startDate') {
