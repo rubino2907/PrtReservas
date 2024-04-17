@@ -47,18 +47,18 @@ export class EditReservesComponent {
     });
   }
 
-  // updateReserve(reserve: Reserve): void {
-  //   this.reserveService
-  //     .updateReserves(reserve)
-  //     .subscribe((reserves: Reserve[]) => {
-  //       this.reservesUpdated.emit(reserves);
-  //       this.isFormEditReserveVisible = false; // Esconder o formulário após a atualização bem-sucedida
-  //     },
-  //     (error) => {
-  //       this.openErrorSnackBar('Erro ao atualizar a reserva. Por favor, tente novamente mais tarde.'); // Exibir popup de erro
-  //     }
-  //   );
-  // }
+  updateReserve(reserve: Reserve): void {
+    this.reserveService
+      .updateReserves(reserve)
+      .subscribe((reserves: Reserve[]) => {
+        this.reservesUpdated.emit(reserves);
+        this.isFormEditReserveVisible = false; // Esconder o formulário após a atualização bem-sucedida
+      },
+      (error) => {
+        this.openErrorSnackBar('Erro ao atualizar a reserva. Por favor, tente novamente mais tarde.'); // Exibir popup de erro
+      }
+    );
+  }
 
   deleteReserve(reserve: Reserve): void {
     this.reserveService

@@ -58,7 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let pending of filteredPendings" (click)="editPending(pending)">
+                    <tr *ngFor="let pending of filteredPendings; let i = index" (click)="editPending(pending, i)" [ngClass]="{'selected': i === selectedRowIndex}">
                         <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ pending.matriculation }}</td>
                         <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
                             {{ pending.dateStart | date:'yyyy-MM-dd HH:mm:ss' }}

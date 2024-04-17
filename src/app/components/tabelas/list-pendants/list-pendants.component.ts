@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { VehicleService } from '../../../services/vehicle.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { UserDetails } from '../../../models/UserModels/userDetails';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-list-pendants',
@@ -24,15 +25,20 @@ export class ListPendantsComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
 
+  selectedRowIndex: number = -1;
+
 
   // Variável para acompanhar a linha selecionada
   selectedPending: any = null;
 
-  constructor(private pendantService: PendantService, private userService: UserService, private vehicleService:VehicleService) {}
+  constructor(private pendantService: PendantService, private userService: UserService, private vehicleService:VehicleService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadPendings();
     this.loadMatriculations();
+
+    this.pendingsToEdit = this.isFormEditPendingVisible ? undefined : new Pending();
+      this.isFormEditPendingVisible = !this.isFormEditPendingVisible;
   }
 
   loadPendings(): void {
@@ -59,8 +65,6 @@ export class ListPendantsComponent implements OnInit {
     }, error => {
       console.error('Error fetching pendings:', error);
     });
-  
-    this.isFormEditPendingVisible = false;
   }
   
   
@@ -114,27 +118,35 @@ export class ListPendantsComponent implements OnInit {
   initNewPending(): void {
     // Limpar os detalhes do usuário
     this.userDetails = undefined;
-    this.pendingsToEdit = this.isFormEditPendingVisible ? undefined : new Pending();
-    this.isFormEditPendingVisible = !this.isFormEditPendingVisible;
-  
+    
+    // Limpar o objeto pendingsToEdit para redefinir o formulário
+    this.pendingsToEdit = new Pending(); // ou defina os campos como vazios, dependendo da estrutura do seu objeto Pending
+
+    // Defina o isFormEditPendingVisible para true para exibir o formulário vazio
+    this.isFormEditPendingVisible = true;
+
+    // Limpar as mensagens de erro
+    this.snackBar.dismiss();
+
     // Chama o serviço para obter a lista atualizada de pendentes após adicionar um novo pendente
     this.pendantService.getPendings().subscribe((result: Pending[]) => {
-      this.pendings = result;
-      console.log('Pendings after addition:', this.pendings);
-      
+        this.pendings = result;
+        console.log('Pendings after addition:', this.pendings);
     });
   }
 
 
-  editPending(pending: Pending): void {
+
+
+  editPending(pending: Pending, index: number): void {
     this.pendingsToEdit = pending;
-    this.isFormEditPendingVisible = !this.isFormEditPendingVisible;
     const createdBy = pending.createdBy;
   
     if (createdBy) {
       this.userService.getUserDetailsByCreatedBy(createdBy).subscribe(
         (userData: UserDetails) => {
           this.userDetails = userData;
+          this.selectedRowIndex = index;
           // Coloque o código HTML dentro deste bloco
         },
         (error) => {

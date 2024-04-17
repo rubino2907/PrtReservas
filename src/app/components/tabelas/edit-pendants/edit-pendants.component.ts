@@ -178,18 +178,22 @@ export class EditPendantsComponent{
   
 
   updatePending(pending: Pending): void {
+    // Armazenar os valores originais das datas de início e fim
+    const originalDateStart = pending.dateStart;
+    const originalDateEnd = pending.dateEnd;
+
     // Verificar se pending.dateStart e pending.dateEnd não são undefined
     if (!pending.dateStart || !pending.dateEnd) {
-      console.error("As datas de início e fim do pedido são obrigatórias.");
-      this.openErrorPopup('As datas de início e fim do pedido são obrigatórias.');
-      return; // Sair do método se as datas não estiverem definidas
+        console.error("As datas de início e fim do pedido são obrigatórias.");
+        this.openErrorPopup('As datas de início e fim do pedido são obrigatórias.');
+        return; // Sair do método se as datas não estiverem definidas
     }
 
     // Verificar se o usuário já tem uma reserva ativa para o período do pedido atualizado
     if (!pending.createdBy) {
-      console.error("O ID do usuário criador está indefinido.");
-      this.openErrorPopup('O ID do usuário criador está indefinido.');
-      return; // Sair do método se o ID do usuário criador estiver indefinido
+        console.error("O ID do usuário criador está indefinido.");
+        this.openErrorPopup('O ID do usuário criador está indefinido.');
+        return; // Sair do método se o ID do usuário criador estiver indefinido
     }
 
     // Verificar se o usuário já tem uma reserva ativa para o período do pedido atualizado
@@ -208,43 +212,44 @@ export class EditPendantsComponent{
                 console.error("Você já tem uma reserva ativa para o período atualizado.");
                 this.openErrorPopup('Você já tem uma reserva ativa para o período atualizado.');
             } else {
-                // Se não houver reservas ativas que se sobrepõem, continuar com a atualização normalmente
+                // Se não houver reservas ativas que se sobrepõem, continuar com a atualização do pedido
                 pending.aprovedBy = this.cookieService.get('userName');
-                this.pendantService
-                    .updatePendings(pending)
-                    .subscribe((pendants: Pending[]) => {
-                        this.pendingsUpdated.emit(pendants);
-                        this.isFormEditPendingVisible = false; // Esconde o formulário após a atualização bem-sucedida
-                        
-                        // Verifica se o pedido foi aprovado
-                        if (pending.aproved === 'APROVADO') { // Verifica se o pendente foi aprovado
-                            // Se aprovado, cria a reserva
-                            const reserve: Reserve = {
-                                createdBy: pending.createdBy,
-                                creationDateTime: pending.creationDateTime,
-                                changeDateTime: pending.changeDateTime,
-                                dateStart: pending.dateStart!,
-                                dateEnd: pending.dateEnd!,
-                                description: pending.description,
-                                matriculation: pending.matriculation,
-                                state: 'ATIVA',
-                                obs: ''
-                            };
-                            
-                            this.reserveService
-                                .createReserve(reserve)
-                                .subscribe(
-                                    (reserves: Reserve[]) => {
-                                        console.log("Reserva criada com sucesso!", reserves);
-                                        // Se necessário, emita um evento para atualizar as reservas no componente pai
+                this.pendantService.updatePendings(pending).subscribe(
+                    (pendants: Pending[]) => {
+                        console.log("Pedido atualizado com sucesso!", pendants);
+
+                        // Verificar se o pedido foi aprovado
+                        if (pending.aproved === 'APROVADO') {
+                            // Se aprovado, atualizar a reserva associada
+                            reserves.forEach((reserve) => {
+                                // Atualizar a reserva com as novas datas do pedido
+                                reserve.dateStart = pending.dateStart!;
+                                reserve.dateEnd = pending.dateEnd!;
+                                // Chamar o serviço para atualizar a reserva
+                                this.reserveService.updateReserves(reserve).subscribe(
+                                    () => {
+                                        console.log("Reserva associada atualizada com sucesso!");
                                     },
                                     (error) => {
-                                        console.error("Erro ao criar Reserva:", error);
+                                        console.error("Erro ao atualizar reserva associada:", error);
                                         // Lide com os erros adequadamente
                                     }
                                 );
+                            });
                         }
-                    });
+
+                        // Emitir evento para atualizar os pendentes no componente pai
+                        this.pendingsUpdated.emit(pendants);
+                        this.isFormEditPendingVisible = false; // Esconde o formulário após a atualização bem-sucedida
+                    },
+                    (error) => {
+                        console.error("Erro ao atualizar Pendentes:", error);
+                        // Restaurar os valores originais das datas de início e fim nas entradas de formulário
+                        pending.dateStart = originalDateStart;
+                        pending.dateEnd = originalDateEnd;
+                        // Lide com os erros adequadamente
+                    }
+                );
             }
         },
         (error) => {
