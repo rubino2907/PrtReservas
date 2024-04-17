@@ -175,12 +175,32 @@ export class EditPendantsComponent{
     }
   }
   
-  
-
   updatePending(pending: Pending): void {
     // Armazenar os valores originais das datas de início e fim
     const originalDateStart = pending.dateStart;
     const originalDateEnd = pending.dateEnd;
+
+    // Verificar se todos os campos obrigatórios estão preenchidos
+    if (!pending.vehicleType || !pending.matriculation || !pending.dateStart || !pending.dateEnd || !pending.description) {
+        console.error("Todos os campos são obrigatórios.");
+        this.openErrorPopup('Todos os campos são obrigatórios. Preencha todos os campos antes de enviar o pedido.');
+        return; // Sair do método sem atualizar o pendente
+    }
+
+    // Verificar se a data final é posterior à data inicial
+    if (new Date(pending.dateEnd) <= new Date(pending.dateStart)) {
+        console.error("A data final deve ser posterior à data inicial.");
+        this.openErrorPopup('A data final deve ser posterior à data inicial.');
+        return; // Sair do método sem atualizar o pendente
+    }
+
+    // Verificar se a data de início e a data final estão no futuro
+    const currentDate = new Date();
+    if (new Date(pending.dateStart) < currentDate || new Date(pending.dateEnd) < currentDate) {
+        console.error("Atenção datas ultrapassadas.");
+        this.openErrorPopup('Atenção datas ultrapassadas.');
+        return; // Sair do método sem atualizar o pendente
+    }
 
     // Verificar se pending.dateStart e pending.dateEnd não são undefined
     if (!pending.dateStart || !pending.dateEnd) {
@@ -258,6 +278,7 @@ export class EditPendantsComponent{
         }
     );
   }
+
   
   deletePending(pending: Pending): void {
     this.pendantService
