@@ -5,6 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { VehicleService } from '../../../services/vehicle.service';
 import { TypeVehicleService } from '../../../services/typeVehicle.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
+import { ReserveService } from '../../../services/reserve.service';
+import { Reserve } from '../../../models/reserve';
 
 @Component({
   selector: 'app-list-user-pendings',
@@ -23,6 +25,10 @@ export class ListUserPendingsComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
 
+  isSuccessPopupVisible: boolean = false;
+  isErrorPopupVisible: boolean = false;
+  errorMessage: string = ''; // Propriedade para armazenar a mensagem de erro específica
+
   selectedVehicleType: string = ''; // Armazena o tipo de viatura selecionado
 
   vehicleType: string[] = []; // Array para armazenar os tipos
@@ -30,7 +36,8 @@ export class ListUserPendingsComponent implements OnInit {
   constructor(private cookieService: CookieService, 
     private typeVehicleService: TypeVehicleService, 
     private vehicleService: VehicleService, 
-    private pendantService: PendantService) { }
+    private pendantService: PendantService,
+    private reserveService: ReserveService) { }
 
   ngOnInit(): void {
     // Chame o método do serviço para obter os pendentes do usuário
@@ -121,6 +128,91 @@ export class ListUserPendingsComponent implements OnInit {
   updatePendingList(pendings: Pending[]): void {
     this.pendings = pendings;
     this.filteredPendings = [...this.pendings];
+  }
+
+  updatePending(pending: Pending): void {
+    // Verificar se as datas são válidas
+    const startDate = new Date(pending.dateStart!);
+    const endDate = new Date(pending.dateEnd!);
+    const today = new Date();
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        console.error("Datas inválidas fornecidas.");
+        this.openErrorPopup('Datas inválidas fornecidas.');
+        return; // Aborta a atualização se as datas forem inválidas
+    }
+
+    // Verificar se a data final não é anterior à data inicial
+    if (endDate < startDate) {
+        console.error("A data final não pode ser anterior à data inicial.");
+        this.openErrorPopup('A data final não pode ser anterior à data inicial.');
+        return; // Aborta a atualização se a data final for anterior à data inicial
+    }
+
+    // Verificar se a data inicial não é anterior à data atual
+    if (startDate < today) {
+        console.error("A data inicial não pode ser anterior à data atual.");
+        this.openErrorPopup('A data inicial não pode ser anterior à data atual.');
+        return; // Aborta a atualização se a data inicial for anterior à data atual
+    }
+
+    // Verificar a disponibilidade da viatura para o período atualizado
+    this.reserveService.getReservesByCreatedBy(pending.createdBy!).subscribe(
+        (reserves: Reserve[]) => {
+            // Verificar se há reservas ativas que se sobrepõem ao período do pedido atualizado
+            const overlappingReserves = reserves.some(reserve =>
+                reserve.state === 'ATIVA' &&
+                reserve.dateStart && reserve.dateEnd && // Verificar se reserve.dateStart e reserve.dateEnd não são undefined
+                new Date(pending.dateStart!) <= new Date(reserve.dateEnd) &&
+                new Date(pending.dateEnd!) >= new Date(reserve.dateStart)
+            );
+
+            // Verificar se a viatura associada ao pedido está disponível para o período atualizado
+            if (overlappingReserves) {
+                console.error("A viatura não está disponível para o período atualizado.");
+                this.openErrorPopup('A viatura não está disponível para o período atualizado.');
+            } else {
+              // Simulação da lógica de atualização do pedido
+              // Substitua isso com sua lógica real de atualização do pedido
+              this.pendantService.updatePendings(pending).subscribe(
+                  (updatedPending: Pending[]) => {
+                      // Após a atualização bem-sucedida, exibir a popup de sucesso
+                      this.openSuccessPopup('Pedido atualizado com sucesso!');
+                  },
+                  (error) => {
+                      console.error("Erro ao atualizar o pedido:", error);
+                      // Lide com os erros adequadamente
+                  }
+              );
+          }
+      },
+      (error) => {
+          console.error("Erro ao buscar reservas:", error);
+          // Lide com os erros adequadamente
+      }
+  );
+}
+
+
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+    console.log('Popup de sucesso aberta com mensagem:', message);
+  }
+
+
+  openErrorPopup(message: string): void {
+    this.isErrorPopupVisible = true;
+    this.errorMessage = message;
+  }
+
+  closeErrorPopup(): void {
+    this.isErrorPopupVisible = false;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
+    this.closeEditPopup();
   }
 
   // Método para ordenar a tabela com base no estado de aprovação
