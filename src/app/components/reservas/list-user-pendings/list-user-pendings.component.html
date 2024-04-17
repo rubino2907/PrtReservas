@@ -4,13 +4,27 @@
         <h1 class="text-left py-3 mb-0" style="top: 177px; left: 318px; text-align: left; font: normal 600 30px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">Lista de Pedidos</h1>
     </div>
     <div style="display: flex; align-items: center; margin-bottom: 20px;">
-        <!-- Label e select para as matrículas -->
+
+        <!-- Seletor para tipos de viatura -->
         <div style="margin-right: 10px;">
-            <label for="matricula-select" style="margin-right: 5px;">Selecione uma matrícula:</label>
+            <label for="vehicle-type-select" style="margin-right: 5px;">Selecione um Tipo de Viatura:</label>
             <div style="position: relative; display: flex; align-items: center;">
-                <select name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; width: 300px; border: 1px solid #707070; border-radius: 5px;" [(ngModel)]="selectedMatricula" (change)="applyFilters()">
+                <select name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; width: 300px; border: 1px solid #707070; border-radius: 5px;" [(ngModel)]="selectedVehicleType" (change)="loadMatriculations(selectedVehicleType)">
+                    <option value="">Selecionar um Tipo de Viatura</option>
+                    <!-- Utilize ngFor para iterar sobre os tipos de viatura e criar as opções dinamicamente -->
+                    <option *ngFor="let type of vehicleType" [value]="type">{{ type }}</option>
+                </select>
+                <i class="bi bi-caret-down-fill" style="color: #337AB7; position: absolute; right: 10px; top: calc(50% - 8px);"></i>
+            </div>
+        </div>
+
+        <!-- Seletor para matrículas -->
+        <div style="margin-right: 10px;">
+            <label for="matricula-select" style="margin-right: 5px;">Selecione uma Matrícula:</label>
+            <div style="position: relative; display: flex; align-items: center;">
+                <select name="matricula" id="matricula" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; width: 300px; border: 1px solid #707070; border-radius: 5px;" [(ngModel)]="selectedMatricula" (change)="applyFilters()">
                     <option value="">Selecionar Uma Matrícula</option>
-                    <!-- Utilize ngFor para iterar sobre as matriculas e criar as opções dinamicamente -->
+                    <!-- Utilize ngFor para iterar sobre as matrículas e criar as opções dinamicamente -->
                     <option *ngFor="let matricula of matriculations" [value]="matricula">{{ matricula }}</option>
                 </select>
                 <i class="bi bi-caret-down-fill" style="color: #337AB7; position: absolute; right: 10px; top: calc(50% - 8px);"></i>
@@ -59,7 +73,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let pending of filteredPendings" >
+            <tr *ngFor="let pending of filteredPendings" (click)="openEditPopup(pending)">
                 <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{pending.matriculation}}</td>
                 <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
                     {{ pending.dateStart | date:'yyyy-MM-dd HH:mm:ss' }}
@@ -84,4 +98,103 @@
             </tr>
         </tbody>
     </table>    
+
+    <div class="popup-background" *ngIf="isEditPopupVisible">
+        <div class="popup-content" style="width: 400px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+            <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px; border-bottom: 1px solid #337AB7; opacity: 1; position: relative;">
+                <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 24px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
+                    <img src="assets\Iconly-Bold-Document[152].svg" alt="Ícone de Reservas" style="width: 22px; height: 22px; opacity: 1; margin-right: 10px;">
+                    Editar Pedido
+                </h2>
+                <!-- Botão "X" para fechar a popup -->
+                <button class="close-button" (click)="closeEditPopup()" style="background: none; border: none; cursor: pointer; position: absolute; top: 5px; right: 5px;">
+                    <i class="bi bi-x" style="font-size: 24px; color: #337AB7;"></i>
+                </button>
+            </div>
+            <div style="margin-left: 10px; margin-right: 10px;">
+                <!-- Formulário de edição de pedidos -->
+                <!-- Aqui você pode adicionar os campos necessários para editar o pedido -->
+                <ng-container *ngIf="selectedPending.aproved === 'EM ESPERA'; else readonlyFields">
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editVehicleType">Tipo de Veículo:</label>
+                        <div class="input-group">
+                            <select [(ngModel)]="selectedPending.vehicleType" name="editVehicleType" id="editVehicleType" class="form-control select-with-icon" (change)="loadMatriculations(selectedPending.vehicleType)">
+                                <option value="">Selecione um tipo</option>
+                                <option *ngFor="let typeVehicle of vehicleType" [value]="typeVehicle">{{ typeVehicle }}</option>
+                            </select>
+                            <i class="bi bi-caret-down" style="position: absolute; z-index: 5000; right: 10px; top: 50%; transform: translateY(-50%);"></i>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editMatriculation">Matrícula:</label>
+                        <div class="input-group">
+                            <select [(ngModel)]="selectedPending.matriculation" name="editVehicleType" id="editVehicleType" class="form-control">
+                                <option value="">Selecionar Matrícula</option>
+                                <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
+                            </select>
+                            <i class="bi bi-caret-down" style="position: absolute; z-index: 5000; right: 10px; top: 50%; transform: translateY(-50%);"></i>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editDateStart">Data de Início da Reserva:</label>
+                        <input [(ngModel)]="selectedPending.dateStart" name="editDateStart" id="editDateStart" type="datetime-local" class="form-control">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editDateEnd">Data de Fim da Reserva:</label>
+                        <input [(ngModel)]="selectedPending.dateEnd" name="editDateEnd" id="editDateEnd" type="datetime-local" class="form-control">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editDescription">Motivo da Reserva:</label>
+                        <textarea [(ngModel)]="selectedPending.description" name="editDescription" id="editDescription" class="form-control" rows="3" style="resize: none;"></textarea>
+                    </div>
+                </ng-container>
+                
+                <!-- Campos readonly -->
+                <ng-template #readonlyFields>
+                    <!-- Adicionei uma margem entre os campos readonly -->
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="aprovedBy">Aprovador:</label>
+                        <input type="text" class="form-control" [value]="selectedPending.aproved" readonly>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="aprovedBy">Aprovador:</label>
+                        <input type="text" class="form-control" [value]="selectedPending.aprovedBy" readonly>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editVehicleType">Tipo de Veículo:</label>
+                        <input type="text" class="form-control" [value]="selectedPending.vehicleType" readonly>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editMatriculation">Matrícula:</label>
+                        <input type="text" class="form-control" [value]="selectedPending.matriculation" readonly>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editDateStart">Data de Início da Reserva:</label>
+                        <input type="text" class="form-control" [value]="selectedPending.dateStart" readonly>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editDateEnd">Data de Fim da Reserva:</label>
+                        <input type="text" class="form-control" [value]="selectedPending.dateEnd" readonly>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="editDescription">Motivo da Reserva:</label>
+                        <textarea style="resize: none;"  class="form-control" rows="3" readonly>{{ selectedPending.description }}</textarea>
+                    </div>
+                </ng-template>
+            </div>
+            
+            
+
+            <div style="justify-content: center; align-items: center; display: flex; margin-top: 20px;">
+                <button *ngIf="selectedPending.aproved === 'EM ESPERA'" style="background: #337AB7; border-radius: 5px; opacity: 1; width: 144px; height: 43px; justify-content: center; display: flex; align-items: center;"> 
+                    <span style="text-align: left; font: normal normal normal 18px Open Sans; letter-spacing: 0px; color: #FFFFFF; opacity: 1;">Pedir Alteração</span> 
+                </button>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+
+    
 </div>

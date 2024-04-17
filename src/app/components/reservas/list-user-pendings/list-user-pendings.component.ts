@@ -3,6 +3,8 @@ import { Pending } from '../../../models/pending';
 import { PendantService } from '../../../services/pending.service';
 import { CookieService } from 'ngx-cookie-service';
 import { VehicleService } from '../../../services/vehicle.service';
+import { TypeVehicleService } from '../../../services/typeVehicle.service';
+import { Vehicle } from '../../../models/VehicleModels/vehicle';
 
 @Component({
   selector: 'app-list-user-pendings',
@@ -21,12 +23,19 @@ export class ListUserPendingsComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
 
-  constructor(private cookieService: CookieService, private vehicleService: VehicleService, private pendantService: PendantService) { }
+  selectedVehicleType: string = ''; // Armazena o tipo de viatura selecionado
+
+  vehicleType: string[] = []; // Array para armazenar os tipos
+
+  constructor(private cookieService: CookieService, 
+    private typeVehicleService: TypeVehicleService, 
+    private vehicleService: VehicleService, 
+    private pendantService: PendantService) { }
 
   ngOnInit(): void {
     // Chame o método do serviço para obter os pendentes do usuário
     this.getPendingsByCurrentUser();
-    this.loadMatriculations();
+    this.loadTypeOfVehicles();
   }
 
   clearDate(field: string) {
@@ -38,12 +47,11 @@ export class ListUserPendingsComponent implements OnInit {
     this.applyFilters(); // Você pode chamar applyFilters() para aplicar os filtros imediatamente após limpar a data, se necessário.
   }
 
-  
-  loadMatriculations(): void {
-    this.vehicleService.getMatriculations().subscribe(
-        (matriculations: string[]) => {
+  loadTypeOfVehicles(): void {
+    this.typeVehicleService.getTypeOfVehicle().subscribe(
+        (vehicleType: string[]) => {
             // Você pode usar as matriculas diretamente aqui
-            this.matriculations = matriculations;
+            this.vehicleType = vehicleType;
         },
         (error) => {
             console.error("Erro ao carregar matrículas por tipo:", error);
@@ -51,6 +59,25 @@ export class ListUserPendingsComponent implements OnInit {
         }
     );
   }
+
+  
+  loadMatriculations(vehicleType: string): void {
+    if (!vehicleType) {
+        this.matriculations = [];
+        return;
+    }
+
+    this.vehicleService.getVehiclesByType(vehicleType).subscribe(
+        (vehicles: Vehicle[]) => {
+            // Ensure only non-undefined matriculations are included
+            this.matriculations = vehicles.map(vehicle => vehicle.matriculation).filter((matriculation): matriculation is string => matriculation !== null && matriculation !== undefined);
+        },
+        (error) => {
+            console.error("Erro ao carregar matrículas por tipo:", error);
+        }
+    );
+}
+
 
   applyFilters(): void {
     // Converta as strings de data para objetos Date para comparação
@@ -137,4 +164,24 @@ export class ListUserPendingsComponent implements OnInit {
         }
     });
   }
+
+  // No seu componente TypeScript
+  selectedPending: any; // Adicione uma propriedade para armazenar o pedido selecionado
+  isEditPopupVisible: boolean = false;
+
+
+  openEditPopup(pending: any) {
+    this.selectedPending = pending; // Armazena o pedido selecionado
+    // Define a matrícula selecionada com base no pedido selecionado
+    this.selectedMatricula = pending.matriculation;
+    // Abre o popup de edição
+    this.isEditPopupVisible = true; 
+  }
+
+
+
+  closeEditPopup() {
+    this.isEditPopupVisible = false;
+}
+
 }
