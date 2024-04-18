@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pending } from '../../../models/pending';
 import { PendantService } from '../../../services/pending.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -24,7 +24,16 @@ export class AprovePendingsComponent implements OnInit {
 
   isDeleteConfirmationVisible: boolean = false;
 
-  constructor(private cookieService: CookieService, private snackBar: MatSnackBar, private reserveService: ReserveService, private pendantService: PendantService, private userService: UserService) {}
+  isSuccessPopupVisible: boolean = false;
+  isErrorPopupVisible: boolean = false;
+  errorMessage: string = ''; // Propriedade para armazenar a mensagem de erro específica
+
+  constructor(private cookieService: CookieService, 
+    private snackBar: MatSnackBar, 
+    private reserveService: ReserveService, 
+    private pendantService: PendantService, 
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,) {}
 
   ngOnInit(): void {
     this.loadPendings();
@@ -40,6 +49,28 @@ export class AprovePendingsComponent implements OnInit {
   approvePending(pending: Pending): void {
     // Verifica se o estado do pedido não é 'APROVADO'
     if (pending.aproved !== 'APROVADO') {
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        if (!pending.vehicleType || !pending.matriculation || !pending.dateStart || !pending.dateEnd || !pending.description) {
+            console.error("Todos os campos são obrigatórios.");
+            this.openErrorPopup('Todos os campos são obrigatórios. Preencha todos os campos antes de enviar o pedido.');
+            return; // Sair da função sem aprovar o pedido
+        }
+
+        // Verificar se a data final é posterior à data inicial
+        if (new Date(pending.dateEnd) <= new Date(pending.dateStart)) {
+            console.error("A data final deve ser posterior à data inicial.");
+            this.openErrorPopup('A data final deve ser posterior à data inicial.');
+            return; // Sair da função sem aprovar o pedido
+        }
+
+        // Verificar se a data de início e a data final estão no futuro
+        const currentDate = new Date();
+        if (new Date(pending.dateStart) < currentDate || new Date(pending.dateEnd) < currentDate) {
+            console.error("Atenção datas ultrapassadas.");
+            this.openErrorPopup('Atenção datas ultrapassadas.');
+            return; // Sair da função sem aprovar o pedido
+        }
+
         // Altera o estado do pedido para 'APROVADO'
         pending.aproved = 'APROVADO';
         pending.aprovedBy = this.cookieService.get('userName');
@@ -49,8 +80,12 @@ export class AprovePendingsComponent implements OnInit {
             .updatePendings(pending)
             .subscribe(
                 (pendants: Pending[]) => {
+                  
                     // Emite o evento para informar que os pendentes foram atualizados
                     this.pendingsUpdated.emit(pendants);
+
+                    // Exibe a pop-up de sucesso imediatamente após a aprovação do pedido
+                    this.openSuccessPopup('Pedido aprovado com sucesso!');
 
                     // Verifica se o pedido foi aprovado
                     if (pending.aproved === 'APROVADO') {
@@ -79,40 +114,20 @@ export class AprovePendingsComponent implements OnInit {
                                 },
                                 (error) => {
                                     console.error("Erro ao criar Reserva:", error);
-                                    // Se a reserva não puder ser criada devido à indisponibilidade da matrícula
-                                    if (error.error === "Cannot approve the pending. The user already has an active reservation in the desired period.") {
-                                        // Exibe um toast com a mensagem de erro
-                                        this.snackBar.open('Impossível criar a reserva. Viatura indisponível.', 'Fechar', {
-                                            duration: 5000 // Duração em milissegundos
-                                        });
-                                    } else {
-                                        // Se ocorrer outro tipo de erro
-                                        // Exibe um toast com o erro
-                                        this.snackBar.open('Erro ao criar reserva: ' + error.error, 'Fechar', {
-                                            duration: 5000 // Duração em milissegundos
-                                        });
-                                    }
+                                    // Lógica de tratamento de erro aqui
                                 }
                             );
                     }
                 },
                 (error) => {
                     console.error("Erro ao aprovar o pedido:", error);
-                    // Se ocorrer um erro na solicitação para aprovar o pedido
-                    // Exibe um toast com a mensagem de erro
-                    this.snackBar.open('Erro ao aprovar o pedido: ' + error.error, 'Fechar', {
-                        duration: 5000 // Duração em milissegundos
-                    });
-                    
-                    this.loadPendings()
+                    this.openErrorPopup('Erro ao aprovar o pedido: ' + (error.error));
+                    this.loadPendings();
                     this.isFormEditPendingVisible = false;
                 }
             );
     }
-  }
-
-
-
+}
 
   editPending(pending: Pending): void {
     this.pendingsToEdit = pending;
@@ -154,6 +169,30 @@ export class AprovePendingsComponent implements OnInit {
   cancelDelete(): void {
     this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
   }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+    console.log('Popup de sucesso aberta com mensagem:', message);
+    // Fecha o formulário apenas se a aprovação for bem-sucedida
+    this.isFormEditPendingVisible = false;
+  }
+
+
+  openErrorPopup(message: string): void {
+    this.isErrorPopupVisible = true;
+    this.errorMessage = message;
+    this.cdr.detectChanges(); // Atualiza a detecção de mudanças
+  }
+
+  closeErrorPopup(): void {
+    this.isErrorPopupVisible = false;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
+    this.isDeleteConfirmationVisible = false;
+    this.cdr.detectChanges(); // Atualiza a detecção de mudanças
+  }
   
   recusePending(pending: Pending): void {
     // Verifica se o estado do pedido não é 'RECUSADO'
@@ -170,6 +209,7 @@ export class AprovePendingsComponent implements OnInit {
                     this.pendingsUpdated.emit(pendants);
                     // Recarrega os pendentes após a recusa do pedido
                     this.loadPendings();
+                    this.openSuccessPopup('Pedido Recusado com sucesso!');
                     // Fecha o formulário apenas se a recusa for bem-sucedida
                     this.isFormEditPendingVisible = false;
                 },
