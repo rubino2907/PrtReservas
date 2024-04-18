@@ -271,23 +271,34 @@ export class ListUserPendingsComponent implements OnInit {
   sortTableByApproval(): void {
     // Alterne a direção da ordenação
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    
+
     // Atualize a coluna de ordenação para 'aproved'
     this.sortColumn = 'aproved';
 
+    // Defina a ordem desejada dos estados
+    const order = ['EM ESPERA', 'APROVADO', 'RECUSADO'];
+
     // Classifique os pendentes com base no estado de aprovação e na direção da ordenação
     this.filteredPendings.sort((a, b) => {
-      // Verifica se 'a.aproved' e 'b.aproved' são definidos
-      if (a.aproved !== undefined && b.aproved !== undefined) {
-        if (this.sortDirection === 'asc') {
-          return a.aproved.localeCompare(b.aproved);
-        } else {
-          return b.aproved.localeCompare(a.aproved);
+        // Verifique se 'a.aproved' e 'b.aproved' estão definidos
+        if (a.aproved !== undefined && b.aproved !== undefined) {
+            const indexA = order.indexOf(a.aproved);
+            const indexB = order.indexOf(b.aproved);
+            
+            // Se ambos os estados estiverem na ordem, classifique com base nessa ordem
+            if (indexA !== -1 && indexB !== -1) {
+                if (this.sortDirection === 'asc') {
+                    return indexA - indexB;
+                } else {
+                    return indexB - indexA;
+                }
+            }
+            // Se apenas um estado estiver na ordem, coloque-o antes
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
         }
-      }
-      // Se 'a.aproved' ou 'b.aproved' não forem definidos, não é possível comparar
-      // Então, retorna 0 para manter a ordem atual
-      return 0;
+        // Se 'a.aproved' ou 'b.aproved' não forem definidos ou não estiverem na ordem, mantenha a ordem atual
+        return 0;
     });
   }
 
