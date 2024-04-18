@@ -157,6 +157,10 @@ export class ListPendantsComponent implements OnInit {
       console.error('O campo createdBy está undefined.');
     }
 
+    if(!this.isFormEditPendingVisible){
+      this.isFormEditPendingVisible = true;
+    }
+
     // Remova o código HTML fora deste bloco
 }
 

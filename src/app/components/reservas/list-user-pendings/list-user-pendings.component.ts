@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Pending } from '../../../models/pending';
 import { PendantService } from '../../../services/pending.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -17,6 +17,9 @@ export class ListUserPendingsComponent implements OnInit {
   pendings: Pending[] = [];
   sortColumn: string = 'aproved';
   sortDirection: string = 'desc'; // 'asc' para ascendente, 'desc' para descendente
+  @Output() pendingsUpdated: EventEmitter<any> = new EventEmitter();
+  
+  isDeleteConfirmationVisible: boolean = false;
 
   matriculations: string[] = []; // Array para armazenar as matrículas
 
@@ -212,8 +215,57 @@ export class ListUserPendingsComponent implements OnInit {
 
   closeSuccessPopup(): void {
     this.isSuccessPopupVisible = false;
+    this.isDeleteConfirmationVisible = false;
     this.closeEditPopup();
   }
+
+  cancelPending(pending: Pending): void {
+    // Primeiro, obtenha todas as reservas
+    this.reserveService.getReserves().subscribe(
+        (reserves: Reserve[]) => {
+            // Filtrar as reservas para encontrar a correspondente ao pedido
+            const matchingReserve = reserves.find(reserve =>
+                reserve.state === 'ATIVA' &&
+                reserve.matriculation === pending.matriculation &&
+                new Date(reserve.dateStart!).getTime() === new Date(pending.dateStart!).getTime() &&
+                new Date(reserve.dateEnd!).getTime() === new Date(pending.dateEnd!).getTime()
+            );
+
+            if (matchingReserve) {
+                // Excluir a reserva encontrada
+                this.reserveService.deleteReserves(matchingReserve).subscribe(
+                  () => {
+                              console.log("Reserva excluída com sucesso!");
+                              console.log("Pedido cancelado com sucesso!");
+                              this.openSuccessPopup('Pedido cancelado com sucesso!');
+                              this.getPendingsByCurrentUser();
+                  },
+                  (error) => {
+                      console.error("Erro ao excluir a reserva:", error);
+                      this.openErrorPopup('Erro ao excluir a reserva: ' + (error.error || "Erro desconhecido"));
+                  }
+              );
+            } else {
+                console.error("Não foi encontrada uma reserva ativa correspondente ao pedido.");
+                this.openErrorPopup('Não foi encontrada uma reserva ativa correspondente ao pedido.'); // Exibir popup de erro aqui
+            }
+        },
+        (error) => {
+            console.error("Erro ao buscar reservas:", error);
+            this.openErrorPopup('Não foi possível buscar as reservas.'); // Exibir popup de erro aqui
+        }
+    );
+}
+
+  showDeleteConfirmation(): void {
+    this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação
+  }
+
+  cancelDelete(): void {
+    this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
+  }
+
+
 
   // Método para ordenar a tabela com base no estado de aprovação
   sortTableByApproval(): void {
