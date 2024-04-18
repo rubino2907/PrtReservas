@@ -21,3 +21,42 @@
 .popup-content p {
     margin-bottom: 10px;
 }
+
+.icon-list-container {
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+    border: 1px solid #ced4da;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .icon-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .icon-list li {
+    cursor: pointer;
+  }
+  
+  .icon-list li img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .icon-input {
+    background-size: contain; /* Garante que a imagem se ajuste ao tamanho da input */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    padding-left: 35px; /* Adiciona espaço à esquerda para a imagem não ficar colada ao texto */
+    cursor: pointer; /* Altera o cursor para indicar que a input é clicável */
+}
+
+.icon-input:focus {
+    outline: none; /* Remove a borda de foco padrão */
+}
+
+
+  
+

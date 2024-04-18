@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { VehicleService } from '../../../services/vehicle.service';
 import { TypeVehicleService } from '../../../services/typeVehicle.service';
+import { IconService } from '../../../services/icon.service';
 
 @Component({
   selector: 'app-edit-vehicle',
@@ -17,11 +18,43 @@ export class EditVehicleComponent implements OnInit  {
 
   isFormEditVehicleVisible: boolean = false; // Variável para controlar a visibilidade do formulário
 
-  constructor(private vehicleService: VehicleService, private typeVehicleService: TypeVehicleService) {}
+  iconList: string[] = []; // Adicione uma variável para armazenar a lista de ícones
+
+  selectedIcon: string = ''; // Adicione a variável selectedIcon e inicialize-a conforme necessário
+
+  isIconListVisible: boolean = false; // Flag para controlar a visibilidade da lista de ícones
+
+  constructor(private vehicleService: VehicleService, private typeVehicleService: TypeVehicleService, private iconService: IconService) {}
 
   ngOnInit(): void {
     this.loadTypeOfVehicles();
+    this.loadIconList();
   }
+
+  loadIconList(): void {
+    this.iconService.getIconList().subscribe(
+      (icons: string[]) => {
+        this.iconList = icons;
+        // Defina o ícone selecionado como o primeiro da lista, se houver algum ícone na lista
+        if (this.iconList.length > 0) {
+          this.selectedIcon = this.iconList[0];
+        }
+      },
+      (error) => {
+        console.error("Erro ao carregar lista de ícones:", error);
+      }
+    );
+  }
+
+  toggleIconListVisibility(): void {
+    this.isIconListVisible = !this.isIconListVisible;
+  }
+
+  selectIcon(icon: string): void {
+    this.selectedIcon = icon;
+    this.isIconListVisible = false; // Fechar a lista de ícones após selecionar um ícone
+  }
+
 
   loadTypeOfVehicles(): void {
     this.typeVehicleService.getTypeOfVehicle().subscribe(
@@ -49,9 +82,11 @@ export class EditVehicleComponent implements OnInit  {
   }
 
   createVehicle(vehicle: Vehicle): void {
+    console.log("Veiculo icon: ", vehicle.icon)
     console.log("Vehicle antes de ser enviado:", vehicle);
     vehicle.descVehicle = vehicle.matriculation;
     vehicle.defaultLocation = '';
+    vehicle.icon = this.selectedIcon;
 
     this.vehicleService
       .createVehicles(vehicle)

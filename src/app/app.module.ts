@@ -16,7 +16,7 @@ import { SidebarComponent } from './components/admin-dashboard/sidebar/sidebar.c
 import { ListUsersComponent } from './components/tabelas/list-users/list-users.component';
 import { ListVehiclesComponent } from './components/tabelas/list-vehicles/list-vehicles.component';
 import { BaseAdminDashboardComponent } from './components/admin-dashboard/base-admin-dashboard/base-admin-dashboard.component';
-import { EditReservesComponent } from './components/edit-reserves/edit-reserves.component';
+import { EditReservesComponent } from './components/gestao/edit-reserves/edit-reserves.component';
 import { ListReservesComponent } from './components/gestao/list-reserves/list-reserves.component';
 import { ListPendantsComponent } from './components/tabelas/list-pendants/list-pendants.component';
 import { EditPendantsComponent } from './components/tabelas/edit-pendants/edit-pendants.component';
