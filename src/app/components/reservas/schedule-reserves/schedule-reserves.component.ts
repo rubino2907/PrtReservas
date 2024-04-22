@@ -27,6 +27,7 @@ export class ScheduleReservesComponent implements OnInit {
   matriculations: string[] = []; // Lista de matrículas
   selectedMatriculation: string = ''; // Matrícula selecionada
   selectedMatriculations: { [matriculation: string]: boolean } = {};
+  // Altere de private para public
   matriculationColors: { [matriculation: string]: string } = {};
   
   typeOfVehicles: string[] = []; // Array para armazenar os tipos
@@ -83,6 +84,7 @@ export class ScheduleReservesComponent implements OnInit {
   }
 
 
+  // Método para carregar as reservas por matrícula
   loadReservesByMatriculation(matriculations: string[]): void {
     console.log('Carregando reservas para as matrículas:', matriculations);
   
@@ -94,9 +96,6 @@ export class ScheduleReservesComponent implements OnInit {
     this.reserveService.getReservesByMatriculationess(matriculationList)
       .subscribe((reserves: Reserve[]) => {
         console.log('Reservas recuperadas:', reserves);
-  
-        // Limpa as cores das matrículas
-        this.matriculationColors = {};
   
         // Adiciona as reservas à lista de eventos
         reserves.forEach(reserve => {
@@ -140,19 +139,22 @@ formatDate(date: string): string {
 
 
 getRandomColor(): string {
-  // Gera uma cor hexadecimal aleatória em tons mais claros
-  const letters = '0123456789ABCDEF';
-  let color;
-  
-  do {
-    color = '#';
-    for (let i = 0; i < 3; i++) {
-      color += letters[Math.floor(Math.random() * 6) + 9];
-    }
-  } while (color === '#A5D6A7'); // Repete a geração da cor se ela for #A5D6A7
+  // Lista de cores distintas
+  const distinctColors = ['#E41A1C', '#377EB8', '#4DAF4A', '#984EA3', '#FF7F00'];
 
-  return color;
+  // Filtra as cores que já foram atribuídas a outras matrículas
+  const availableColors = distinctColors.filter(color => !Object.values(this.matriculationColors).includes(color));
+
+  // Se houver cores disponíveis, retorna uma cor aleatória da lista de cores disponíveis
+  if (availableColors.length > 0) {
+    return availableColors[Math.floor(Math.random() * availableColors.length)];
+  }
+
+  // Se todas as cores já foram atribuídas, retorna uma cor aleatória da lista de cores distintas
+  return distinctColors[Math.floor(Math.random() * distinctColors.length)];
 }
+
+
   
   // Adiciona as reservas à lista de eventos
   addReservesToEvents(): void {
@@ -283,7 +285,9 @@ getRandomColor(): string {
       this.pending = {}; // Limpa os dados do formulário
       this.selectedMatriculation = ''; // Limpa a matrícula selecionada
       this.matriculations = [];
+      this.matriculationColors = {}; // Limpa as cores das matrículas
     }
+    
 
     onSave(): void {
       // Obtenha a lista de matrículas selecionadas

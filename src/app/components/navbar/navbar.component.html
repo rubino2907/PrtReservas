@@ -16,9 +16,9 @@
     <i class="bi bi-gear-fill" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle; color: #337AB7;"></i>
     <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer;">Gestão</label>
 </a> 
-  <div class="logout-btn" style="padding: 5px;">
+  <div class="logout-btn">
     <a *ngIf="isAdmin" (click)="toggleNotification()" style="padding: 5px; position: relative; display: inline-block;">
-        <i class="bi bi-bell-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 21px; vertical-align: middle;"></i>
+        <i class="bi bi-bell-fill" style="color: #337AB7; opacity: 1; width: 18px; height: 18px; vertical-align: middle;"></i>
         <span class="badge" *ngIf="pendingCount > 0" style="background-color: red; color: white; border-radius: 50%; font-size: 12px;">{{pendingCount}}</span>
         <!-- Dropdown message -->
         <div *ngIf="showDropdownMessage" class="notification-container" style="position: absolute; background-color: white; border-radius: 5px; right: 100%; top: 0; margin-right: 15px; width: 200px; z-index: 1060; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
