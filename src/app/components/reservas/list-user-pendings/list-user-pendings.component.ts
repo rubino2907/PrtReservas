@@ -86,7 +86,7 @@ export class ListUserPendingsComponent implements OnInit {
             console.error("Erro ao carregar matrículas por tipo:", error);
         }
     );
-}
+  }
 
 
   applyFilters(): void {

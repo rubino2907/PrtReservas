@@ -40,3 +40,24 @@
 .button-container {
     text-align: center;
 }
+
+/* Estilize a célula da coluna quando o mouse estiver sobre ela */
+.listaAproves tr:hover td {
+    background-color: #f5f5f5; /* Cor de fundo quando hover */
+    cursor: pointer; /* Altera o cursor para indicar interação */
+}
+
+/* Estilize a linha da tabela quando estiver ativa (clicada) */
+.listaAproves tr:active {
+    background-color: #d3d3d3; /* Cor de fundo quando ativa (clicada) */
+}
+
+/* Estilo padrão das células */
+.listaAproves td {
+    background-color: #ffff;
+}
+
+/* Estilo para linhas selecionadas */
+.listaAproves tr.selected {
+    background-color: #6d6d6d; /* Define a cor de fundo quando o mouse está sobre a linha */
+}

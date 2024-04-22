@@ -23,7 +23,7 @@
               </thead>
               <tbody>
                   <tr *ngFor="let userGroup of userGroups" (click)="editUserGroup(userGroup)" > <!-- Adiciona cor de fundo alternada -->
-                      <td style="vertical-align: middle; height: 45px; color: #337AB7;"><i class="bi bi-car-front-fill"></i></td>
+                      <td style="vertical-align: middle; height: 45px; color: #337AB7;"><i class="bi bi-pencil-square"></i></td>
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ userGroup.groupName }}</td>
                       <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{ userGroup.descGroupName }}</td>
                   </tr>

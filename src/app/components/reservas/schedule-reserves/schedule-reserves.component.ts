@@ -73,60 +73,65 @@ export class ScheduleReservesComponent implements OnInit {
         (vehicles: Vehicle[]) => {
             this.matriculations = vehicles
                 .filter(vehicle => !!vehicle.matriculation)
-                .map(vehicle => vehicle.matriculation!);
+                .map(vehicle => `${vehicle.matriculation} | ${vehicle.descVehicle}`);
         },
         (error) => {
             console.error("Erro ao carregar matrículas por tipo:", error);
             // Lide com os erros adequadamente
         }
     );
-}
+  }
 
-loadReservesByMatriculation(matriculations: string[]): void {
-  console.log('Carregando reservas para as matrículas:', matriculations);
 
-  this.events = []; // Limpa os eventos antes de adicionar as novas reservas
-
-  this.reserveService.getReservesByMatriculationess(matriculations)
-    .subscribe((reserves: Reserve[]) => {
-      console.log('Reservas recuperadas:', reserves);
-
-      // Limpa as cores das matrículas
-      this.matriculationColors = {};
-
-      // Adiciona as reservas à lista de eventos
-      reserves.forEach(reserve => {
-        console.log('Adicionando reserva:', reserve);
-        if (reserve.dateStart && reserve.dateEnd && reserve.matriculation && typeof reserve.matriculation === 'string') {
-          const title = ` <br> <br> Matrícula: ${reserve.matriculation} <br> Descrição: ${reserve.description} <br> Data Inicio: ${this.formatDate(reserve.dateStart.toString())} <br> Data Fim: ${this.formatDate(reserve.dateEnd.toString())} <br> <br> <br>`;
-
-          // Verifica se já existe uma cor atribuída a esta matrícula
-          if (!this.matriculationColors.hasOwnProperty(reserve.matriculation)) {
-            // Se não houver, atribui uma cor nova
-            this.matriculationColors[reserve.matriculation] = this.getRandomColor();
-          }
-
-          this.events.push({
-            start: new Date(reserve.dateStart),
-            end: new Date(reserve.dateEnd),
-            title: title,
-            color: {
-              primary: this.matriculationColors[reserve.matriculation],
-              secondary: this.matriculationColors[reserve.matriculation]
+  loadReservesByMatriculation(matriculations: string[]): void {
+    console.log('Carregando reservas para as matrículas:', matriculations);
+  
+    // Extrair apenas a matrícula antes de fazer a solicitação
+    const matriculationList = matriculations.map(matriculation => matriculation.split(" | ")[0]);
+  
+    this.events = []; // Limpa os eventos antes de adicionar as novas reservas
+  
+    this.reserveService.getReservesByMatriculationess(matriculationList)
+      .subscribe((reserves: Reserve[]) => {
+        console.log('Reservas recuperadas:', reserves);
+  
+        // Limpa as cores das matrículas
+        this.matriculationColors = {};
+  
+        // Adiciona as reservas à lista de eventos
+        reserves.forEach(reserve => {
+          console.log('Adicionando reserva:', reserve);
+          if (reserve.dateStart && reserve.dateEnd && reserve.matriculation && typeof reserve.matriculation === 'string') {
+            const title = ` <br> <br> Matrícula: ${reserve.matriculation} <br> Descrição: ${reserve.description} <br> Data Inicio: ${this.formatDate(reserve.dateStart.toString())} <br> Data Fim: ${this.formatDate(reserve.dateEnd.toString())} <br> <br> <br>`;
+  
+            // Verifica se já existe uma cor atribuída a esta matrícula
+            if (!this.matriculationColors.hasOwnProperty(reserve.matriculation)) {
+              // Se não houver, atribui uma cor nova
+              this.matriculationColors[reserve.matriculation] = this.getRandomColor();
             }
-          });
-        }
+  
+            this.events.push({
+              start: new Date(reserve.dateStart),
+              end: new Date(reserve.dateEnd),
+              title: title,
+              color: {
+                primary: this.matriculationColors[reserve.matriculation],
+                secondary: this.matriculationColors[reserve.matriculation]
+              }
+            });
+          }
+        });
+  
+        // Emitir o evento de atualização
+        this.refresh.emit();
+  
+        console.log('Eventos:', this.events); // Lista os eventos
+      },
+      (error) => {
+        console.error('Erro ao carregar reservas:', error);
       });
-
-      // Emitir o evento de atualização
-      this.refresh.emit();
-
-      console.log('Eventos:', this.events); // Lista os eventos
-    },
-    (error) => {
-      console.error('Erro ao carregar reservas:', error);
-    });
-}
+  }
+  
 
 
 formatDate(date: string): string {

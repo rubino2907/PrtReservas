@@ -104,6 +104,7 @@ export class EditVehicleComponent implements OnInit  {
   }
 
   updateVehicle(vehicle: Vehicle): void {
+    vehicle.icon = this.selectedIcon;
     this.vehicleService
       .updateVehicles(vehicle)
       .subscribe((vehicles: Vehicle[]) => {
