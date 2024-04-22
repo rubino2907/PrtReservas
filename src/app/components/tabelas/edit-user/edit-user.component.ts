@@ -71,7 +71,7 @@ export class EditUserComponent implements OnInit {
     console.log("Dados do usuário antes de serem enviados:", user);
   
     user.createdBy = this.cookieService.get('userName');
-    user.canApproveReservations = true;
+    user.canApproveReservations = false;
     user.changeDateTime = "";
     user.creationDateTime = "";
     user.token = '';

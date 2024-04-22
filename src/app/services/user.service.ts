@@ -44,4 +44,8 @@ export class UserService {
     public getUserDetailsByCreatedBy(createdBy: string): Observable<UserDetails> {
         return this.http.get<UserDetails>(`${environment.apiUrl}/${this.url}/Email&PhoneDetails?createdBy=${createdBy}`);
     }
+
+    public getUserByUsername(username: string): Observable<User> {
+        return this.http.get<User>(`${environment.apiUrl}/${this.url}/${username}`);
+    }
 }
