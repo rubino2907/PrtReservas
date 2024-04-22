@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../../models/UserModels/user';
@@ -16,12 +16,19 @@ export class EditUserComponent implements OnInit {
   confirmPassword: string = ''; // Confirmação da nova senha
   @Input() user?: User;
   @Output() usersUpdated = new EventEmitter<User[]>();
+  
+  isSuccessPopupVisible: boolean = false;
+  isErrorPopupVisible: boolean = false;
+  errorMessage: string = ''; // Propriedade para armazenar a mensagem de erro específica
 
   groups: string[] = []; // Array para armazenar os tipos
 
   isFormVisible: boolean = false; // Variável para controlar a visibilidade do formulário
 
-  constructor(private userService: UserService, private cookieService: CookieService, private userGroups: UserGroupService) {}
+  constructor(private userService: UserService, 
+    private cookieService: CookieService, 
+    private userGroups: UserGroupService,
+    private cdr: ChangeDetectorRef ) {}
 
   ngOnInit(): void {
     this.loadGroups();
@@ -61,7 +68,7 @@ export class EditUserComponent implements OnInit {
   }
 
   createUser(user: User): void {
-    console.log("Dados do usuário antes de serem enviados:", user); // Adiciona um log para mostrar os dados do usuário antes de enviar a solicitação
+    console.log("Dados do usuário antes de serem enviados:", user);
   
     user.createdBy = this.cookieService.get('userName');
     user.canApproveReservations = true;
@@ -69,23 +76,54 @@ export class EditUserComponent implements OnInit {
     user.creationDateTime = "";
     user.token = '';
   
-    console.log("Usuário criado por:", user.createdBy); // Adiciona um log para mostrar quem está criando o usuário
+    console.log("Usuário criado por:", user.createdBy);
+    
   
     this.userService
       .createUsers(user)
       .subscribe(
         (users: User[]) => {
-          console.log("Resposta do servidor ao criar usuário:", users); // Adiciona um log para mostrar a resposta do servidor ao criar o usuário
+          this.isSuccessPopupVisible = true;
+          this.openSuccessPopup('O pedido foi submetido com sucesso.');
+          console.log("Resposta do servidor ao criar usuário:", users);
           this.usersUpdated.emit(users);
+          this.user = new User();
           console.log("Usuário criado com sucesso!", users);
-          this.isFormVisible = false; // Esconde o formulário após criar o usuário com sucesso
+          console.log(this.isSuccessPopupVisible);
+          this.isFormVisible = false;
         },
         (error) => {
-          console.error("Erro ao criar usuário:", error); // Adiciona um log para mostrar qualquer erro ao criar o usuário
+          const errorMessage = error.error;
+          console.error("Mensagem de erro:", errorMessage);
+          this.errorMessage = errorMessage;
+          this.openErrorPopup(errorMessage);
+          console.error("Erro ao criar usuário:", error);
         }
       );
   }
+
   
+  openSuccessPopup(message: string): void {
+    console.log('Abrindo popup de sucesso', message);
+    this.isSuccessPopupVisible = true;
+    this.cdr.detectChanges(); // Força a detecção de mudanças
+    console.log('Popup deve estar visível agora', this.isSuccessPopupVisible);
+  }
+  
+
+  openErrorPopup(message: string): void {
+    this.isErrorPopupVisible = true;
+    this.errorMessage = message;
+    this.cdr.detectChanges(); // Solicita ao Angular para detectar mudanças
+  }
+
+  closeErrorPopup(): void {
+    this.isErrorPopupVisible = false;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
+  }
   
   showDeleteConfirmation(): void {
     this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação

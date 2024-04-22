@@ -16,12 +16,15 @@
                 <input type="text" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0;" [(ngModel)]="searchInput" (input)="filterVehicles()" placeholder="Pesquisar por matrícula...">
             </ng-container>
             <!-- Campo de seleção para filtrar por tipo de veículo -->
-            <ng-template #typeSearchInput>
-                <select [(ngModel)]="selectedVehicleType" (change)="filterVehicles()" style="margin-left: 8px; margin-right: 8px; flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0; background-color: #FFFFFF;" name="typeVehicle" id="typeVehicle" class="form-control">
-                    <option value="">Selecione um tipo</option>
-                    <option *ngFor="let typeVehicle of typeOfVehicles" [value]="typeVehicle">{{ typeVehicle }}</option>
-                </select>
-            </ng-template>
+            <ng-template #typeSearchInput style="margin-right: 10px; margin-left: 10px;">
+                <div style="flex-grow: 1; margin-right: 20px; position: relative;">
+                    <select [(ngModel)]="selectedVehicleType" (change)="filterVehicles()" style="margin-left: 8px; margin-right: 8px; flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0; background-color: #FFFFFF; margin-right: 10px; margin-left: 10px;" name="typeVehicle" id="typeVehicle" class="form-control">
+                        <option value="">Selecione um tipo</option>
+                        <option *ngFor="let typeVehicle of typeOfVehicles" [value]="typeVehicle">{{ typeVehicle }}</option>
+                    </select>
+                    <i class="bi bi-caret-down-fill" style="color: #337AB7; position: absolute; right: 10px; top: calc(50% - 8px); z-index: 5000;"></i> 
+                </div>
+            </ng-template>            
             <!-- Botão de pesquisa -->
             <button style="background-color: #337AB7; padding: 8px; margin-right: 30px; width: calc(50px + 1px); height: 42px; border: none; border-radius: 2px; display: flex; justify-content: center; align-items: center;"> <i class="bi bi-search" style="color: #FFFFFF; font-size: 20px;"></i></button>
         </div>
