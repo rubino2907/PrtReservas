@@ -71,10 +71,10 @@
                 <div style="margin-top: 20px;">
                     <div style="margin-top: 10px;">
                         <i class="bi bi-calendar-week-fill" style="width: 14px; height: 16px; opacity: 1; margin-right: 5px; color: #337AB7;" ></i>
-                        <label id="dateStart" style="height: 17px; text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1; margin-right: 15px;">{{ pendingsToEdit?.dateStart }}</label>
+                        <label id="dateStart" style="height: 17px; text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1; margin-right: 15px;">{{ pendingsToEdit?.dateStart | date:'yyyy-MM-dd HH:mm:ss' }}</label>
         
                         <i class="bi bi-calendar-week-fill" style="width: 14px; height: 16px; opacity: 1; margin-right: 5px; color: #337AB7;" ></i>
-                        <label id="dateStart" style="height: 17px; text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1; margin-right: 15px;">{{ pendingsToEdit?.dateEnd }}</label>
+                        <label id="dateStart" style="height: 17px; text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1; margin-right: 15px;">{{ pendingsToEdit?.dateEnd | date:'yyyy-MM-dd HH:mm:ss'}}</label>
                     </div>
                     <div style="margin-top: 20px;">
                         <i class="bi bi-sticky-fill" style="width: 14px; height: 16px; opacity: 1; margin-right: 5px; color: #337AB7;"></i>
