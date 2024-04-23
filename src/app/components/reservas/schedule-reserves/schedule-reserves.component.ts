@@ -101,7 +101,14 @@ export class ScheduleReservesComponent implements OnInit {
         reserves.forEach(reserve => {
           console.log('Adicionando reserva:', reserve);
           if (reserve.dateStart && reserve.dateEnd && reserve.matriculation && typeof reserve.matriculation === 'string') {
-            const title = ` <br> <br> Matrícula: ${reserve.matriculation} <br> Descrição: ${reserve.description} <br> Data Inicio: ${this.formatDate(reserve.dateStart.toString())} <br> Data Fim: ${this.formatDate(reserve.dateEnd.toString())} <br> <br> <br>`;
+            const title = `
+              <br><br>  
+              <b>Matrícula:</b> ${reserve.matriculation} <br> 
+              <b>Data Início:</b> ${this.formatDate(reserve.dateStart.toString())} <br>  
+              <b>Data Fim:</b> ${this.formatDate(reserve.dateEnd.toString())} <br> 
+              <b>Descrição:</b> ${reserve.description} <br> 
+              <br> <br> `;
+
   
             // Verifica se já existe uma cor atribuída a esta matrícula
             if (!this.matriculationColors.hasOwnProperty(reserve.matriculation)) {

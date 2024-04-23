@@ -44,4 +44,5 @@ export class VehicleService {
         return this.http.get<Vehicle[]>(`${environment.apiUrl}/${this.url}/ByVehicleType/${vehicleType}`);
     }
     
+    
 }

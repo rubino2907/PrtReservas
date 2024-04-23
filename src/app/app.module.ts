@@ -40,6 +40,7 @@ import { ListTypeVehiclesComponent } from './components/tabelas/list-type-vehicl
 import { ListGroupUsersComponent } from './components/tabelas/list-group-users/list-group-users.component';
 import { EditTypeVehiclesComponent } from './components/tabelas/edit-type-vehicles/edit-type-vehicles.component';
 import { EditGroupUsersComponent } from './components/tabelas/edit-group-users/edit-group-users.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 registerLocaleData(localePt);
 
@@ -80,6 +81,7 @@ registerLocaleData(localePt);
   imports: [
     BrowserModule,
     AppRoutingModule,
+    GoogleChartsModule,
     HttpClientModule,
     FormsModule,
     CommonModule,

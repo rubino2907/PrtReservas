@@ -1,4 +1,3 @@
-/* Estilo para o rodapé */
 footer.footer {
     background-color: #f8f9fa;
     padding: 10px 0;
@@ -6,4 +5,41 @@ footer.footer {
     bottom: 0;
     width: 100%;
     text-align: center;
+    margin-top: 60px; /* Ajuste esta margem conforme necessário */
 }
+
+.container-content {
+    margin-bottom: 100px; /* Ajuste a margem inferior conforme desejado */
+}
+
+
+.card-subtitle {
+    color: #6c757d;
+}
+
+.list-group-item {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.list-group-item:first-child {
+    border-top: none;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.equal-height-row {
+    display: flex;
+}
+
+.equal-height-row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.equal-height-row > [class*='col-'] > .p-5 {
+    flex: 1;
+}
+

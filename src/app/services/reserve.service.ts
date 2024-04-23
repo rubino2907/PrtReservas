@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Reserve } from "../models/reserve";
 import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
+import { Vehicle } from "../models/VehicleModels/vehicle";
 
 @Injectable({
     providedIn: 'root'
@@ -54,6 +55,17 @@ export class ReserveService {
         return this.http.get<Reserve[]>(`${environment.apiUrl}/${this.url}/GetReservesByMatriculations`, { params });
     }
 
+    public getAverageReservationTime(): Observable<number> {
+        return this.http.get<number>(`${environment.apiUrl}/${this.url}/AverageReservationTime`);
+    }
+
+    public getMostAndLeastUsedVehicles(): Observable<{ mostUsed: Vehicle[], leastUsed: Vehicle[] }> {
+        return this.http.get<{ mostUsed: Vehicle[], leastUsed: Vehicle[] }>(`${environment.apiUrl}/${this.url}/MostAndLeastUsedVehicles`);
+    }
+
+    public getUserWithMostOrders(): Observable<string> {
+        return this.http.get(`${environment.apiUrl}/${this.url}/UserWithMostOrders`, { responseType: 'text' });
+    }
     // public GetReservesByType
     
 }

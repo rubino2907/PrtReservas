@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Reserve } from '../../../models/reserve';
 import { ReserveService } from '../../../services/reserve.service';
 import { VehicleService } from '../../../services/vehicle.service';
@@ -21,7 +21,7 @@ export class ListReservesComponent implements OnInit {
   endDate: string = '';
 
 
-  constructor(private reserveService: ReserveService, private vehicleService:VehicleService) {}
+  constructor(private reserveService: ReserveService, private cdr: ChangeDetectorRef, private vehicleService:VehicleService) {}
 
   ngOnInit(): void {
 
@@ -76,6 +76,8 @@ export class ListReservesComponent implements OnInit {
       const matchStartDate = startDate ? pendingStartDate >= startDate : true;
       const matchEndDate = endDate ? pendingEndDate <= endDate : true;
 
+      this.cdr.detectChanges(); // Adicione isso se não estiver reagindo às mudanças
+
       return matchMatricula && matchStartDate && matchEndDate;
     });
   }
@@ -103,6 +105,7 @@ export class ListReservesComponent implements OnInit {
   updateReserveList(reserves: Reserve[]): void {
     console.log('updateReserveList triggered');
     this.reserves = reserves;
+    this.cdr.detectChanges(); // Força a detecção de mudanças
     this.isFormEditReserveVisible = false;
   }
 
