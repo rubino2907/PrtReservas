@@ -25,12 +25,8 @@
             <p *ngIf="pendingCount === 0" style="margin: 0; font-size: 14px; padding: 2px 6px;">Não tem Pedidos por aprovar</p>
             <p *ngIf="pendingCount > 0" style="margin: 0; font-size: 14px; padding: 2px 6px;">Tem {{ pendingCount }} pedidos por aprovar recentes</p>
         </div>
-        
     </a>
-    
-    
-    
-      <a style="padding: 5px;">
+      <a style="padding: 5px;" (click)="GoToUserProfile()" [ngClass]="{'active': isUserProfileActive}">
           <i class="bi bi-person-fill" style="color: #337AB7; opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle;" ></i>
           <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle;">{{username}}</label>
       </a>

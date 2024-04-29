@@ -41,6 +41,7 @@ import { ListGroupUsersComponent } from './components/tabelas/list-group-users/l
 import { EditTypeVehiclesComponent } from './components/tabelas/edit-type-vehicles/edit-type-vehicles.component';
 import { EditGroupUsersComponent } from './components/tabelas/edit-group-users/edit-group-users.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 registerLocaleData(localePt);
 
@@ -76,7 +77,8 @@ registerLocaleData(localePt);
     ListTypeVehiclesComponent,
     ListGroupUsersComponent,
     EditTypeVehiclesComponent,
-    EditGroupUsersComponent
+    EditGroupUsersComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

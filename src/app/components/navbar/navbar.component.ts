@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   isDashboardActive: boolean = false; // Variável para indicar se a página do dashboard está ativa
   isTabelasActive: boolean = false;
   isGestaoActive: boolean = false;
+  isUserProfileActive: boolean = false;
 
   constructor(private router: Router, private cookieService: CookieService, private authService: AuthService, private pendingService: PendantService) {}
 
@@ -39,22 +40,32 @@ export class NavbarComponent implements OnInit {
         this.isDashboardActive = false;
         this.isTabelasActive = false;
         this.isGestaoActive = false;
+        this.isUserProfileActive = false;
       } else if (this.router.url.includes('adminDashboard')) {
         this.isReservasActive = false;
         this.isDashboardActive = true;
         this.isTabelasActive = false;
         this.isGestaoActive = false;
+        this.isUserProfileActive = false;
       } else if (this.router.url.includes('tabelas')) {
         this.isReservasActive = false;
         this.isDashboardActive = false;
         this.isTabelasActive = true;
         this.isGestaoActive = false;
+        this.isUserProfileActive = false;
       } else if (this.router.url.includes('gestao')) {
         this.isReservasActive = false;
         this.isDashboardActive = false;
         this.isTabelasActive = false;
         this.isGestaoActive = true;
-      }  else {
+        this.isUserProfileActive = false;
+      }  else if (this.router.url.includes('userProfile')){
+        this.isReservasActive = false;
+        this.isDashboardActive = false;
+        this.isTabelasActive = false;
+        this.isGestaoActive = false;
+        this.isUserProfileActive = true;
+      }else{
         this.isReservasActive = false;
         this.isDashboardActive = false;
         this.isTabelasActive = false;
@@ -72,6 +83,10 @@ export class NavbarComponent implements OnInit {
 
   GoToGestao(){
     this.router.navigate(['/gestao']);
+  }
+
+  GoToUserProfile(){
+    this.router.navigate(['/userProfile']);
   }
 
   GoToTabelas(){

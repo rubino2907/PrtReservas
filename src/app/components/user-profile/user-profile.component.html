@@ -1,0 +1,152 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Barra lateral -->
+      <div>
+        <app-sidebar></app-sidebar>
+      </div>
+      <!-- Conteúdo principal -->
+      <div>
+        <app-navbar style="left: 240px;"></app-navbar> <!-- Aqui incluímos o componente navbar -->
+        <!-- Content -->
+        <div class="content">
+          <!-- Boas-vindas -->
+            <div class="col-12" style="margin-bottom: 20px;">
+                <div class="welcome-message p-4" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 12px;">
+                    <div class="d-flex align-items-center">
+                        <div class="welcome-icon mr-3">
+                            <i class="bi bi-person-fill" style="font-size: 40px; color: #337AB7;"></i>
+                        </div>
+                        <div class="welcome-text" style="margin-left: 10px;">
+                            <h2 class="mb-2" style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 24px; color: #333; margin-top: 20px;">Bem-vindo ao Seu Perfil, {{ userName }}!</h2>
+                            <p style="font-family: 'Open Sans', sans-serif; font-size: 16px; color: #666;">Esperamos que aproveite a sua experiência.</p>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+            <div class="col-6" style="margin-bottom: 2px;">
+                <div class="welcome-message p-4" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 5px;">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3  style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 24px; color: #333; margin-top: 20px;">Informações Utilizador</h3>
+                        </div>
+                        <div class="col-auto">
+                            <button *ngIf="user" (click)="saveUser(user)" style=" background-color: rgb(122, 173, 119); padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px; border-radius: 4px;"> <i class="bi bi-floppy" style="margin-right: 8px; color: #FFFFFF;"></i>
+                                <span style="color: #FFFFFF;">Guardar</span>    
+                            </button>
+                            <button (click)="showDeleteConfirmation()" style="margin-left: 5px; background-color: rgb(249, 182, 109); padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px; border-radius: 4px;"> <i class="bi bi-arrow-counterclockwise" style="margin-right: 6px; color: #FFFFFF;"></i>
+                                <span style="color: #FFFFFF;">Cancelar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>                       
+            </div>
+            <div class="col-md-6 mb-4">
+                <div *ngIf="user" class="welcome-message p-4" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 5px;">
+                    <div class="user-form" style="margin-top: 20px;">
+                        <div class="form-group mb-4">
+                            <label for="userName" class="mb-2" style="font-family: 'Open Sans', sans-serif; font-size: 12px; color: #333;">Username:</label>
+                            <input [ngModel] ="user.userName" name="userName" id="userName" class="form-control" style="height: 31px;">
+                        </div>
+                        <div class="row form-group mb-4" >
+                            <div class="col-md-8">
+                                <label for="password" class="mb-2" style="font-family: 'Open Sans', sans-serif; font-size: 12px; color: #333;">Password:</label>
+                                <div style="position: relative;">
+                                    <!-- Campo de entrada -->
+                                    <input [ngModel]="user.password" name="password" id="password" type="password" readonly class="form-control" style="height: 31px; opacity: 0; position: absolute; z-index: 1;" maxlength="10">
+                                    <!-- Campo de visualização -->
+                                    <input value="{{ user.password.substring(0, 10) }}" type="password" class="form-control" style="height: 31px; position: relative; z-index: 2;" readonly>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-4"> 
+                                <button style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; padding-left: 30px; padding-right: 30px; margin-left: 10px; text-align: center; margin-top: 30px; height: 33px;" (click)="showChangePassword()" type="button">
+                                    <i class="bi bi-lock-fill mr-1" style="color: #FFFFFF; margin-right: 5px;"></i> <span style="color: #FFFFFF;">Mudar Password</span> 
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="fullName" class="mb-2" style="font-family: 'Open Sans', sans-serif; font-size: 12px; color: #333;">Nome Completo:</label>
+                            <input [ngModel] ="user.fullName" name="fullName" id="fullName" class="form-control" style="height: 31px;">
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="email" class="mb-2" style="font-family: 'Open Sans', sans-serif; font-size: 12px; color: #333;">Email:</label>
+                                    <input [ngModel] ="user.email" name="email" id="email" class="form-control" style="height: 31px;">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="phone" class="mb-2" style="font-family: 'Open Sans', sans-serif; font-size: 12px; color: #333;">Telefone:</label>
+                                    <input [(ngModel)]="user.phone" name="phone" id="phone" class="form-control" style="height: 31px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>
+        <!-- Fim Content -->
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Popup de alteração de senha -->
+  <div class="popup-background" *ngIf="isChangePasswordVisible">
+    <div class="popup-content" style="width: 400px;">
+        <h3 style="border-bottom: 2px solid #337AB7; padding-bottom: 15px; margin-bottom: 30px;"> <i class="bi bi-pencil-square"> </i> Alterar Password</h3>
+        <div class="form-group">
+            <label for="newPassword" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; margin-bottom: 2px;">Nova Password:</label>
+            <div class="input-group">
+                <input type="password" id="newPassword" class="form-control" [(ngModel)]="newPassword">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; margin-left: 10px;" type="button" (click)="togglePasswordVisibility('newPassword')"><i class="bi bi-eye-fill" style="color: #FFFFFF;"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; margin-bottom: 2px; ">Re-introduza Password:</label>
+            <div class="input-group">
+                <input type="password" id="confirmPassword" class="form-control" [(ngModel)]="confirmPassword">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; margin-left: 10px;" type="button" (click)="togglePasswordVisibility('confirmPassword')"><i class="bi bi-eye-fill" style="color: #FFFFFF;"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="border-top: 2px solid #337AB7; padding-top: 15px; margin-top: 45px;">
+            <button class="btn btn-primary" style="background-color: rgb(26, 123, 185); margin-right: 8px;" (click)="changePassword()">Guardar</button>
+            <button class="btn btn-secondary" style="background-color: rgb(236, 71, 88);" (click)="cancelChangePassword()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+  <!-- Popup de confirmação de exclusão -->
+  <div class="popup-background" *ngIf="isDeleteConfirmationVisible">
+    <div class="popup-content" style="width: 300px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+        <h3 style="border-bottom: 2px solid #337AB7; padding-bottom: 15px; margin-bottom: 20px; color: #333; text-align: center;"> Tem a certeza que deseja eliminar?</h3>
+        <div class="text-center" style="margin-bottom: 20px;">
+            <button class="btn btn-danger" style="margin-right: 8px; background-color: #d9534f; border-color: #d43f3a;" (click)="cancelarUserUpdate()">Sim</button>
+            <button class="btn btn-secondary" style="background-color: #777; border-color: #555;" (click)="cancelDelete()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Popup de confirmação de sucesso -->
+<div class="popup-background sucess" *ngIf="isSuccessPopupVisible">
+    <div class="popup-content" style="width: 300px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+        <h3 style="border-bottom: 2px solid #4CAF50; padding-bottom: 15px; margin-bottom: 20px; color: #333; text-align: center;">Sucesso!</h3>
+        <div class="text-center" style="margin-bottom: 20px;">
+            <p style="color: #333;">O pedido foi submetido com sucesso.</p>
+            <button class="btn btn-primary" style="background-color: #4CAF50; border-color: #4CAF50;" (click)="closeSuccessPopup()">Fechar</button>
+        </div>
+    </div>
+</div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+        <span class="text-muted">Wave Reservas v1.0 © 2024</span>
+    </div>
+</footer>
+  

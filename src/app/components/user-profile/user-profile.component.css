@@ -1,0 +1,70 @@
+/* Estilo para o elemento pai */
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o container tenha pelo menos a altura da janela de visualização */
+    margin-bottom: 100px;
+    z-index: 100;
+}
+
+/* Estilo para a barra de navegação */
+app-navbar {
+    z-index: 1000; /* Defina um z-index alto para a barra de navegação */
+    position: fixed; /* Posicionamento fixo para manter a barra de navegação no topo */
+    top: 0; /* Ancora a barra de navegação no topo */
+    left: 0; /* Ancora a barra de navegação à esquerda */
+    width: 100%; /* Define a largura para preencher a largura total da tela */
+    height: 56px; /* Defina a altura da barra de navegação */
+}
+
+/* Estilo para a barra lateral */
+app-sidebar {
+    z-index: -1; /* Defina um z-index menor para a barra lateral */
+    top: 56px; /* Ajuste conforme necessário para deixar espaço para a barra de navegação */
+    left: 0; /* Ancora a barra lateral à esquerda */
+    width: 250px; /* Define a largura desejada para a barra lateral */
+    height: calc(100vh - 56px); /* Ajusta a altura para preencher o restante da tela após a barra de navegação */
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical se o conteúdo da barra lateral for longo */
+}
+
+/* Estilo para o conteúdo principal */
+.content {
+    padding-top: 60px; /* Adicione o preenchimento superior necessário para evitar que o conteúdo seja sobreposto pela barra de navegação */
+    height: calc(100vh - 56px); /* Defina a altura do conteúdo para ocupar o restante da tela após subtrair a altura da barra de navegação */
+    z-index: 300px;
+}
+
+footer.footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 60px; /* Ajuste esta margem conforme necessário */
+}
+
+.popup-background {
+    position: fixed; /* Posição fixa em relação à tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    z-index: 1000; /* Garante que a popup esteja na frente de outros elementos */
+}
+
+.popup-content {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+.button-container {
+    text-align: center;
+}
+
+
