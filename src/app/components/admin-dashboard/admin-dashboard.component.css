@@ -7,7 +7,7 @@
 
 /* Estilo para a barra de navegação */
 app-navbar {
-    z-index: 1000; /* Defina um z-index alto para a barra de navegação */
+    z-index: 9000; /* Defina um z-index alto para a barra de navegação */
     position: fixed; /* Posicionamento fixo para manter a barra de navegação no topo */
     top: 0; /* Ancora a barra de navegação no topo */
     left: 0; /* Ancora a barra de navegação à esquerda */

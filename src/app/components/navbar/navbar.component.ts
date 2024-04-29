@@ -108,9 +108,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  toggleNotification() {
-    this.showDropdownMessage = !this.showDropdownMessage;
+  toggleNotification(isHovering: boolean) {
+    this.showDropdownMessage = isHovering;
   }
+
 
   hideNotification() {
     this.showNotification = false;

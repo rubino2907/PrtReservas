@@ -1,9 +1,5 @@
 .notification-container {
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translateX(-82%);
-  z-index: 2000;
+  z-index: 9000;
   width: 300px;
 }
 
