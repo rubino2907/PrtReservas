@@ -12,6 +12,14 @@
   width: 400px; /* Define uma largura padrão para a popup */
 }
 
+
+
+.content {
+  padding-top: 70px; /* Ajuste se necessário de acordo com a altura da navbar */
+  padding-left: calc(3.5% + 175px); /* Ajuste o valor de 250px conforme necessário para compensar a largura da sidebar */
+  padding-right: 15px; /* Consistência do padding */
+}
+
 .popupLegendaColors {
   position: fixed;
   top: 40%;
@@ -129,12 +137,6 @@
   border-radius: 50%;
   display: inline-block;
   margin: 2px;
-}
-
-.content {
-  padding-top: 70px; /* Ajuste se necessário de acordo com a altura da navbar */
-  padding-left: 4.5%; /* Alinhamento com a sidebar */
-  padding-right: 15px; /* Consistência do padding */
 }
 
 .matriculation-list {
