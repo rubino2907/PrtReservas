@@ -13,7 +13,7 @@
   min-height: 40px; /* Ajuste a altura conforme necessário */
   justify-content: flex-end;
   align-items: center;
-  background-color: rgb(80, 80, 80);
+  background-color: rgb(70, 70, 70);
   overflow: hidden;
   cursor: pointer;
   position: fixed;

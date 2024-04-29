@@ -8,13 +8,13 @@
   width: 240px; /* Defina a largura desejada para a barra lateral */
   z-index: -1;
   text-align: center;
-  background-color: rgb(90, 90, 90);
+  background-color: rgb(70, 70, 70);
   overflow-y: hidden;
 }
 
 /* Estilos para ocultar a logo quando showOptions for false */
 .logo.hide-options {
-  background-color: rgb(80, 80, 80);; /* Altere para a cor desejada */
+  background-color: rgb(70, 70, 70);; /* Altere para a cor desejada */
 }
 
 .sidebar.show-options {
