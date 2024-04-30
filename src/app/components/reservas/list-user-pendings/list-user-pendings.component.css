@@ -61,3 +61,15 @@
 .listaAproves tr.selected {
     background-color: #6d6d6d; /* Define a cor de fundo quando o mouse está sobre a linha */
 }
+
+.approved {
+    color: #009E25; /* Texto verde para APROVADO */
+}
+
+.not-approved {
+    color: #FF0000; /* Texto vermelho para NÃO APROVADO */
+}
+
+.pending {
+    color: #FF8000; /* Texto amarelo para EM ESPERA */
+}

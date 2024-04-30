@@ -309,6 +309,19 @@ export class ListUserPendingsComponent implements OnInit {
     });
   }
 
+  // Função para retornar a classe com base no estado do pedido
+  getPendingStatusClass(status: string | undefined): string {
+    if (status === 'APROVADO') {
+      return 'approved';
+    } else if (status === 'EM ESPERA') {
+      return 'pending';
+    } else if (status === 'RECUSADO') {
+      return 'not-approved';
+    } else {
+      return ''; // Retorna uma string vazia se o status for undefined
+    }
+  }
+
   // No seu componente TypeScript
   sortTableByStartDateIcon() {
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';

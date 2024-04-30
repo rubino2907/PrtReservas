@@ -81,17 +81,7 @@
                 <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
                     {{ pending.dateEnd | date:'yyyy-MM-dd HH:mm:ss' }}
                 </td>   
-                <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
-                    <ng-container *ngIf="pending.aproved === 'APROVADO';">
-                        APROVADO
-                    </ng-container>
-                    <ng-container *ngIf="pending.aproved === 'RECUSADO';">
-                        RECUSADO
-                    </ng-container>
-                    <ng-container *ngIf="pending.aproved === 'EM ESPERA';">
-                        EM ESPERA
-                    </ng-container>
-                </td>
+                <td style="vertical-align: middle; height: 45px; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1;" [ngClass]="getPendingStatusClass(pending.aproved)">{{ pending.aproved }}</td>
                 <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
                     <ng-container *ngIf="pending.aproved === 'APROVADO';">{{ pending.aprovedBy }}</ng-container>
                 </td>
