@@ -1,46 +1,18 @@
 <div class="login-wrapper" style="background: url('assets/Car_Rental_Unsplash-1200x778.jpg') no-repeat center center; background-size: cover; display: flex; justify-content: center; align-items: center; height: 100vh;">
     <div class="login-container" style="min-height: 400px; background-color: rgba(0, 153, 255, 0.534); padding: 40px; border-radius: 20px; text-align: center; max-width: 400px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
         <img src="assets/logo maps.svg" alt="Logo" style="color: rgb(0, 120, 224); margin-bottom: 20px; margin-left: auto; margin-right: auto; display: block;">
-        <h2 style="font-size: 24px; font-weight: bold; text-transform: uppercase; color: #ffffff; margin-bottom: 40px;">Gestão de Reservas</h2>
+        <h2 style="font-size: 24px; font-weight: bold; color: #ffffff; margin-bottom: 40px;">Gestão de Reservas</h2>
         <form>
             <div class="form-group" style="margin-bottom: 20px;">
                 <input autofocus="" class="form-control" id="username" name="username" [(ngModel)]="userDto.userName" style="width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #dfe3e8; background-color: #fff;" placeholder="Utilizador" type="text">
             </div>
-            <div class="form-group" style="margin-bottom: 20px;">
+            <div class="form-group" style="margin-bottom: 10px;">
                 <input id="password" [(ngModel)]="userDto.password" name="password" type="password" style="width: 100%; padding: 15px; border-radius: 5px; border: 1px solid #dfe3e8; background-color: #fff;" placeholder="Senha">
             </div>
-            <button type="submit" (click)="login(userDto)" style="width: 100%; padding: 15px; background-color: #337ab7; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Entrar</button>
-            <button type="submit" style="width: 80%; padding: 15px; background-color: #337ab7; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; margin-top: 10px;" (click)="showChangePassword()"> Reset Password </button>
+            <label style="color: #fff;">Não sabes a tua palavra-passe?</label>
+            <button type="submit" (click)="login(userDto)" style="width: 100%; margin-top: 20px; padding: 15px; background-color: #337ab7; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Entrar</button>
+            
         </form>
-    </div>
-
-    <!-- Popup de alteração de senha -->
-    <div class="popup-background" *ngIf="isChangePasswordVisible">
-        <div class="popup-content" style="width: 400px;">
-            <h3 style="border-bottom: 2px solid #337AB7; padding-bottom: 15px; margin-bottom: 30px;"> <i class="bi bi-pencil-square"> </i> Alterar Password</h3>
-            <div class="form-group">
-                <label for="newPassword" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; margin-bottom: 2px;">Nova Password:</label>
-                <div class="input-group">
-                    <input type="password" id="newPassword" class="form-control" [(ngModel)]="newPassword">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; margin-left: 10px;" type="button" (click)="togglePasswordVisibility('newPassword')"><i class="bi bi-eye-fill" style="color: #FFFFFF;"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="confirmPassword" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; margin-bottom: 2px; ">Re-introduza Password:</label>
-                <div class="input-group">
-                    <input type="password" id="confirmPassword" class="form-control" [(ngModel)]="confirmPassword">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" style="background: #337AB7 0% 0% no-repeat padding-box; border-radius: 5px; margin-left: 10px;" type="button" (click)="togglePasswordVisibility('confirmPassword')"><i class="bi bi-eye-fill" style="color: #FFFFFF;"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center" style="border-top: 2px solid #337AB7; padding-top: 15px; margin-top: 45px;">
-                <button class="btn btn-primary" style="background-color: rgb(26, 123, 185); margin-right: 8px;" (click)="changePassword()">Guardar</button>
-                <button class="btn btn-secondary" style="background-color: rgb(236, 71, 88);" (click)="cancelChangePassword()">Cancelar</button>
-            </div>
-        </div>
     </div>
 
     <div class="popup-background" *ngIf="isErrorPopupVisible">
