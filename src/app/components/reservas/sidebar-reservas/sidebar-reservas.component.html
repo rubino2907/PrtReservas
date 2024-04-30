@@ -16,19 +16,19 @@
     <div *ngIf="opentwoOptions" style="margin-top: 5px;">
         <a 
         class="list-group-item list-group-item-action ripple d-block d-flex align-items-center justify-content-center"
-        [class.active]="createReserveActive" 
-        (click)="toggleCreateReserve()" 
-        style="display: block; margin-top: 10px; margin-bottom: 5px; cursor: pointer;">
-            <i class="bi bi-file-earmark-text-fill" style="color: #FFFFFF; margin-right: 5px;"></i>
-            <span class="sidebar-text" style="color: #FFFFFF;" >Formulario</span>
+        [class.active]="showCalendareActive"
+        (click)="toggleShowCalendar()" 
+        style="display: block;  margin-top: 10px; margin-bottom: 5px; cursor: pointer;">
+        <i class="bi bi-calendar-event-fill" style="color: #FFFFFF; margin-right: 5px;"></i>
+        <span class="sidebar-text" style="color: #FFFFFF;" >Calendário</span>
         </a>
         <a 
         class="list-group-item list-group-item-action ripple d-block d-flex align-items-center justify-content-center"
-        [class.active]="showCalendareActive"
-        (click)="toggleShowCalendar()" 
+        [class.active]="createReserveActive" 
+        (click)="toggleCreateReserve()" 
         style="display: block; margin-bottom: 5px; cursor: pointer;">
-        <i class="bi bi-calendar-event-fill" style="color: #FFFFFF; margin-right: 5px;"></i>
-        <span class="sidebar-text" style="color: #FFFFFF;" >Calendário</span>
+            <i class="bi bi-file-earmark-text-fill" style="color: #FFFFFF; margin-right: 5px;"></i>
+            <span class="sidebar-text" style="color: #FFFFFF;" >Formulario</span>
         </a>
     </div>
 
