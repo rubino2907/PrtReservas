@@ -1,16 +1,16 @@
 footer.footer {
     background-color: #f8f9fa;
     padding: 10px 0;
+    position: fixed;
     bottom: 0;
     width: 100%;
     text-align: center;
-    margin-top: 60px; /* Ajuste esta margem conforme necessário */
 }
+
 
 .container-content {
-    margin-bottom: 100px; /* Ajuste a margem inferior conforme desejado */
+    margin-bottom: 20px; /* Ajuste a margem inferior conforme desejado */
 }
-
 
 .card-subtitle {
     color: #6c757d;
