@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
-import { VehicleService } from '../../../services/vehicle.service';
-import { TypeVehicleService } from '../../../services/typeVehicle.service';
-import { IconService } from '../../../services/icon.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
+import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.service';
+import { IconService } from '../../../services/extraServices/icon.service';
 
 @Component({
   selector: 'app-edit-vehicle',

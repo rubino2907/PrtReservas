@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { SidebarStateService } from '../../../services/sidebar-tables.service';
+import { SidebarStateService } from '../../../services/sidebarServices/sidebar-tables.service';
 
 @Component({
   selector: 'app-empty-state-tabelas',

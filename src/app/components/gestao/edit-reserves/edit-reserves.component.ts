@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Reserve } from '../../../models/reserve';
-import { ReserveService } from '../../../services/reserve.service';
-import { VehicleService } from '../../../services/vehicle.service';
+import { ReserveService } from '../../../services/reservesService/reserve.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

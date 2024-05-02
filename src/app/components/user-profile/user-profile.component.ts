@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SidebarService } from '../../services/sidebar.service';
+import { SidebarService } from '../../services/sidebarServices/sidebar.service';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../models/UserModels/user';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/userServices/user.service';
 
 @Component({
   selector: 'app-user-profile',

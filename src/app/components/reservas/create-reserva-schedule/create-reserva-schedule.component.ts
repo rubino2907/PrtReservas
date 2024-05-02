@@ -3,10 +3,10 @@ import { Pending } from '../../../models/pending';
 import { Reserve } from '../../../models/reserve';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
-import { VehicleService } from '../../../services/vehicle.service';
-import { PendantService } from '../../../services/pending.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
+import { PendantService } from '../../../services/pedidosService/pending.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
-import { TypeVehicleService } from '../../../services/typeVehicle.service';
+import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.service';
 
 @Component({
   selector: 'app-create-reserva-schedule',

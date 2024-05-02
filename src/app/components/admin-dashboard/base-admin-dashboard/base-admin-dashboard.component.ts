@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service';
-import { VehicleService } from '../../../services/vehicle.service';
+import { UserService } from '../../../services/userServices/user.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
-import { ReserveService } from '../../../services/reserve.service';
+import { ReserveService } from '../../../services/reservesService/reserve.service';
 import { Reserve } from '../../../models/reserve';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../../models/UserModels/user';

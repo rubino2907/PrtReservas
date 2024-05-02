@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { UserDto } from '../models/UserModels/userDto';
+import { environment } from '../../../environments/environment';
+import { UserDto } from '../../models/UserModels/userDto';
 
 @Injectable({
   providedIn: 'root'

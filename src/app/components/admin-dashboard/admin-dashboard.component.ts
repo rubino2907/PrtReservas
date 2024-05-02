@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarService } from '../../services/sidebar.service';
+import { SidebarService } from '../../services/sidebarServices/sidebar.service';
 
 @Component({
   selector: 'app-admin-dashboard',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; // Importe o Router
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/userServices/auth.service';
 import { Pending } from '../../models/pending';
-import { PendantService } from '../../services/pending.service';
+import { PendantService } from '../../services/pedidosService/pending.service';
 
 @Component({
   selector: 'app-navbar',

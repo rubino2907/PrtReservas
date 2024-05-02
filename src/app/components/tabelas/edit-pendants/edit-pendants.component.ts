@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { VehicleService } from '../../../services/vehicle.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Pending } from '../../../models/pending';
-import { PendantService } from '../../../services/pending.service';
-import { ReserveService } from '../../../services/reserve.service';
+import { PendantService } from '../../../services/pedidosService/pending.service';
+import { ReserveService } from '../../../services/reservesService/reserve.service';
 import { Reserve } from '../../../models/reserve';
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../../services/userServices/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { ChangeDetectorRef } from '@angular/core';
-import { TypeVehicleService } from '../../../services/typeVehicle.service';
+import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.service';
 
 @Component({
   selector: 'app-edit-pendants',

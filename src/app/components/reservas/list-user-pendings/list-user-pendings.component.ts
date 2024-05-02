@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Pending } from '../../../models/pending';
-import { PendantService } from '../../../services/pending.service';
+import { PendantService } from '../../../services/pedidosService/pending.service';
 import { CookieService } from 'ngx-cookie-service';
-import { VehicleService } from '../../../services/vehicle.service';
-import { TypeVehicleService } from '../../../services/typeVehicle.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
+import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
-import { ReserveService } from '../../../services/reserve.service';
+import { ReserveService } from '../../../services/reservesService/reserve.service';
 import { Reserve } from '../../../models/reserve';
 
 @Component({

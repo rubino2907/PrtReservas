@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../../services/userServices/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../../../models/UserModels/user';
-import { UserGroupService } from '../../../services/groupUser.service';
+import { UserGroupService } from '../../../services/userServices/groupUser.service';
 
 @Component({
   selector: 'app-edit-user',

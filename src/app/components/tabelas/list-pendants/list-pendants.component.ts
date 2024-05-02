@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PendantService } from '../../../services/pending.service';
+import { PendantService } from '../../../services/pedidosService/pending.service';
 import { Pending } from '../../../models/pending';
-import { UserService } from '../../../services/user.service';
-import { VehicleService } from '../../../services/vehicle.service';
+import { UserService } from '../../../services/userServices/user.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { UserDetails } from '../../../models/UserModels/userDetails';
 import { MatSnackBar } from '@angular/material/snack-bar';

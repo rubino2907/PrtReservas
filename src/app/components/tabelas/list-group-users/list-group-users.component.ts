@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UserGroup } from '../../../models/UserModels/groupUsers';
-import { UserGroupService } from '../../../services/groupUser.service';
+import { UserGroupService } from '../../../services/userServices/groupUser.service';
 
 @Component({
   selector: 'app-list-group-users',

@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
-import { VehicleService } from '../../../services/vehicle.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
 import { Reserve } from '../../../models/reserve';
 import { CookieService } from 'ngx-cookie-service';
-import { PendantService } from '../../../services/pending.service';
+import { PendantService } from '../../../services/pedidosService/pending.service';
 import { Pending } from '../../../models/pending';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Importando MatSnackBar para exibir mensagens de erro
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
-import { TypeVehicleService } from '../../../services/typeVehicle.service';
+import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.service';
 
 @Component({
   selector: 'app-create-reserva',

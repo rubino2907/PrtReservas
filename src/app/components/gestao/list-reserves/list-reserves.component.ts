@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Reserve } from '../../../models/reserve';
-import { ReserveService } from '../../../services/reserve.service';
-import { VehicleService } from '../../../services/vehicle.service';
+import { ReserveService } from '../../../services/reservesService/reserve.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
 
 @Component({
   selector: 'app-list-reserves',

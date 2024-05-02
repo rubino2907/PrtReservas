@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { SidebarStateGestaoService } from '../../../services/sidebar-gestao.service';
+import { SidebarStateGestaoService } from '../../../services/sidebarServices/sidebar-gestao.service';
 
 @Component({
   selector: 'app-sidebar-gestao',

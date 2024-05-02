@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pending } from '../../../models/pending';
-import { PendantService } from '../../../services/pending.service';
+import { PendantService } from '../../../services/pedidosService/pending.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Reserve } from '../../../models/reserve';
-import { ReserveService } from '../../../services/reserve.service';
-import { UserService } from '../../../services/user.service';
+import { ReserveService } from '../../../services/reservesService/reserve.service';
+import { UserService } from '../../../services/userServices/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserDetails } from '../../../models/UserModels/userDetails';
 
@@ -127,7 +127,7 @@ export class AprovePendingsComponent implements OnInit {
                 }
             );
     }
-}
+  }
 
   editPending(pending: Pending): void {
     this.pendingsToEdit = pending;

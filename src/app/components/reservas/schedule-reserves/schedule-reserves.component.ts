@@ -1,14 +1,14 @@
 import { Component, OnInit, LOCALE_ID, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
-import { ReserveService } from '../../../services/reserve.service';
+import { ReserveService } from '../../../services/reservesService/reserve.service';
 import { Reserve } from '../../../models/reserve';
 import { addDays, addMinutes, addMonths, addWeeks, eachDayOfInterval, endOfDay, endOfMonth, endOfWeek, format, startOfDay, startOfMonth, startOfWeek, subDays, subMonths, subWeeks } from 'date-fns';
 import { pt } from 'date-fns/locale'; // Importação do idioma local pt
-import { VehicleService } from '../../../services/vehicle.service';
-import { PendantService } from '../../../services/pending.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
+import { PendantService } from '../../../services/pedidosService/pending.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TypeVehicleService } from '../../../services/typeVehicle.service';
+import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.service';
 
 @Component({
   selector: 'app-schedule-reserves',

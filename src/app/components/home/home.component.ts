@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/userServices/auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UserDto } from '../../models/UserModels/userDto';
 import { User } from '../../models/UserModels/user';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/userServices/user.service';
 
 @Component({
   selector: 'app-home',

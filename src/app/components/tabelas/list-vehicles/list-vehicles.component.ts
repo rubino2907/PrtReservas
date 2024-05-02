@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
-import { VehicleService } from '../../../services/vehicle.service';
-import { TypeVehicleService } from '../../../services/typeVehicle.service';
+import { VehicleService } from '../../../services/vehicles/vehicle.service';
+import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.service';
 
 @Component({
   selector: 'app-list-vehicles',

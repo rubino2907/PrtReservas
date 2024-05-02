@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { environment } from "../../environments/environment";
-import { UserGroup } from "../models/UserModels/groupUsers";
+import { environment } from "../../../environments/environment";
+import { UserGroup } from "../../models/UserModels/groupUsers";
 
 @Injectable({
     providedIn: 'root'
