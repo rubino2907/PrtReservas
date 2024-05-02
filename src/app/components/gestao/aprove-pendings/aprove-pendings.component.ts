@@ -19,6 +19,11 @@ export class AprovePendingsComponent implements OnInit {
   @Input() pendingsToEdit?: Pending;
   @Input() isFormEditPendingVisible: boolean = false;
   userDetails?: UserDetails;
+
+  filteredPendings: Pending[] = [];
+  isSearchingByCreatedBy: boolean = true;
+  searchInput: string = '';
+
   // Variável para acompanhar a linha selecionada
   selectedPending: any = null;
 
@@ -43,9 +48,16 @@ export class AprovePendingsComponent implements OnInit {
     this.pendantService.getPendingsByAproved()
       .subscribe((result: Pending[]) => {
         this.pendings = result;
+        this.filteredPendings = result;
       });
   }
 
+  filterPendings(): void {
+    if (this.isSearchingByCreatedBy) {
+      this.filteredPendings = this.pendings.filter(pending => pending.createdBy!.toLowerCase().includes(this.searchInput.toLowerCase()));
+    } 
+  }
+  
   approvePending(pending: Pending): void {
     // Verifica se o estado do pedido não é 'APROVADO'
     if (pending.aproved !== 'APROVADO') {

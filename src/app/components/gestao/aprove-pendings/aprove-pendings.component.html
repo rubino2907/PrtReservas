@@ -7,37 +7,48 @@
 </div> -->
 
 <div class="row contentEmpty">
-    <div class="col-lg-5" style="background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; min-height: 650px; display: flex; flex-direction: column; height: 90vh; width: 35vw;">
+    <div class="col-lg-7" style="background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; min-height: 650px; display: flex; flex-direction: column; height: 90vh; width: 50vw;">
         <div class="col-lg-11" style="margin-top: 10px; margin-bottom: 20px; margin-left: 10px; border-bottom: 1px solid #337AB7; display: flex; align-items: center;">
             <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="width: 20px; height: 20px; margin-right: 10px;">
             <h2 class="text-left py-3 mb-0" style="top: 177px; left: 318px; text-align: left; font: normal 600 20px/27px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">Aprovar Pedidos</h2>
         </div>
         <div style="overflow-x: auto;">
+
+            <div style="display: flex; align-items: center; width: 100%; margin-bottom: 20px;">
+                <button style="background-color: #337AB7; padding: 8px; margin-left: 30px; width: calc(50px + 1px); height: 42px; border: none; display: flex; justify-content: center; align-items: center;">
+                    <i class="{{ isSearchingByCreatedBy ? 'bi bi-person-bounding-box' : 'bi bi-people-fill' }}" style="color: #FFFFFF; font-size: 20px;"></i>
+                </button>
+                <input type="text" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0" [(ngModel)]="searchInput" (input)="filterPendings()" placeholder="Pesquisar por utilizador...">
+                <button style="background-color: #337AB7; padding: 8px; margin-right: 30px; width: calc(50px + 1px); height: 42px; border: none; border-radius: 2px; display: flex; justify-content: center; align-items: center;"> <i class="bi bi-search" style="color: #FFFFFF; font-size: 20px;"></i></button>
+            </div>            
+
             <table *ngIf="pendings.length > 0" class="table table-center-align table-sm listaAproves" style="margin-top: 20px; position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px;">
                 <thead style="text-align: left; font: normal bold normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;">
                     <tr>
                         <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;" (click)="sortByMatriculation()">Matrícula <i class="bi bi-caret-down-fill"></i></th>
-                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;" (click)="sortByStartDate()">Data De Início <i class="bi bi-caret-down-fill"></i></th>
-                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Data De Fim</th>
+                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;" (click)="sortByStartDate()">Data de Início <i class="bi bi-caret-down-fill"></i></th>
+                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Data de Fim</th>
+                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Efetuado Por</th>
                         <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Estado</th>
                     </tr>
                 </thead>
                 <tbody style="font: normal normal normal 12px/16px 'Open Sans', sans-serif; text-align: left; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">
-                    <tr *ngFor="let pending of pendings" style="height: 50px;" (click)="editPending(pending)">
+                    <tr *ngFor="let pending of filteredPendings" style="height: 50px;" (click)="editPending(pending)">
                         <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ pending.matriculation }}</td>
                         <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
                             {{ pending.dateStart | date:'yyyy-MM-dd HH:mm:ss' }}
                         </td>
                         <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">
                             {{ pending.dateEnd | date:'yyyy-MM-dd HH:mm:ss' }}
-                        </td>                
+                        </td>         
+                        <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{ pending.createdBy }} </td>       
                         <td style="vertical-align: middle; height: 45px; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1;" [ngClass]="getPendingStatusClass(pending.aproved)">{{ pending.aproved }}</td>
                     </tr>
                 </tbody>
             </table>                   
         </div>
     </div>
-    <div *ngIf="isFormEditPendingVisible" class="col-lg-6" style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-left: 10px; position: relative; height: 90vh; width: 45vw;">
+    <div *ngIf="isFormEditPendingVisible" class="col-lg-4" style="background: transparent url('img/Retângulo 198.png') 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-left: 10px; position: relative; height: 90vh; width: 33vw;">
         <div style="position: absolute; top: 0; right: 0; padding: 10px;" (click)="fecharForm()">
             <button class="btn btn-sm" style="background: transparent; border: none; font-size: 16px;">
                 <span style="color: #337AB7;">X</span>
