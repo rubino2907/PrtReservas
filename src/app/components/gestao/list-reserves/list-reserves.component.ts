@@ -16,6 +16,7 @@ export class ListReservesComponent implements OnInit {
   
   matriculations: string[] = []; // Array para armazenar as matrículas
   filteredReserves: any[] = []; // Lista filtrada para exibição
+  onlyActiveReserves: boolean = false;
   selectedMatricula: string = '';
   startDate: string = '';
   endDate: string = '';
@@ -57,30 +58,29 @@ export class ListReservesComponent implements OnInit {
     });
   }
   
+  // Inside your component class
+
+  toggleActiveReserves(): void {
+    console.log('Checkbox Active Reserves:', this.onlyActiveReserves);
+    this.applyFilters();
+  }
 
   applyFilters(): void {
-    // Converta as strings de data para objetos Date para comparação
     let startDate = this.startDate ? new Date(this.startDate) : null;
     let endDate = this.endDate ? new Date(this.endDate) : null;
-
+  
     this.filteredReserves = this.reserves.filter(reserve => {
-      // Verificação de matrícula
-      const matchMatricula = this.selectedMatricula ? reserve.matriculation === this.selectedMatricula : true;
-
-      // Conversão da data do pedido para objeto Date
-      const pendingStartDate = reserve.dateStart ? new Date(reserve.dateStart) : new Date();
-      const pendingEndDate = reserve.dateEnd ? new Date(reserve.dateEnd) : new Date();
-
-
-      // Verificação de datas
-      const matchStartDate = startDate ? pendingStartDate >= startDate : true;
-      const matchEndDate = endDate ? pendingEndDate <= endDate : true;
-
-      this.cdr.detectChanges(); // Adicione isso se não estiver reagindo às mudanças
-
-      return matchMatricula && matchStartDate && matchEndDate;
+      const matchMatricula = !this.selectedMatricula || reserve.matriculation === this.selectedMatricula;
+      const pendingStartDate = new Date(reserve.dateStart!);
+      const pendingEndDate = new Date(reserve.dateEnd!);
+      const matchStartDate = !startDate || pendingStartDate >= startDate;
+      const matchEndDate = !endDate || pendingEndDate <= endDate;
+      const isActive = reserve.state === 'ATIVA';
+  
+      return matchMatricula && matchStartDate && matchEndDate && (!this.onlyActiveReserves || isActive);
     });
   }
+  
 
   sortReservesByState() {
     this.reserves.sort((a, b) => {

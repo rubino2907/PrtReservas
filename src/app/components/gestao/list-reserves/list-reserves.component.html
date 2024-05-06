@@ -14,14 +14,26 @@
         <div style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 20px;">
             <!-- Label e select para as matrículas -->
             <label for="matricula-select" style="margin-bottom: 5px;">Selecione uma matrícula:</label>
-            <div class="select-wrapper" style="position: relative; width: 80%; margin-bottom: 20px;">
-                <select name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;" [(ngModel)]="selectedMatricula" (change)="applyFilters()">
-                    <option value="">Selecionar Matrícula</option>
-                    <!-- Utilize ngFor para iterar sobre as matriculas e criar as opções dinamicamente -->
-                    <option *ngFor="let matricula of matriculations" [value]="matricula">{{ matricula }}</option>
-                </select>
-                <i class="bi bi-caret-down-fill" style="color: #337AB7; position: absolute; right: 10px; top: calc(50% - 8px);"></i>
+            <div class="select-wrapper" style="width: 100%; margin-bottom: 20px;">
+                <label for="matriculation">Matrícula:</label>
+                <div style="display: flex; align-items: center;"> <!-- Adicionado align-items: center; -->
+                    <select name="matriculation" id="matriculation" class="form-control" style="flex: 1; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;" [(ngModel)]="selectedMatricula" (change)="applyFilters()">
+                        <option value="">Selecionar Matrícula</option>
+                        <!-- Utilize ngFor para iterar sobre as matriculas e criar as opções dinamicamente -->
+                        <option *ngFor="let matricula of matriculations" [value]="matricula">{{ matricula }}</option>
+                    </select>
+                    <i class="bi bi-caret-down-fill" style="color: #337AB7; margin-left: -25px; margin-top: 6px;"></i>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="checkbox" [(ngModel)]="onlyActiveReserves" (change)="toggleActiveReserves()" style="display: none;">
+                        <label for="checkbox" class="checkbox-label">
+                            <span class="custom-checkbox"></span>
+                            Apenas Reservas Ativas
+                        </label>
+                    </div>     
+                </div>
             </div>
+            
+            
 
             <!-- Labels e inputs para datas -->
             <div style="display: flex; margin-bottom: 10px;">
