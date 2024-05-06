@@ -8,7 +8,7 @@
 
 <div class="row contentEmpty">
       <div class="col-lg-5" style="background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; min-height: 650px; display: flex; flex-direction: column; height: 90vh; width: 35vw;">
-        <div class="col-lg-12" style="margin-top: 10px; margin-left: 10px; border-bottom: 1px solid #337AB7; opacity: 1; margin-bottom: 40px;">
+        <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px; border-bottom: 1px solid #337AB7; opacity: 1; margin-bottom: 40px;">
             <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 20px/27px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
                 <img src="assets\Calendar-alt[148].svg" alt="Ícone de Reservas" style="width: 22px; height: 22px; opacity: 1; margin-right: 10px;">
                 Utilizador
@@ -26,18 +26,18 @@
                 <thead style="text-align: left; font: normal bold normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;">
                     <tr>
                         <th></th>
-                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Username</th>
-                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Grupo</th>
-                        <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">É Admin</th>
+                        <th scope="col" style="text-align: center; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Username</th>
+                        <th scope="col" style="text-align: center; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Grupo</th>
+                        <th scope="col" style="text-align: center; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">É Admin</th>
                         <!-- <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Actions</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let user of filteredUsers" (click)="editUser(user)" > <!-- Adiciona cor de fundo alternada -->
-                        <td style="vertical-align: middle; height: 45px; color: #337AB7;"><i class="bi bi-people-fill"></i></td>
-                        <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ user.userName }}</td>
-                        <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{ user.group }}</td>
-                        <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{ user.isAdmin ? 'Sim' : 'Não'}}</td>
+                        <td style="vertical-align: middle; text-align: center; height: 45px; color: #337AB7;"><i class="bi bi-people-fill"></i></td>
+                        <td style="vertical-align: middle; height: 45px; text-align: center; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ user.userName }}</td>
+                        <td style="vertical-align: middle; height: 45px; text-align: center; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{ user.group }}</td>
+                        <td style="vertical-align: middle; height: 45px; text-align: center; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{ user.isAdmin ? 'Sim' : 'Não'}}</td>
                         <!-- <td style=" vertical-align: middle; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; color: #6D6D6D; opacity: 1;"><button class="btn btn-sm" style="text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; color: #6D6D6D; opacity: 1;" (click)="editUser(user)">Edit</button></td> -->
                     </tr>
                 </tbody>

@@ -8,24 +8,26 @@
 
 <div class="row contentEmpty">
     <div class="col-lg-5" style="background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; min-height: 650px; display: flex; flex-direction: column; height: 90vh; width: 35vw;">
-      <div class="col-lg-12" style="margin-bottom: 10px; display: flex; align-items: center; margin-right: 10px;">
-          <img src="assets\booking PISCO[149].svg" alt="Ícone de Reservas" style="width: 20px; height: 20px; margin-right: 10px;">
-          <h2 class="text-left py-3 mb-0" style="font: normal 600 20px/27px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;">Tipo de Viatura</h2>
-      </div>
+        <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px; border-bottom: 1px solid #337AB7; opacity: 1; margin-bottom: 20px;">
+            <h2 class="text-left py-3 mb-0" style="text-align: left; font: normal normal 600 20px/27px Open Sans, sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1;"> 
+                <img src="assets\Calendar-alt[148].svg" alt="Ícone de Reservas" style="width: 22px; height: 22px; opacity: 1; margin-right: 10px;">
+                Tipos de Viatura
+            </h2>
+        </div>
       <div style="overflow-x: auto;">
           <table *ngIf="typeVehicles.length > 0" class="table table-center-align table-sm listaAproves" style="position: sticky; top: 0; z-index: 1; font-family: 'Open Sans', sans-serif; font-weight: 300; font-size: 14px; width: 100%;">
               <thead style="text-align: left; font: normal bold normal 13px 'Open Sans', sans-serif; letter-spacing: 0px; color: #ffffff; background-color: #337AB7;">
                   <tr>
                       <th></th>
-                      <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Nome</th>
-                      <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Descrição</th>
+                      <th scope="col" style="text-align: center; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Nome</th>
+                      <th scope="col" style="text-align: center; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Descrição</th>
                   </tr>
               </thead>
               <tbody>
                   <tr *ngFor="let typeVehicle of typeVehicles" (click)="editTypeVehicle(typeVehicle)" > <!-- Adiciona cor de fundo alternada -->
-                      <td style="vertical-align: middle; height: 45px; color: #337AB7;"><i class="bi bi-car-front-fill"></i></td>
-                      <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ typeVehicle.typeVehicle }}</td>
-                      <td style="vertical-align: middle; height: 45px; text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{ typeVehicle.descTypeVehicle }}</td>
+                      <td style="vertical-align: middle; text-align: center; height: 45px; color: #337AB7;"><i class="bi bi-car-front-fill"></i></td>
+                      <td style="vertical-align: middle; height: 45px; text-align: center; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ typeVehicle.typeVehicle }}</td>
+                      <td style="vertical-align: middle; height: 45px; text-align: center; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;"> {{ typeVehicle.descTypeVehicle }}</td>
                   </tr>
               </tbody>
           </table>
