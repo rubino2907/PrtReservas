@@ -1,11 +1,11 @@
-<div *ngIf="pending">
+<div *ngIf="_pending">
         <div style="margin-left: 10px; margin-right: 10px;">
             <!-- Correção dos erros de binding -->
             
             <div class="form-group" style="margin-top: 10px;">
                 <label style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;" for="vehicleType">Tipo De Veículo:</label>
                 <div class="select-wrapper" style="position: relative;">
-                    <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;" (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
+                    <select [(ngModel)]="_pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;" (change)="_pending.vehicleType && loadMatriculations(_pending.vehicleType)">
                         <option value="">Selecione um tipo</option>
                         <option *ngFor="let typeVehicle of vehicleType" [value]="typeVehicle">{{ typeVehicle }}</option>
                     </select>
@@ -15,7 +15,7 @@
             <div class="form-group">
                     <label for="matriculation" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">Matrícula:</label>
                     <div class="select-wrapper" style="position: relative;">
-                    <select [(ngModel)]="pending.matriculation" name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;" (change)="updatePending()">
+                    <select [(ngModel)]="_pending.matriculation" name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;" (change)="updatePending()">
                         <option value="">Selecionar Matrícula</option>
                         <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
                     </select>
@@ -25,7 +25,7 @@
 
             <div class="form-group">
                 <label for="dateStart" class="mb-1" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">Selecione a Data de Início da Reserva:</label>
-                <input [(ngModel)]="pending.dateStart" name="dateStart" id="dateStart" type="datetime-local" class="form-control" required #dateStartInput="ngModel"
+                <input [(ngModel)]="_pending.dateStart" name="dateStart" id="dateStart" type="datetime-local" class="form-control" required #dateStartInput="ngModel"
                     [class.is-invalid]="dateStartInput.invalid && (dateStartInput.dirty || dateStartInput.touched) && !success">
                 <div class="invalid-feedback" *ngIf="dateStartInput.invalid && (dateStartInput.dirty || dateStartInput.touched) && !success">
                     A data de início é obrigatória ou inválida.
@@ -34,7 +34,7 @@
             
             <div class="form-group">
                 <label for="dateEnd" class="mb-1" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">Selecione a Data de Fim da Reserva:</label>
-                <input [(ngModel)]="pending.dateEnd" name="dateEnd" id="dateEnd" type="datetime-local" class="form-control" [min]="pending.dateStart" required #dateEndInput="ngModel"
+                <input [(ngModel)]="_pending.dateEnd" name="dateEnd" id="dateEnd" type="datetime-local" class="form-control" [min]="_pending.dateStart" required #dateEndInput="ngModel"
                     [class.is-invalid]="dateEndInput.invalid && (dateEndInput.dirty || dateEndInput.touched) && !success">
                 <div class="invalid-feedback" *ngIf="dateEndInput.invalid && (dateEndInput.dirty || dateEndInput.touched) && !success">
                     {{ dateEndInput.errors && dateEndInput.errors['min'] ? 'A data de fim deve ser superior à data de início.' : 'A data de fim é obrigatória ou inválida.' }}
@@ -43,11 +43,11 @@
 
             <div class="form-group" >
                 <label for="description" style="text-align: left; font: normal normal 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0px; color: #337AB7; opacity: 1; margin-top: 15px;">Motivo Da Reserva:</label>
-                <textarea [(ngModel)]="pending.description" name="description" id="description" class="form-control" style="resize: none; height: 107px; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;"></textarea>
+                <textarea [(ngModel)]="_pending.description" name="description" id="description" class="form-control" style="resize: none; height: 107px; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px;"></textarea>
             </div>
 
             <div class="text-center" style=" margin-top: 50px;"> <!-- Adicionando a classe text-center para centralizar o botão -->
-                <button (click)="createPending(pending)" style="margin-bottom: 50px; background: #337AB7 0% 0% no-repeat padding-box; border-radius: 2px; opacity: 1; width: 211px; height: 41px; align-items: center;">
+                <button (click)="createPending(_pending)" style="margin-bottom: 50px; background: #337AB7 0% 0% no-repeat padding-box; border-radius: 2px; opacity: 1; width: 211px; height: 41px; align-items: center;">
                     <label style="text-align: center; letter-spacing: 0px; color: #FFFFFF; opacity: 1; font: normal normal 600 10px/14px 'Open Sans', sans-serif;">Submeter Pedido</label>
                 </button>
             </div>

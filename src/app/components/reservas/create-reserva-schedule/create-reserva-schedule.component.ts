@@ -15,6 +15,7 @@ import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.servi
 })
 export class CreateReservaScheduleComponent implements OnInit{
   @Input() pending?: Pending;
+  _pending: Pending = new Pending(); // Define a default value to avoid errors
   @Output() pendingsUpdated = new EventEmitter<Pending[]>();
   matriculations: string[] = [];
   @Output() reservesUpdated = new EventEmitter<Reserve[]>();
@@ -52,11 +53,11 @@ export class CreateReservaScheduleComponent implements OnInit{
 
   updatePending() {
     // Atualiza o objeto pending com os valores selecionados
-    if (this.pending) {
-      this.pending = {
-        ...this.pending,
-        vehicleType: this.pending.vehicleType,
-        matriculation: this.pending.matriculation,
+    if (this._pending) {
+      this._pending = {
+        ...this._pending,
+        vehicleType: this._pending.vehicleType,
+        matriculation: this._pending.matriculation,
         // Outros campos do objeto pending, se houver
       };
     }
@@ -131,7 +132,7 @@ export class CreateReservaScheduleComponent implements OnInit{
           this.success = true; // Define 'success' como true quando o pedido é criado com sucesso
           this.pendingsUpdated.emit(pendants);
           // Limpar o formulário
-          this.pending = new Pending(); // Ou qualquer outra forma de criar um novo objeto vazio
+          this._pending = new Pending(); // Ou qualquer outra forma de criar um novo objeto vazio
 
           // Exibir a popup de sucesso
           this.openSuccessPopup('O pedido foi submetido com sucesso.');
@@ -178,9 +179,9 @@ export class CreateReservaScheduleComponent implements OnInit{
 
   validateDates(): boolean {
   // Verifica se this.pending não é nulo e se as datas estão definidas
-  if (this.pending && this.pending.dateStart && this.pending.dateEnd) {
+  if (this._pending && this._pending.dateStart && this._pending.dateEnd) {
     // Verifica se a data de início é antes da data de fim
-    return new Date(this.pending.dateStart) < new Date(this.pending.dateEnd);
+    return new Date(this._pending.dateStart) < new Date(this._pending.dateEnd);
   } else {
     // Se alguma das datas não estiver definida ou this.pending for nulo, retorna falso
     return false;
