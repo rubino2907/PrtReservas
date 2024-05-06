@@ -9,7 +9,14 @@ footer.footer {
 
 
 .container-content {
-    margin-bottom: 20px; /* Ajuste a margem inferior conforme desejado */
+    margin-bottom: 5px; /* Ajuste a margem inferior conforme desejado */
+}
+
+.equal-height-card {
+    display: flex;
+    flex-direction: column;
+    max-height: 50vh; /* Define a altura máxima */
+    overflow: hidden; /* Impede que o conteúdo se estenda além da altura máxima */
 }
 
 .card-subtitle {
