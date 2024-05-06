@@ -47,6 +47,7 @@ export class ScheduleReservesComponent implements OnInit {
   ngOnInit(): void {
     this.loadPendingData();
     this.loadTypeOfVehicles();
+    this.loadAllMatriculations();  // Carrega todas as matrículas inicialmente
   }
 
   loadPendingData(): void {
@@ -69,19 +70,34 @@ export class ScheduleReservesComponent implements OnInit {
     );
   }
 
-  loadMatriculations(vehicleType: string): void {
-    this.vehicleService.getVehiclesByType(vehicleType).subscribe(
-        (vehicles: Vehicle[]) => {
-            this.matriculations = vehicles
-                .filter(vehicle => !!vehicle.matriculation)
-                .map(vehicle => `${vehicle.matriculation} | ${vehicle.descVehicle}`);
-        },
-        (error) => {
-            console.error("Erro ao carregar matrículas por tipo:", error);
-            // Lide com os erros adequadamente
-        }
-    );
+  // Component TypeScript
+
+loadMatriculationsByType(vehicleType?: string): void {
+    if (vehicleType) {
+        // Carrega matrículas com base em um tipo específico
+        this.vehicleService.getVehiclesByType(vehicleType).subscribe(
+            (vehicles: Vehicle[]) => {
+                this.matriculations = vehicles.map(vehicle => `${vehicle.matriculation} | ${vehicle.descVehicle}`);
+            },
+            (error) => {
+                console.error("Erro ao carregar matrículas por tipo:", error);
+            }
+        );
+    } else {
+        // Carrega todas as matrículas quando nenhum tipo é selecionado
+        this.loadAllMatriculations();
+    }
   }
+
+  loadAllMatriculations(): void {
+    this.vehicleService.getMatriculations().subscribe((matriculations: string[]) => {
+        this.matriculations = matriculations;
+    },
+    (error) => {
+        console.error("Erro ao carregar todas as matrículas:", error);
+    });
+  }
+
 
 
   // Método para carregar as reservas por matrícula
