@@ -38,7 +38,20 @@ export class EditPendantsComponent{
 
   ngOnInit(): void {
     this.loadTypeOfVehicles();
+    this.loadAllMatriculations(); // Carrega todas as matrículas inicialmente
   }
+
+  loadAllMatriculations(): void {
+      this.vehicleService.getMatriculations().subscribe(
+          (matriculations: string[]) => {
+              this.matriculations = matriculations;
+          },
+          (error) => {
+              console.error("Erro ao carregar todas as matrículas:", error);
+          }
+      );
+  }
+
 
   loadTypeOfVehicles(): void {
     this.typeVehicleService.getTypeOfVehicle().subscribe(
