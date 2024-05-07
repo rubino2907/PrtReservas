@@ -11,6 +11,7 @@ export class EditGroupUsersComponent {
 
   @Input() userGroup?: UserGroup;
   @Output() UserGroupUpdated = new EventEmitter<UserGroup[]>();
+  @Output()userGroupSucess = new EventEmitter<void>();
 
   userGroups: string[] = []; // Array para armazenar os tipos
 
@@ -31,6 +32,7 @@ export class EditGroupUsersComponent {
         (userGroup: UserGroup[]) => {
           console.log("Resposta do servidor ao criar typeVehicle:", userGroup);
           this.UserGroupUpdated.emit(userGroup);
+          this.userGroupSucess.emit();
           console.log("Vehicle criado com sucesso!", userGroup);
           this.isFormEditUserGroupVisible = false; // Esconde o formulário após criar o usuário com sucesso
         },
@@ -45,6 +47,7 @@ export class EditGroupUsersComponent {
       .updateUserGroup(userGroup)
       .subscribe((userGroup: UserGroup[]) => {
         this.UserGroupUpdated.emit(userGroup);
+        this.userGroupSucess.emit();
         this.isFormEditUserGroupVisible = false; // Esconde o formulário após a atualização bem-sucedida
       });
   }

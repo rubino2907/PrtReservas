@@ -11,6 +11,7 @@ export class ListGroupUsersComponent {
   @Input() userGroups: UserGroup[] = [];
   @Input() userGroupToEdit?: UserGroup;
   @Input() isFormEditUserGroupVisible: boolean = false;
+  isSuccessPopupVisible: boolean = false;
 
   constructor(private userGroupService: UserGroupService) {}
 
@@ -44,5 +45,13 @@ export class ListGroupUsersComponent {
 
     // Ocultar o formulário de edição
     this.isFormEditUserGroupVisible = false;
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
   }
 }
