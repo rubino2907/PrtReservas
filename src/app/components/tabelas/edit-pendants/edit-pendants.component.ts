@@ -21,6 +21,10 @@ export class EditPendantsComponent{
   @Output() pendingsUpdated = new EventEmitter<Pending[]>();
   isDeleteConfirmationVisible: boolean = false;
   matriculations: string[] = [];
+
+  // Declara um evento de saída para notificar o componente pai sobre a atualização dos pendentes
+  @Output() pendingCreated = new EventEmitter<void>();
+  @Output()pendingSucess = new EventEmitter<void>();
   
   isErrorPopupVisible: boolean = false;
   errorMessage: string = ''; // Propriedade para armazenar a mensagem de erro específica
@@ -30,6 +34,8 @@ export class EditPendantsComponent{
   success: boolean = false; // Propriedade para indicar se a criação do pedido foi bem-sucedida
 
   vehicleType: string[] = []; // Array para armazenar os tipos
+
+
   constructor(private cookieService: CookieService, private typeVehicleService: TypeVehicleService, private cdr: ChangeDetectorRef ,private pendantService: PendantService, private vehicleService: VehicleService, private reserveService: ReserveService, private userService: UserService, private snackBar: MatSnackBar) {}
 
   showForm(): void {
@@ -142,9 +148,11 @@ export class EditPendantsComponent{
           console.log("Pendentes criados com sucesso!", pendants);
           this.success = true; // Define 'success' como true quando o pedido é criado com sucesso
           this.pendingsUpdated.emit(pendants);
+          // Emitir evento para notificar o componente pai sobre a criação bem-sucedida do pedido
+          this.pendingCreated.emit();
+          this.pendingSucess.emit();
           // Limpar o formulário
           this.pending = new Pending(); // Ou qualquer outra forma de criar um novo objeto vazio
-
           // Limpar as mensagens de erro
           this.snackBar.dismiss();
         },
@@ -301,4 +309,5 @@ export class EditPendantsComponent{
         this.isFormEditPendingVisible = false; // Esconde o formulário após excluir o pendente
       });
   }
+
 }

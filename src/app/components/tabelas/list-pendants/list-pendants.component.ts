@@ -20,6 +20,8 @@ export class ListPendantsComponent implements OnInit {
   userDetails?: UserDetails;
   matriculations: string[] = []; // Array para armazenar as matrículas
 
+  isSuccessPopupVisible: boolean = false;
+
   filteredPendings: any[] = []; // Lista filtrada para exibição
   selectedMatricula: string = '';
   startDate: string = '';
@@ -54,6 +56,8 @@ export class ListPendantsComponent implements OnInit {
             return -1; // "APROVADO" vem antes de "RECUSADO"
           } else if (a.aproved === 'RECUSADO' && b.aproved !== 'RECUSADO') {
             return 1; // "RECUSADO" vem depois de "APROVADO"
+          } else if (a.aproved === 'RESERVA ELIMINADA' && b.aproved !== 'RESERVA ELIMINADA') {
+            return 2; // "RECUSADO" vem depois de "APROVADO"
           } else {
             return 0; // Mantém a ordem atual entre pedidos com o mesmo estado
           }
@@ -135,6 +139,23 @@ export class ListPendantsComponent implements OnInit {
     });
   }
 
+  handlePendingCreation(): void {
+    // Recarregar os pendentes após a criação bem-sucedida do novo pedido
+    this.loadPendings();
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
+  }
+
+  PendantSucess(): void{
+
+  }
+
 
 
 
@@ -197,6 +218,8 @@ export class ListPendantsComponent implements OnInit {
       return 'pending';
     } else if (status === 'RECUSADO') {
       return 'not-approved';
+    } else if (status === 'RESERVA ELIMINADA') {
+      return 'approved-deleted';
     } else {
       return ''; // Retorna uma string vazia se o status for undefined
     }
