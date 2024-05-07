@@ -45,3 +45,27 @@ input[type="checkbox"]:checked + .checkbox-label .custom-checkbox::after {
     top: 1px;
     left: 4px;
 }
+
+.popup-background {
+    position: fixed; /* Posição fixa em relação à tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    z-index: 1000; /* Garante que a popup esteja na frente de outros elementos */
+}
+
+.popup-content {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+.button-container {
+    text-align: center;
+}

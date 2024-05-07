@@ -13,6 +13,7 @@ export class ListReservesComponent implements OnInit {
   @Input() reserves: Reserve[] = [];
   @Input() reservesToEdit?: Reserve;
   @Input() isFormEditReserveVisible: boolean = false;
+  isSuccessPopupVisible: boolean = false;
   
   matriculations: string[] = []; // Array para armazenar as matrículas
   filteredReserves: any[] = []; // Lista filtrada para exibição
@@ -120,5 +121,15 @@ export class ListReservesComponent implements OnInit {
         this.endDate = ''; // Alteração aqui
     }
     this.applyFilters(); // Você pode chamar applyFilters() para aplicar os filtros imediatamente após limpar a data, se necessário.
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+    this.loadPendings();
+
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
   }
 }

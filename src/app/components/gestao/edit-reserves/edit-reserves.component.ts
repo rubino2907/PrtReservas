@@ -13,6 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EditReservesComponent {
   @Input() reserve?: Reserve;
   @Output() reservesUpdated = new EventEmitter<Reserve[]>();
+  @Output()reservesSucess = new EventEmitter<void>();
+
   isDeleteConfirmationVisible: boolean = false;
   matriculations: string[] = [];
 
@@ -52,6 +54,7 @@ export class EditReservesComponent {
       .updateReserves(reserve)
       .subscribe((reserves: Reserve[]) => {
         this.reservesUpdated.emit(reserves);
+        this.reservesSucess.emit();
         this.isFormEditReserveVisible = false; // Esconder o formulário após a atualização bem-sucedida
       },
       (error) => {
@@ -65,6 +68,7 @@ export class EditReservesComponent {
       .deleteReserves(reserve)
       .subscribe((reserves: Reserve[]) => {
         this.reservesUpdated.emit(reserves);
+        this.reservesSucess.emit();
         this.isFormEditReserveVisible = false; // Esconde o formulário após excluir o usuário
         this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
         // Limpar o formulário
