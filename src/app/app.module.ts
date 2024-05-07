@@ -42,6 +42,7 @@ import { EditTypeVehiclesComponent } from './components/tabelas/edit-type-vehicl
 import { EditGroupUsersComponent } from './components/tabelas/edit-group-users/edit-group-users.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AprovePendingsToChangePasswordComponent } from './components/gestao/aprove-pendings-to-change-password/aprove-pendings-to-change-password.component';
 
 registerLocaleData(localePt);
 
@@ -78,7 +79,8 @@ registerLocaleData(localePt);
     ListGroupUsersComponent,
     EditTypeVehiclesComponent,
     EditGroupUsersComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AprovePendingsToChangePasswordComponent
   ],
   imports: [
     BrowserModule,

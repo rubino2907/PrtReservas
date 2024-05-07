@@ -4,7 +4,8 @@
       <div class="col-md-1">
         <app-sidebar-gestao
         (toggleReservesListEvent)="showReserveList= $event"
-        (toggleToListAprovedEvent)="showAprovedList = $event">
+        (toggleToListAprovedEvent)="showAprovedList = $event"
+        (toggleChangePasswordEvent)="showChangePasswordList = $event">
         </app-sidebar-gestao>
       </div>
       <!-- Conteúdo principal -->
@@ -14,10 +15,13 @@
           <!-- Incluir os componentes aqui -->
           <app-list-reserves *ngIf="showReserveList"></app-list-reserves>
           <app-aprove-pendings *ngIf="showAprovedList"></app-aprove-pendings>
-          <div *ngIf="!showReserveList && !showAprovedList">
+          <app-aprove-pendings-to-change-password *ngIf="showChangePasswordList"></app-aprove-pendings-to-change-password>
+          <div *ngIf="!showReserveList && !showAprovedList && !showChangePasswordList">
             <app-empty-state-gestao 
             (toggleReservesListEvent)="showReserveList= $event"
-            (toggleToListAprovedEvent)="showAprovedList = $event"></app-empty-state-gestao>
+            (toggleToListAprovedEvent)="showAprovedList = $event"
+            (toggleShowChangePasswordEvent)="showChangePasswordList = $event"
+            ></app-empty-state-gestao>
           </div>
         </div>
       </div>

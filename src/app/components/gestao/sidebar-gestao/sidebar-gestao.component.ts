@@ -9,11 +9,14 @@ import { SidebarStateGestaoService } from '../../../services/sidebarServices/sid
 export class SidebarGestaoComponent {
   reservesListActive: boolean = false; 
   showAprovedListActive: boolean = false;
+  changePasswordListActive: boolean = false;
+
 
   showOptions: boolean = true;
 
   @Output() toggleReservesListEvent = new EventEmitter<boolean>(); 
   @Output() toggleToListAprovedEvent = new EventEmitter<boolean>();
+  @Output() toggleChangePasswordEvent = new EventEmitter<boolean>();
 
   constructor(private sidebarStateService: SidebarStateGestaoService) {
     this.sidebarStateService.activeItem.subscribe(item => {
@@ -27,10 +30,12 @@ export class SidebarGestaoComponent {
     if(!this.showAprovedListActive) {
       this.reservesListActive = false; 
       this.showAprovedListActive = true;
+      this.changePasswordListActive = false;
     } else {
       this.showAprovedListActive = false;
     }
     this.toggleReservesListEvent.emit(false); 
+    this.toggleChangePasswordEvent.emit(false); 
     this.toggleToListAprovedEvent.emit(this.showAprovedListActive);
   }
 
@@ -38,11 +43,26 @@ export class SidebarGestaoComponent {
     if (!this.reservesListActive) {
       this.reservesListActive = true;
       this.showAprovedListActive = false;
+      this.changePasswordListActive = false;
     } else {
       this.reservesListActive = false;
     }
     this.toggleReservesListEvent.emit(this.reservesListActive);
     this.toggleToListAprovedEvent.emit(false);
+    this.toggleChangePasswordEvent.emit(false);
+  }
+
+  toggleChangePassword(){
+    if(!this.changePasswordListActive) {
+      this.reservesListActive = false; 
+      this.showAprovedListActive = false;
+      this.changePasswordListActive = true;
+    } else {
+      this.changePasswordListActive = false;
+    }
+    this.toggleReservesListEvent.emit(false); 
+    this.toggleToListAprovedEvent.emit(false);
+    this.toggleChangePasswordEvent.emit(this.changePasswordListActive);
   }
 
 }

@@ -11,6 +11,7 @@ export class GestaoComponent {
   title = 'WaveReservas';
   showReserveList: boolean = false;
   showAprovedList: boolean = false;
+  showChangePasswordList: boolean = false;
 
   showOptions: boolean = false; // Controla a visibilidade das opções da barra lateral
 
