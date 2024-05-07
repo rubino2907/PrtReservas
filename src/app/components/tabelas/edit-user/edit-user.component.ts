@@ -16,8 +16,8 @@ export class EditUserComponent implements OnInit {
   confirmPassword: string = ''; // Confirmação da nova senha
   @Input() user?: User;
   @Output() usersUpdated = new EventEmitter<User[]>();
-  
-  isSuccessPopupVisible: boolean = false;
+  @Output()userSucess = new EventEmitter<void>();
+
   isErrorPopupVisible: boolean = false;
   errorMessage: string = ''; // Propriedade para armazenar a mensagem de erro específica
 
@@ -56,6 +56,7 @@ export class EditUserComponent implements OnInit {
     this.userService
       .updateUsers(user)
       .subscribe((users: User[]) => this.usersUpdated.emit(users));
+      this.userSucess.emit();
   }
 
   deleteUser(user: User): void {
@@ -83,13 +84,10 @@ export class EditUserComponent implements OnInit {
       .createUsers(user)
       .subscribe(
         (users: User[]) => {
-          this.isSuccessPopupVisible = true;
-          this.openSuccessPopup('O pedido foi submetido com sucesso.');
           console.log("Resposta do servidor ao criar usuário:", users);
           this.usersUpdated.emit(users);
           this.user = new User();
-          console.log("Usuário criado com sucesso!", users);
-          console.log(this.isSuccessPopupVisible);
+          this.userSucess.emit();
           this.isFormVisible = false;
         },
         (error) => {
@@ -101,14 +99,6 @@ export class EditUserComponent implements OnInit {
         }
       );
   }
-
-  
-  openSuccessPopup(message: string): void {
-    console.log('Abrindo popup de sucesso', message);
-    this.isSuccessPopupVisible = true;
-    this.cdr.detectChanges(); // Força a detecção de mudanças
-    console.log('Popup deve estar visível agora', this.isSuccessPopupVisible);
-  }
   
 
   openErrorPopup(message: string): void {
@@ -119,10 +109,6 @@ export class EditUserComponent implements OnInit {
 
   closeErrorPopup(): void {
     this.isErrorPopupVisible = false;
-  }
-
-  closeSuccessPopup(): void {
-    this.isSuccessPopupVisible = false;
   }
   
   showDeleteConfirmation(): void {

@@ -151,14 +151,7 @@ export class ListPendantsComponent implements OnInit {
   closeSuccessPopup(): void {
     this.isSuccessPopupVisible = false;
   }
-
-  PendantSucess(): void{
-
-  }
-
-
-
-
+  
   editPending(pending: Pending, index: number): void {
     this.pendingsToEdit = pending;
     const createdBy = pending.createdBy;

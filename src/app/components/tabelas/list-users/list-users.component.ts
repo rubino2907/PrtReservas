@@ -16,6 +16,8 @@ export class ListUsersComponent {
   searchInput: string = '';
   filteredUsers: User[] = [];
 
+  isSuccessPopupVisible: boolean = false;
+
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -60,5 +62,13 @@ export class ListUsersComponent {
     } else {
       this.filteredUsers = this.users.filter(user => user.group.toLowerCase().includes(this.searchInput.toLowerCase()));
     }
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
   }
 }
