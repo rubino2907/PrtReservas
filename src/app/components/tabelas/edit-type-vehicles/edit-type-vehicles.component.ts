@@ -11,6 +11,7 @@ export class EditTypeVehiclesComponent {
 
   @Input() typeVehicle?: TypeVehicle;
   @Output() typeVehicleUpdated = new EventEmitter<TypeVehicle[]>();
+  @Output()typeVehicleSucess = new EventEmitter<void>();
 
   typeVehicles: string[] = []; // Array para armazenar os tipos
 
@@ -31,6 +32,7 @@ export class EditTypeVehiclesComponent {
         (typeVehicle: TypeVehicle[]) => {
           console.log("Resposta do servidor ao criar typeVehicle:", typeVehicle);
           this.typeVehicleUpdated.emit(typeVehicle);
+          this.typeVehicleSucess.emit();
           console.log("Vehicle criado com sucesso!", typeVehicle);
           this.isFormEdittypeVehicleVisible = false; // Esconde o formulário após criar o usuário com sucesso
         },
@@ -45,6 +47,7 @@ export class EditTypeVehiclesComponent {
       .updateTypeVehicle(typeVehicle)
       .subscribe((typeVehicle: TypeVehicle[]) => {
         this.typeVehicleUpdated.emit(typeVehicle);
+        this.typeVehicleSucess.emit();
         this.isFormEdittypeVehicleVisible = false; // Esconde o formulário após a atualização bem-sucedida
       });
   }

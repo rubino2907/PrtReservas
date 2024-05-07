@@ -12,6 +12,8 @@ import { IconService } from '../../../services/extraServices/icon.service';
 export class EditVehicleComponent implements OnInit  {
   @Input() vehicle?: Vehicle;
   @Output() vehiclesUpdated = new EventEmitter<Vehicle[]>();
+  @Output()vehicleSucess = new EventEmitter<void>();
+
   isDeleteConfirmationVisible: boolean = false;
 
   typeOfVehicles: string[] = []; // Array para armazenar os tipos
@@ -94,6 +96,7 @@ export class EditVehicleComponent implements OnInit  {
         (vehicles: Vehicle[]) => {
           console.log("Resposta do servidor ao criar Vehicle:", vehicles);
           this.vehiclesUpdated.emit(vehicles);
+          this.vehicleSucess.emit();
           console.log("Vehicle criado com sucesso!", vehicles);
           this.isFormEditVehicleVisible = false; // Esconde o formulário após criar o usuário com sucesso
         },
@@ -109,6 +112,7 @@ export class EditVehicleComponent implements OnInit  {
       .updateVehicles(vehicle)
       .subscribe((vehicles: Vehicle[]) => {
         this.vehiclesUpdated.emit(vehicles);
+        this.vehicleSucess.emit();
         this.isFormEditVehicleVisible = false; // Esconde o formulário após a atualização bem-sucedida
       });
   }

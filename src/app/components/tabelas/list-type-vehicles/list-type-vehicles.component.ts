@@ -11,6 +11,7 @@ export class ListTypeVehiclesComponent {
   @Input() typeVehicles: TypeVehicle[] = [];
   @Input() typeVehicleToEdit?: TypeVehicle;
   @Input() isFormEdittypeVehicleVisible: boolean = false;
+  isSuccessPopupVisible: boolean = false;
 
   constructor(private typeVehiclesService: TypeVehicleService) {}
 
@@ -44,5 +45,13 @@ export class ListTypeVehiclesComponent {
 
     // Ocultar o formulário de edição
     this.isFormEdittypeVehicleVisible = false;
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
   }
 }

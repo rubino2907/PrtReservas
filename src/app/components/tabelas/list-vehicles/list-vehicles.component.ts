@@ -17,6 +17,7 @@ export class ListVehiclesComponent {
   searchInput: string = '';
   selectedVehicleType: string = '';
   filteredVehicles: Vehicle[] = [];
+  isSuccessPopupVisible: boolean = false;
 
   typeOfVehicles: string[] = []; // Array para armazenar os tipos
 
@@ -88,5 +89,13 @@ export class ListVehiclesComponent {
   
   fecharForm(): void {
     this.isFormEditVehicleVisible = false;
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
   }
 }
