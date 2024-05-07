@@ -36,7 +36,7 @@
 
     <!-- Caixa 3 - Total Reservas -->
     <div class="col-4">
-        <div class="row p-4" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-right: -2px;">
+        <div class="row p-4" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-right: -2px; ">
             <div class="col-lg-11" style="border-bottom: 1px solid #337AB7; display: flex; align-items: center;">
                 <h5 class="text-left py-3 mb-0"> <i class="bi bi-calendar2-week-fill" style="margin-right: 10px;"></i>Total Reservas</h5>
             </div>
@@ -48,7 +48,7 @@
     </div>
         <!-- Caixa 4 - Tempo Médio de Reserva -->
         <div class="col-4 d-flex flex-column align-items-stretch" style="margin-top: 5px; max-height: 50vh;">
-            <div class="row p-4 equal-height-card" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-right: -2px;">
+            <div class="row p-4 equal-height-card" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-right: -2px; height: 42vh;">
                 <div class="col-lg-11" style="border-bottom: 1px solid #337AB7; display: flex; align-items: center;">
                     <h5 class="text-left py-3 mb-0"> <i class="bi bi-percent" style="margin-right: 10px;"></i> Tempo Médio de Reserva</h5>
                 </div>
@@ -57,25 +57,25 @@
         </div>
     
         <!-- Caixa 5 - Total Reservas -->
-        <div class="col-4 d-flex flex-column" style="margin-top: 5px; max-height: 50vh;">
-            <div class="row p-4 equal-height-card" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-right: -2px;">
+        <div class="col-4 d-flex flex-column" style="margin-top: 5px;">
+            <div class="row p-4 equal-height-card" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-right: -2px; height: 42vh;">
                 <div class="col-lg-11" style="margin-bottom: 10px; border-bottom: 1px solid #337AB7; display: flex; align-items: center;">
                     <h5 class="text-left py-3 mb-0"> <i class="bi bi-plus-slash-minus" style="margin-right: 10px;"></i>  Viaturas Mais e Menos Utilizadas</h5>
                 </div>
-                <div class="row d-flex justify-content-center flex-grow-1" >
-                    <div class="col-md-5">
-                        <div class="most-used-vehicles">
-                            <!-- <h6 class="card-subtitle mb-0">Viaturas Mais Utilizadas</h6> -->
-                            <ul class="list-group">
-                                <li class="list-group-item" *ngFor="let vehicle of mostUsedVehicles">{{ vehicle }}</li>
+                <div class="row d-flex justify-content-center flex-grow-1" style="margin-top: 20px;">
+                    <div class="col-md-6">
+                        <div class="most-used-vehicles ">
+                            <h6 class="card-subtitle mb-0" style="text-align: center;">Viaturas Mais Utilizadas</h6>
+                            <ul class="list-group" style="text-align: center; margin-top: 5px;">
+                                <li class="list-group-item " *ngFor="let vehicle of mostUsedVehicles">{{ vehicle }}</li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="least-used-vehicles">
-                            <!-- <h6 class="card-subtitle mb-0">Viaturas Menos Utilizadas</h6> -->
-                            <ul class="list-group">
-                                <li class="list-group-item" *ngFor="let vehicle of leastUsedVehicles">{{ vehicle }}</li>
+                    <div class="col-md-6">
+                        <div class="least-used-vehicles ">
+                            <h6 class="card-subtitle mb-0" style="text-align: center;">Viaturas Menos Utilizadas</h6>
+                            <ul class="list-group" style="text-align: center; margin-top: 5px;">
+                                <li class="list-group-item " *ngFor="let vehicle of leastUsedVehicles">{{ vehicle }}</li>
                             </ul>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
     
         <!-- Caixa 6 - Taxa de Utilização das Viaturas -->
         <div class="col-4 d-flex flex-column align-items-stretch" style="margin-top: 5px; max-height: 50vh;">
-            <div class="row p-4 " style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-right: -2px;">
+            <div class="row p-4 equal-height-card" style="background: #FFFFFF; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; margin-right: -2px; height: 42vh;">
                 <div class="col-lg-11" style="border-bottom: 1px solid #337AB7; display: flex; align-items: center;">
                     <h5 class="text-left py-3 mb-0"> <i class="bi bi-person-square" style="margin-right: 10px;" ></i>Utilizador Com Mais Reservas </h5>
                 </div>
