@@ -161,7 +161,7 @@ export class AprovePendingsComponent implements OnInit {
     }
 
     // Remova o código HTML fora deste bloco
-}
+  }
 
   fecharForm(): void {
     // Limpar os detalhes do usuário

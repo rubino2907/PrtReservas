@@ -52,4 +52,8 @@ export class UserService {
     public updateUserByUsername(username: string, user: User): Observable<User[]> {
         return this.http.put<User[]>(`${environment.apiUrl}/${this.url}/Update/${username}`, user);
     }
+
+    public changePassword(username: string, newPassword: string) {
+        return this.http.put<User[]>(`${environment.apiUrl}/${this.url}/ChangePassword/${username}`, newPassword );
+    }
 }

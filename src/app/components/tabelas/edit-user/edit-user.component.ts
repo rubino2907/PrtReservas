@@ -145,9 +145,6 @@ export class EditUserComponent implements OnInit {
       this.newPassword = '';
       this.confirmPassword = '';
   
-      // Fecha a popup de alteração de senha
-      this.isChangePasswordVisible = false;
-  
       alert('Password alterada com sucesso!');
     } else {
       alert('Usuário não está definido. Por favor, tente novamente.');
