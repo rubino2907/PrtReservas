@@ -1,10 +1,10 @@
 export class PendingToPasswordChange  {
 
   pendingToChangePasswordID?: number;
-  creationDateTime?: Date;
-  createdBy?: string;
-  changeDateTime?: Date;
+  creationDateTime: string = '';
+  createdBy: string = '';
+  changeDateTime: string = '';
   state?: string;
-  approvedBy?: string;
+  aprovedBy?: string;
 
 }

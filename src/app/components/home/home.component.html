@@ -9,7 +9,7 @@
             <div class="form-group" style="margin-bottom: 10px;">
                 <input id="password" [(ngModel)]="userDto.password" name="password" type="password" style="width: 100%; padding: 15px; border-radius: 5px; border: 1px solid #dfe3e8; background-color: #fff;" placeholder="Senha">
             </div>
-            <label style="color: #fff;">Não sabes a tua palavra-passe?</label>
+            <label style="color: #fff; cursor: pointer;" (click)="openPopupToCreatePending()">Não sabes a tua palavra-passe?</label>
             <button type="submit" (click)="login(userDto)" style="width: 100%; margin-top: 20px; padding: 15px; background-color: #337ab7; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Entrar</button>
             
         </form>
@@ -25,5 +25,25 @@
         </div>
     </div>
 
+    <!-- Existing popup structure -->
+    <div class="popup-background" *ngIf="isForgotPasswordPopupVisible">
+        <div class="popup-content" style="border: 1px solid #ccc; border-radius: 10px; padding: 20px;">
+        <h3 style="color: #333; font-size: 24px; margin-bottom: 20px;">Esqueceu a palavra-passe?</h3>
+        <form (submit)="createPendingToChangePassword()">
+            <div class="form-group">
+            <label for="username" style="color: #333; font-size: 16px; margin-bottom: 10px;">Nome do Utilizador:</label>
+            <input type="text" id="username" name="username" [(ngModel)]="pendingToPasswordChange.createdBy" required
+                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+            <button type="submit" style="background-color: #337ab7; color: #fff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Enviar Pedido</button>
+            <button type="button" (click)="isForgotPasswordPopupVisible = false" style="background-color: #dd0e0e; color: #fff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Cancelar</button>
+            </div>
+        </form>
+        </div>
+    </div>
+  
+    
+    
     
 </div>
