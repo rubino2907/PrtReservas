@@ -82,39 +82,43 @@ export class AprovePendingsToChangePasswordComponent {
 
   changePassword(username: string): void {
     if (this.wordpass !== this.confirmWordpass) {
-      alert('As senhas não coincidem.');
-      return;
+        alert('As senhas não coincidem.');
+        return;
     }
 
     // Busca o usuário pelo nome de usuário
     this.userService.getUserByUsername(username).subscribe(
-      (user: User) => {
-        if (user) {
+        (user: User) => {
+            if (user) {
+                console.log(user);
+                // Atualiza a senha no objeto do usuário
+                user.password = this.wordpass;
 
-          console.log(user);
-         // Atualiza a senha no objeto do usuário
-          user.password = this.wordpass;
-  
-          // Chama o método para atualizar o usuário, incluindo a nova senha
-          this.updateUser(user);
+                // Chama o método para atualizar o usuário, incluindo a nova senha
+                this.updateUser(user);
 
-          this.isFormEditPendingVisible = false;
-  
-          // Limpa os campos de nova senha e confirmação
-          this.wordpass = '';
-          this.confirmWordpass = '';
-  
-          this.openSuccessPopup('O utilizador foi atualizado com sucesso.')
+                // Elimina o pedido associado e envia a nova senha por e-mail
+                this.deletePendingAndSendNewPassword();
 
-        } else {
-          alert('Usuário não encontrado.');
+                this.isFormEditPendingVisible = false;
+
+                this.loadPendings();
+
+                // Limpa os campos de nova senha e confirmação
+                this.wordpass = '';
+                this.confirmWordpass = '';
+
+                this.openSuccessPopup('O utilizador foi atualizado com sucesso.');
+            } else {
+                alert('Usuário não encontrado.');
+            }
+        },
+        (error) => {
+            console.error('Ocorreu um erro ao buscar os detalhes do usuário:', error);
         }
-      },
-      (error) => {
-        console.error('Ocorreu um erro ao buscar os detalhes do usuário:', error);
-      }
     );
   }
+
 
   updateUser(user: User): void {
     if (this.pendingsToEdit && this.pendingsToEdit.createdBy) {
@@ -134,5 +138,32 @@ export class AprovePendingsToChangePasswordComponent {
   closeSuccessPopup(): void {
     this.isSuccessPopupVisible = false;
   }
+
+  deletePendingAndSendNewPassword(): void {
+    console.log(this.wordpass);
+    if (this.pendingsToEdit && this.pendingsToEdit.pendingToChangePasswordID !== undefined) {
+        // Chame o método deletePendingToChangePassword sem o parâmetro newPassword
+        this.pendantService.deletePendingToChangePassword(this.pendingsToEdit.pendingToChangePasswordID, this.wordpass)
+            .subscribe(() => {
+                console.log('Pedido eliminado com sucesso.');
+                // Enviar a nova senha por e-mail
+                this.sendNewPasswordByEmail(this.userDetails?.email || '', this.wordpass);
+            }, (error) => {
+                console.error('Erro ao eliminar o pedido:', error);
+            });
+    } else {
+        console.error('Não é possível excluir o pedido. O objeto pendingsToEdit ou pendingToChangePasswordID está nulo ou indefinido.');
+    }
+  }
+  
+
+
+
+  sendNewPasswordByEmail(email: string, newPassword: string): void {
+      // Lógica para enviar a nova senha por e-mail
+      console.log(`Nova senha enviada para ${email}: ${newPassword}`);
+      // Adicione aqui a lógica para enviar a nova senha por e-mail usando o serviço de e-mail
+  }
+
 
 }

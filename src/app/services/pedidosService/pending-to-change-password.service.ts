@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -22,6 +22,13 @@ export class PendingToChangePasswordService {
     (`${environment.apiUrl}/${this.url}/CreatePendingToPasswordChange`,
     pendingToPasswordChange
     );
+  }
+
+  public deletePendingToChangePassword(id: number, newPassword: string): Observable<PendingToPasswordChange[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers: headers };
+    const urlWithParams = `${environment.apiUrl}/${this.url}/${id}?newPassword=${newPassword}`;
+    return this.http.delete<PendingToPasswordChange[]>(urlWithParams, options);
   }
   
 }
