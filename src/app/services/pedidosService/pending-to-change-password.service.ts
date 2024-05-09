@@ -30,5 +30,9 @@ export class PendingToChangePasswordService {
     const urlWithParams = `${environment.apiUrl}/${this.url}/${id}?newPassword=${newPassword}`;
     return this.http.delete<PendingToPasswordChange[]>(urlWithParams, options);
   }
+
+  public deletePendingToChangePasswords(pendings: PendingToPasswordChange) : Observable<PendingToPasswordChange[]>{
+    return this.http.delete<PendingToPasswordChange[]>(`${environment.apiUrl}/${this.url}/DeletePendingChangePassword/${pendings.pendingToChangePasswordID}`);
+}
   
 }

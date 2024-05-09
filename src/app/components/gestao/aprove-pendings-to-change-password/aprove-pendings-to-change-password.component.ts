@@ -24,6 +24,8 @@ export class AprovePendingsToChangePasswordComponent {
   wordpass: string = ''; // Nova senha
   confirmWordpass: string = ''; // Confirmação da nova senha
   newPassword: string = ''; // Confirmação da nova senha
+
+  successMessage: string = '';
   
   isDeleteConfirmationVisible: boolean = false;
 
@@ -133,10 +135,13 @@ export class AprovePendingsToChangePasswordComponent {
 
   openSuccessPopup(message: string): void {
     this.isSuccessPopupVisible = true;
+    this.successMessage = message; // Define a mensagem para ser exibida no popup
   }
+  
 
   closeSuccessPopup(): void {
     this.isSuccessPopupVisible = false;
+    this.loadPendings();
   }
 
   deletePendingAndSendNewPassword(): void {
@@ -156,7 +161,16 @@ export class AprovePendingsToChangePasswordComponent {
     }
   }
   
-
+  deletePending(pending: PendingToPasswordChange): void {
+    this.pendantService
+      .deletePendingToChangePasswords(pending)
+      .subscribe((pendings: PendingToPasswordChange[]) => {
+        this.isFormEditPendingVisible = false; // Esconde o formulário após excluir o usuário
+        this.isDeleteConfirmationVisible = false;
+        this.loadPendings();
+        this.openSuccessPopup('O Pedido para alteração de Password foi eliminado com sucesso');
+      });
+  }
 
 
   sendNewPasswordByEmail(email: string, newPassword: string): void {
@@ -165,5 +179,13 @@ export class AprovePendingsToChangePasswordComponent {
       // Adicione aqui a lógica para enviar a nova senha por e-mail usando o serviço de e-mail
   }
 
+  showDeleteConfirmation(): void {
+    this.isDeleteConfirmationVisible = true; // Mostra o popup de confirmação
+
+  }
+
+  cancelDelete(): void {
+    this.isDeleteConfirmationVisible = false; // Fecha o popup de confirmação
+  }
 
 }
