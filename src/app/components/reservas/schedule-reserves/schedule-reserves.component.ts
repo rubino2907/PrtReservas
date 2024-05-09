@@ -77,7 +77,7 @@ loadMatriculationsByType(vehicleType?: string): void {
         // Carrega matrículas com base em um tipo específico
         this.vehicleService.getVehiclesByType(vehicleType).subscribe(
             (vehicles: Vehicle[]) => {
-                this.matriculations = vehicles.map(vehicle => `${vehicle.matriculation} | ${vehicle.descVehicle}`);
+                this.matriculations = vehicles.map(vehicle => `${vehicle.matriculation}`);
             },
             (error) => {
                 console.error("Erro ao carregar matrículas por tipo:", error);
@@ -340,6 +340,7 @@ getRandomColor(): string {
 
     showPopup: boolean = false;
     showPopupDescReserva: boolean = false;
+    showPopupDayClick: boolean = false;
     showPopupLegendaMatriculas: boolean = false;
 
     openPopupe(): void {
@@ -367,6 +368,77 @@ getRandomColor(): string {
       this.showPopupDescReserva = false;
     }
     
+    selectedDate: any; // Declare a variable to store the selected date
+    vehiclesAvailable: string[] = []; // Array para armazenar as matrículas de viaturas disponíveis
+    vehiclesUnavailable: string[] = []; // Array para armazenar as matrículas de viaturas indisponíveis
 
+    dayClicked(event: any): void {
+      // Verifica se a propriedade 'day' existe no evento
+      if (event.day) {
+        // Acessa a data dentro da propriedade 'day'
+        const selectedDate = new Date(event.day.date);
+        // Armazena a data selecionada
+        this.selectedDate = selectedDate;
+        // Exibe a data no console para verificação
+        console.log('Dia clicado:', this.selectedDate);
+    
+        // Verifica se há matrículas disponíveis
+        if (this.matriculations.length === 0) {
+          console.error('Nenhuma matrícula disponível');
+          return;
+        }
+    
+        // Inicializa as listas de viaturas disponíveis e indisponíveis
+        this.vehiclesAvailable = [];
+        this.vehiclesUnavailable = [];
+    
+        // Verifica a disponibilidade de cada matrícula
+        this.matriculations.forEach(matriculation => {
+          // Verifica se há alguma reserva para a matrícula na data selecionada
+          const hasReserveForDate = this.events.some(event => {
+            // Extrai a matrícula da descrição do evento usando uma expressão regular
+            const regex = /<b>Matrícula:<\/b> ([^<|]+)/;
+            const match = event.title.match(regex);
+            let eventMatriculation = match ? match[1].trim() : null;
+    
+            // Verifica se a reserva é para a matrícula e data selecionadas
+            if (eventMatriculation !== matriculation) {
+              return false; // Ignora esta reserva se não for para a matrícula selecionada
+            }
+            // Verifica se a data de início está definida
+            if (!event.start) {
+              console.log('Reserva sem data de início:', event);
+              return false; // Ignora esta reserva se a data de início não estiver definida
+            }
+            // Converte a data de início para um objeto Date
+            const startDate = new Date(event.start);
+            console.log('Data de início da reserva:', startDate);
+            // Verifica se a data de início da reserva é igual à data selecionada
+            const sameDate = startDate.toDateString() === selectedDate.toDateString();
+            console.log('Data de início igual à data selecionada?', sameDate);
+            return sameDate;
+          });
+    
+          // Adiciona a matrícula à lista correspondente
+          if (hasReserveForDate) {
+            console.log(`Viatura ${matriculation} indisponível para a data ${selectedDate}`);
+            this.vehiclesUnavailable.push(matriculation);
+          } else {
+            console.log(`Viatura ${matriculation} disponível para a data ${selectedDate}`);
+            this.vehiclesAvailable.push(matriculation);
+          }
+        });
+    
+        // Exibe a popup com as informações de disponibilidade das viaturas
+        this.showPopupDayClick = true;
+      } else {
+        console.error('Data inválida: ', event);
+      }
+    }
+    
+
+    closePopupDayClicked(): void {
+      this.showPopupDayClick = false;
+    }
 
   }

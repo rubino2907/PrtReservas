@@ -80,6 +80,7 @@
             [viewDate]="viewDate"
             [events]="events"
             (eventClicked)="eventClicked($event.event)"
+            (dayClicked)="dayClicked($event)"
             [refresh]="refresh"
             class="small-calendar"
           ></mwl-calendar-month-view>
@@ -203,6 +204,35 @@
                     </div>
                   </div>
                   
+
+                  <!-- Janela de popup para os detalhes do dia clicado -->
+                  <div class="popup-overlay" *ngIf="showPopupDayClick">
+                    <div class="popup">
+                      <div class="popup-content">
+                        <div class="popup-header">
+                          <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 15px; margin-bottom: 30px;">
+                            <i class="bi bi-list-task"></i> Detalhes do Dia
+                            <button class="close-btn" (click)="closePopupDayClicked()" style="float: right; color: red; background: none; border: none; font-size: 20px;">&times;</button>
+                          </h3>
+                        </div>
+                        <div class="popup-body">
+                          <!-- Exibir a data selecionada -->
+                          <p><strong>Data:</strong> {{ selectedDate | date:'dd/MM/yyyy' }}</p>
+                          <!-- Exibir a disponibilidade das viaturas -->
+                          <p><strong>Viaturas disponíveis:</strong></p>
+                          <ul>
+                            <li *ngFor="let vehicle of vehiclesAvailable">{{ vehicle }}</li>
+                          </ul>
+                          <p><strong>Viaturas indisponíveis:</strong></p>
+                          <ul>
+                            <li *ngFor="let vehicle of vehiclesUnavailable">{{ vehicle }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
 
 
 
