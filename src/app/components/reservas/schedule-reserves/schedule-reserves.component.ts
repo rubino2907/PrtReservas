@@ -307,7 +307,6 @@ getRandomColor(): string {
       this.events = []; // Limpa a lista de eventos
       this.pending = {}; // Limpa os dados do formulário
       this.selectedMatriculation = ''; // Limpa a matrícula selecionada
-      this.matriculations = [];
       this.matriculationColors = {}; // Limpa as cores das matrículas
     }
     
