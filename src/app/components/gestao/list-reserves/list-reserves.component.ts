@@ -131,5 +131,6 @@ export class ListReservesComponent implements OnInit {
 
   closeSuccessPopup(): void {
     this.isSuccessPopupVisible = false;
+    this.loadPendings(); // Chama a função para recarregar a lista de reservas
   }
 }
