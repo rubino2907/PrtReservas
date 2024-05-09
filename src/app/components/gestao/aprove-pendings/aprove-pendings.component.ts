@@ -61,6 +61,18 @@ export class AprovePendingsComponent implements OnInit {
   approvePending(pending: Pending): void {
     // Verifica se o estado do pedido não é 'APROVADO'
     if (pending.aproved !== 'APROVADO') {
+
+      // Após a aprovação bem-sucedida, remover o pedido aprovado da lista de pendentes
+      this.filteredPendings = this.filteredPendings.filter(item => item !== pending);
+
+      // Verifica se a lista de pendentes está vazia após a filtragem
+      if (this.filteredPendings.length === 0) {
+          // Se não houver mais pendentes, emita um evento para atualizar a tabela
+          this.pendingsUpdated.emit([]);
+          this.isSuccessPopupVisible = true;
+          this.isFormEditPendingVisible = false;
+      }
+
         // Verificar se todos os campos obrigatórios estão preenchidos
         if (!pending.vehicleType || !pending.matriculation || !pending.dateStart || !pending.dateEnd || !pending.description) {
             console.error("Todos os campos são obrigatórios.");
@@ -95,9 +107,6 @@ export class AprovePendingsComponent implements OnInit {
                   
                     // Emite o evento para informar que os pendentes foram atualizados
                     this.pendingsUpdated.emit(pendants);
-
-                    // Exibe a pop-up de sucesso imediatamente após a aprovação do pedido
-                    this.openSuccessPopup('Pedido aprovado com sucesso!');
 
                     // Verifica se o pedido foi aprovado
                     if (pending.aproved === 'APROVADO') {
