@@ -1,5 +1,73 @@
 .content {
-    padding-top: 70px; /* Ajuste se necessário de acordo com a altura da navbar */
-    padding-left: calc(3.5% + 175px); /* Ajuste o valor de 250px conforme necessário para compensar a largura da sidebar */
-    padding-right: 15px; /* Consistência do padding */
-  }
+  padding-left: 120px;
+}
+
+.popup-background {
+  position: fixed; /* Posição fixa em relação à tela */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  z-index: 1000; /* Garante que a popup esteja na frente de outros elementos */
+}
+
+.popup-backgroundSucess{
+  position: fixed; /* Posição fixa em relação à tela */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  z-index: 5000; /* Garante que a popup esteja na frente de outros elementos */
+}
+
+.popup-content {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+.button-container {
+  text-align: center;
+}
+
+/* Estilize a célula da coluna quando o mouse estiver sobre ela */
+.listaAproves tr:hover td {
+  background-color: #f5f5f5; /* Cor de fundo quando hover */
+  cursor: pointer; /* Altera o cursor para indicar interação */
+}
+
+/* Estilize a linha da tabela quando estiver ativa (clicada) */
+.listaAproves tr:active {
+  background-color: #d3d3d3; /* Cor de fundo quando ativa (clicada) */
+}
+
+/* Estilo padrão das células */
+.listaAproves td {
+  background-color: #ffff;
+}
+
+/* Estilo para linhas selecionadas */
+.listaAproves tr.selected {
+  background-color: #6d6d6d; /* Define a cor de fundo quando o mouse está sobre a linha */
+}
+
+.approved {
+  color: #009E25; /* Texto verde para APROVADO */
+}
+
+.not-approved {
+  color: #FF0000; /* Texto vermelho para NÃO APROVADO */
+}
+
+.pending {
+  color: #FF8000; /* Texto amarelo para EM ESPERA */
+}

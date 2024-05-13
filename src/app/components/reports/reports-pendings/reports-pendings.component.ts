@@ -30,10 +30,6 @@ export class ReportsPendingsComponent {
     startDate: string = '';
     endDate: string = '';
 
-    isSuccessPopupVisible: boolean = false;
-    isErrorPopupVisible: boolean = false;
-    errorMessage: string = ''; // Propriedade para armazenar a mensagem de erro específica
-
     selectedVehicleType: string = ''; // Armazena o tipo de viatura selecionado
 
     vehicleType: string[] = []; // Array para armazenar os tipos
