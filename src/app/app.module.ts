@@ -43,6 +43,10 @@ import { EditGroupUsersComponent } from './components/tabelas/edit-group-users/e
 import { GoogleChartsModule } from 'angular-google-charts';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AprovePendingsToChangePasswordComponent } from './components/gestao/aprove-pendings-to-change-password/aprove-pendings-to-change-password.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { SidebarReportsComponent } from './components/reports/sidebar-reports/sidebar-reports.component';
+import { ReportsReservesComponent } from './components/reports/reports-reserves/reports-reserves.component';
+import { ReportsPendingsComponent } from './components/reports/reports-pendings/reports-pendings.component';
 
 registerLocaleData(localePt);
 
@@ -80,7 +84,11 @@ registerLocaleData(localePt);
     EditTypeVehiclesComponent,
     EditGroupUsersComponent,
     UserProfileComponent,
-    AprovePendingsToChangePasswordComponent
+    AprovePendingsToChangePasswordComponent,
+    ReportsComponent,
+    SidebarReportsComponent,
+    ReportsReservesComponent,
+    ReportsPendingsComponent
   ],
   imports: [
     BrowserModule,

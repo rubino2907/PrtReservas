@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Barra lateral -->
+      <div>
+        <app-sidebar-reports
+        (toggleReservesListEvent)="showRelatoriosReservas= $event"
+        (toggleToListAprovedEvent)="showRelatoriosPedidos = $event">
+        </app-sidebar-reports>
+      </div>
+      <div>
+        <app-navbar></app-navbar>
+        <div class="content">
+            <!-- Conteúdo principal -->
+            <app-reports-reserves *ngIf="showRelatoriosReservas"></app-reports-reserves> 
+
+            <app-reports-pendings *ngIf="showRelatoriosPedidos"></app-reports-pendings>
+
+            <div *ngIf="!showRelatoriosPedidos && !showRelatoriosReservas">
+                <span>Selecione uma opção</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+        <span class="text-muted">Wave Reservas v1.0 © 2024</span>
+    </div>
+</footer>
+  

@@ -6,6 +6,7 @@ import { ReservasComponent } from './components/reservas/reservas.component';
 import { TabelasComponent } from './components/tabelas/tabelas.component';
 import { GestaoComponent } from './components/gestao/gestao.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'reservas', component: ReservasComponent},
   { path: 'tabelas', component: TabelasComponent},
   { path: 'gestao', component: GestaoComponent},
+  { path: 'relatorios', component: ReportsComponent},
   { path: 'userProfile', component: UserProfileComponent},
 ];
 

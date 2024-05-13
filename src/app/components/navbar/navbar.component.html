@@ -12,6 +12,10 @@
     <i class="bi bi-table" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle; color: #337AB7;"></i>
     <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer; ">Tabelas</label>
 </a> 
+<a *ngIf="isAdmin" (click)="GoToRelatorios()" [ngClass]="{'active': isRelatoriosActive}" style="padding: 5px; padding-left: 10px;">
+    <i class="bi bi-bar-chart-line-fill" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle; color: #337AB7;"></i>
+    <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer;">Relatórios</label>
+</a> 
 <a *ngIf="isAdmin" (click)="GoToGestao()" [ngClass]="{'active': isGestaoActive}" style="padding: 5px; padding-left: 10px;">
     <i class="bi bi-gear-fill" style="opacity: 1; width: 21px; height: 14px; margin-right: 5px; vertical-align: middle; color: #337AB7;"></i>
     <label style="font: normal normal normal 15px Open Sans, sans-serif; letter-spacing: 0px; color: #FFFFFF; opacity: 1; display: inline-block; vertical-align: middle; cursor: pointer;">Gestão</label>

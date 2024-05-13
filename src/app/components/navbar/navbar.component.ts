@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   isDashboardActive: boolean = false; // Variável para indicar se a página do dashboard está ativa
   isTabelasActive: boolean = false;
   isGestaoActive: boolean = false;
+  isRelatoriosActive: boolean = false;
   isUserProfileActive: boolean = false;
 
   constructor(private router: Router, private cookieService: CookieService, private authService: AuthService, private pendingService: PendantService) {}
@@ -59,7 +60,14 @@ export class NavbarComponent implements OnInit {
         this.isTabelasActive = false;
         this.isGestaoActive = true;
         this.isUserProfileActive = false;
-      }  else if (this.router.url.includes('userProfile')){
+      }  else if (this.router.url.includes('relatorios')){
+        this.isReservasActive = false;
+        this.isDashboardActive = false;
+        this.isTabelasActive = false;
+        this.isGestaoActive = false;
+        this.isRelatoriosActive = true;
+        this.isUserProfileActive = false;
+      } else if (this.router.url.includes('userProfile')){
         this.isReservasActive = false;
         this.isDashboardActive = false;
         this.isTabelasActive = false;
@@ -70,6 +78,8 @@ export class NavbarComponent implements OnInit {
         this.isDashboardActive = false;
         this.isTabelasActive = false;
         this.isGestaoActive = false;
+        this.isRelatoriosActive = false;
+        this.isUserProfileActive = false;
       }
     });
   }
@@ -91,6 +101,10 @@ export class NavbarComponent implements OnInit {
 
   GoToTabelas(){
     this.router.navigate(['/tabelas']);
+  }
+
+  GoToRelatorios(){
+    this.router.navigate(['/relatorios'])
   }
 
   GoToDashboard(){
