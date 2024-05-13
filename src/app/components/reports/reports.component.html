@@ -16,7 +16,7 @@
             <app-reports-pendings *ngIf="showRelatoriosPedidos"></app-reports-pendings>
 
             <div *ngIf="!showRelatoriosPedidos && !showRelatoriosReservas">
-                <span>Selecione uma opção</span>
+                <app-empty-state-reports></app-empty-state-reports>
             </div>
         </div>
       </div>

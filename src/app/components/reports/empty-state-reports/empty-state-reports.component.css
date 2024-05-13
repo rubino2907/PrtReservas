@@ -1,0 +1,32 @@
+/* Estilo para o rodapé */
+footer.footer {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.empty-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Garante que a tela inteira seja preenchida */
+    text-align: center;
+}
+
+.icon-container {
+    margin-bottom: 30px;
+}
+
+body {
+    overflow: hidden;
+}
+
+.contentEmpty {
+    justify-content: center;
+    align-items: flex-end;
+    padding-left: 400px; /* Adicionando preenchimento à esquerda */
+}

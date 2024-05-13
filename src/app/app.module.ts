@@ -47,6 +47,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { SidebarReportsComponent } from './components/reports/sidebar-reports/sidebar-reports.component';
 import { ReportsReservesComponent } from './components/reports/reports-reserves/reports-reserves.component';
 import { ReportsPendingsComponent } from './components/reports/reports-pendings/reports-pendings.component';
+import { EmptyStateReportsComponent } from './components/reports/empty-state-reports/empty-state-reports.component';
 
 registerLocaleData(localePt);
 
@@ -88,7 +89,8 @@ registerLocaleData(localePt);
     ReportsComponent,
     SidebarReportsComponent,
     ReportsReservesComponent,
-    ReportsPendingsComponent
+    ReportsPendingsComponent,
+    EmptyStateReportsComponent
   ],
   imports: [
     BrowserModule,
