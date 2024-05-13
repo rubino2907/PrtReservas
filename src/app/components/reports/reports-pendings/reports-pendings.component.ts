@@ -6,6 +6,9 @@ import { VehicleService } from '../../../services/vehicles/vehicle.service';
 import { PendantService } from '../../../services/pedidosService/pending.service';
 import { ReserveService } from '../../../services/reservesService/reserve.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-reports-pendings',
@@ -38,7 +41,8 @@ export class ReportsPendingsComponent {
     constructor(private cookieService: CookieService, 
       private typeVehicleService: TypeVehicleService, 
       private vehicleService: VehicleService, 
-      private pendantService: PendantService) { }
+      private pendantService: PendantService,
+      private http: HttpClient) { }
 
     ngOnInit(): void {
       this.loadTypeOfVehicles();
@@ -114,7 +118,7 @@ export class ReportsPendingsComponent {
       this.startDate = '';
       this.endDate = '';
     }
-    
+
     // Método para ordenar a tabela com base no estado de aprovação
     sortTableByApproval(): void {
       // Alterne a direção da ordenação
@@ -180,4 +184,116 @@ export class ReportsPendingsComponent {
           }
       });
     }
+
+    // Função loadImage atualizada
+  async loadImage(filePath: string): Promise<string> {
+    try {
+        // Use o HttpClient para carregar o arquivo como uma string
+        const imgBlob = await this.http.get(filePath, { responseType: 'blob' }).toPromise();
+        if (!imgBlob) {
+            throw new Error('Imagem não encontrada ou inválida');
+        }
+        const reader = new FileReader();
+        reader.readAsDataURL(imgBlob);
+        return new Promise<string>((resolve, reject) => {
+            reader.onloadend = () => {
+                resolve(reader.result as string);
+            };
+            reader.onerror = reject;
+        });
+    } catch (error) {
+        console.error('Erro ao carregar a imagem:', error);
+        return ''; // Retorne uma string vazia em caso de erro
+    }
+  }
+  
+  async criarPDF() {
+    const doc = new jsPDF();
+    const headerFilePath = 'assets/redLogoWaveMaps.png';
+    const footerFilePath = 'assets/logoMapsRodape.png';
+
+    const headerImg = await this.loadImage(headerFilePath);
+    const footerImg = await this.loadImage(footerFilePath);
+
+    // Adicionar o logo no cabeçalho
+    doc.addImage(headerImg, 'PNG', 15, 10, 50, 15);
+
+    // Definir o tamanho da fonte para o título
+    doc.setFontSize(18);
+    // Adicionar o título "Relatório de Pedidos"
+    doc.text('Relatório de Pedidos', 80, 22);
+
+    // Definir o tamanho da fonte para a data de emissão
+    doc.setFontSize(12);
+    // Adicionar a data de emissão
+    const currentDate = new Date().toLocaleDateString();
+    doc.text(`Data de Emissão: ${currentDate}`, 80, 30);
+
+    const columns = [
+        { header: 'Matrícula', dataKey: 'matriculation' },
+        { header: 'Data de Início', dataKey: 'dateStart' },
+        { header: 'Data de Fim', dataKey: 'dateEnd' },
+        { header: 'Aprovado', dataKey: 'aproved' },
+        { header: 'Aprovado Por', dataKey: 'aprovedBy' }
+    ];
+
+    const data = this.filteredPendings.map(pending => ({
+        matriculation: pending.matriculation,
+        dateStart: pending.dateStart,
+        dateEnd: pending.dateEnd,
+        aproved: pending.aproved,
+        aprovedBy: pending.aprovedBy
+    }));
+
+    autoTable(doc, {
+        startY: 40,
+        columns: columns,
+        body: data,
+        margin: { top: 30, right: 14, bottom: 20, left: 14 },
+        didDrawPage: function (data) {
+            // Adicionar o rodapé em cada página
+            doc.addImage(footerImg, 'PNG', 15, doc.internal.pageSize.height - 30, 50, 15);
+            doc.setFontSize(10);
+        }
+    });
+
+    doc.save('lista_pedidos.pdf');
+  }
+
+  async criarCSV() {
+    // Verificar se há dados para exportar
+    if (this.filteredPendings.length === 0) {
+        console.error('Não há dados para exportar.');
+        return;
+    }
+
+    // Criar o cabeçalho do CSV
+    let csvContent = 'Matrícula,Data de Início,Data de Fim,Aprovado,Aprovado Por\n';
+
+    // Iterar sobre os dados filtrados e adicionar linhas ao CSV
+    this.filteredPendings.forEach(pending => {
+        // Formatando a linha com os dados do pendente
+        const row = `${pending.matriculation},${pending.dateStart},${pending.dateEnd},${pending.aproved},${pending.aprovedBy}\n`;
+        csvContent += row;
+    });
+
+    // Criar um objeto Blob com o conteúdo CSV
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
+    // Criar um URL temporário para o Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Criar um link <a> para download do arquivo
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'lista_pedidos.csv');
+    document.body.appendChild(link);
+
+    // Simular um clique no link para iniciar o download
+    link.click();
+
+    // Remover o link do corpo do documento
+    document.body.removeChild(link);
+  }
+
 }
