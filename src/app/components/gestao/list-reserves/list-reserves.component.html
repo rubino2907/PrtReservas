@@ -15,7 +15,6 @@
             <!-- Label e select para as matrículas -->
             <label for="matricula-select" style="margin-bottom: 5px;">Selecione uma matrícula:</label>
             <div class="select-wrapper" style="width: 100%; margin-bottom: 20px;">
-                <label for="matriculation">Matrícula:</label>
                 <div style="display: flex; align-items: center;"> <!-- Adicionado align-items: center; -->
                     <select name="matriculation" id="matriculation" class="form-control" style="flex: 1; background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; opacity: 0.23;" [(ngModel)]="selectedMatricula" (change)="applyFilters()">
                         <option value="">Selecionar Matrícula</option>

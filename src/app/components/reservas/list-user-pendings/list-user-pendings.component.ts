@@ -118,11 +118,18 @@ export class ListUserPendingsComponent implements OnInit {
     
     this.pendantService.getPendingsByCreatedBy(currentUser).subscribe(
       (pendings: Pending[]) => {
-        // Ordenar os pendentes por 'approved'
+        // Ordenar os pendentes por 'approved' e, em seguida, por data inicial
         this.pendings = pendings.sort((a, b) => {
           // Define a ordem dos estados: 'EM ESPERA', 'APROVADO', 'RECUSADO'
-          const order = ['EM ESPERA', 'APROVADO', 'RECUSADO'];
-          return order.indexOf(a.aproved!) - order.indexOf(b.aproved!);
+          const order = ['EM ESPERA', 'APROVADO', 'RECUSADO', 'RESERVA ELIMINADA'];
+          const stateComparison = order.indexOf(a.aproved!) - order.indexOf(b.aproved!);
+          
+          if (stateComparison !== 0) {
+            return stateComparison; // Se os estados forem diferentes, retorne a comparação de estado
+          } else {
+            // Se os estados forem iguais, compare pela data inicial
+            return new Date(a.dateStart!).getTime() - new Date(b.dateStart!).getTime();
+          }
         });
         
         this.filteredPendings = [...this.pendings]; // Inicialize a lista filtrada com todos os pendentes
@@ -132,8 +139,8 @@ export class ListUserPendingsComponent implements OnInit {
         console.error('Erro ao carregar pendentes:', error);
       }
     );
-    
   }
+  
 
   updatePendingList(pendings: Pending[]): void {
     this.pendings = pendings;
