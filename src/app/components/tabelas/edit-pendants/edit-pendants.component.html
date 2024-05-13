@@ -1,22 +1,27 @@
 <div *ngIf="pending" class="pending-form">
-    <div class="row">
+    <div class="row ">
         <div class="form-group position-relative" style="margin-top: 20px;">
-            <label style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;" for="vehicleType">Tipo De Veículo:</label>
-            <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; width: 270px;" (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
-                <option value="">Selecione um tipo</option>
-                <option *ngFor="let typeVehicle of vehicleType" [value]="typeVehicle">{{ typeVehicle }}</option>
-            </select>
-            <i class="bi bi-caret-down-fill" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50% + 3px); width: 400px;"></i>
+            <label style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;" for="vehicleType">Tipo De Veículo:</label>
+            <div style="position: relative;">
+                <select [(ngModel)]="pending.vehicleType" name="vehicleType" id="vehicleType" class="form-control custom-select" (change)="pending.vehicleType && loadMatriculations(pending.vehicleType)">
+                    <option value="">Selecione um tipo</option>
+                    <option *ngFor="let typeVehicle of vehicleType" [value]="typeVehicle">{{ typeVehicle }}</option>
+                </select>
+                <i class="bi bi-caret-down-fill" style="color: #337AB7; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i>
+            </div>
         </div>
         
         <div class="form-group position-relative" style="margin-bottom: 14px;">
-            <label for="matriculation" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif;letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Matrícula:</label>
-            <select [(ngModel)]="pending.matriculation" name="matriculation" id="matriculation" class="form-control" style="background: #FFFFFF 0% 0% no-repeat padding-box; border: 1px solid #707070; border-radius: 5px; width: 270px;">
-                <option value="">Selecionar Matrícula</option>
-                <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
-            </select>
-            <i class="bi bi-caret-down-fill" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50% + 3px); width: 400px;"></i>
+            <label for="matriculation" style="text-align: left; font: normal normal normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1; margin-bottom: 2px;">Matrícula:</label>
+            <div style="position: relative;">
+                <select [(ngModel)]="pending.matriculation" name="matriculation" id="matriculation" class="form-control custom-select">
+                    <option value="">Selecionar Matrícula</option>
+                    <option *ngFor="let matriculation of matriculations" [value]="matriculation">{{ matriculation }}</option>
+                </select>
+                <i class="bi bi-caret-down-fill" style="color: #337AB7; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i>
+            </div>
         </div>
+        
         
 
         <div class="form-group">
