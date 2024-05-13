@@ -6,7 +6,6 @@ import { VehicleService } from '../../../services/vehicles/vehicle.service';
 import { PendantService } from '../../../services/pedidosService/pending.service';
 import { ReserveService } from '../../../services/reservesService/reserve.service';
 import { Vehicle } from '../../../models/VehicleModels/vehicle';
-import { Reserve } from '../../../models/reserve';
 
 @Component({
   selector: 'app-reports-pendings',
@@ -39,8 +38,7 @@ export class ReportsPendingsComponent {
     constructor(private cookieService: CookieService, 
       private typeVehicleService: TypeVehicleService, 
       private vehicleService: VehicleService, 
-      private pendantService: PendantService,
-      private reserveService: ReserveService) { }
+      private pendantService: PendantService) { }
 
     ngOnInit(): void {
       this.loadTypeOfVehicles();
@@ -86,61 +84,35 @@ export class ReportsPendingsComponent {
       );
     }
 
-
     applyFilters(): void {
       // Converta as strings de data para objetos Date para comparação
       let startDate = this.startDate ? new Date(this.startDate) : null;
       let endDate = this.endDate ? new Date(this.endDate) : null;
     
-      this.filteredPendings = this.pendings.filter(pending => {
-        // Verificação de matrícula
-        const matchMatricula = this.selectedMatricula ? pending.matriculation === this.selectedMatricula : true;
-    
-        // Conversão da data do pedido para objeto Date
-        const pendingStartDate = pending.dateStart ? new Date(pending.dateStart) : new Date();
-        const pendingEndDate = pending.dateEnd ? new Date(pending.dateEnd) : new Date();
-    
-    
-        // Verificação de datas
-        const matchStartDate = startDate ? pendingStartDate >= startDate : true;
-        const matchEndDate = endDate ? pendingEndDate <= endDate : true;
-    
-        return matchMatricula && matchStartDate && matchEndDate;
-      });
-    
-      // Após aplicar os filtros, atualize a lista de pedidos
-      this.getPendingsByCurrentUser();
-    }
-    
-
-    // Método para obter os pendentes do usuário atual
-    getPendingsByCurrentUser(): void {
-      // Substitua 'currentUser' pelo identificador do usuário atual
-      const currentUser = this.cookieService.get('userName'); // Exemplo: 'username'
-      
-      this.pendantService.getPendingsByCreatedBy(currentUser).subscribe(
+      // Chame o serviço para obter os pendentes com os filtros aplicados
+      this.pendantService.getPendings().subscribe(
         (pendings: Pending[]) => {
-          // Ordenar os pendentes por 'approved' e, em seguida, por data inicial
-          this.pendings = pendings.sort((a, b) => {
-            // Define a ordem dos estados: 'EM ESPERA', 'APROVADO', 'RECUSADO'
-            const order = ['EM ESPERA', 'APROVADO', 'RECUSADO', 'RESERVA ELIMINADA'];
-            const stateComparison = order.indexOf(a.aproved!) - order.indexOf(b.aproved!);
-            
-            if (stateComparison !== 0) {
-              return stateComparison; // Se os estados forem diferentes, retorne a comparação de estado
-            } else {
-              // Se os estados forem iguais, compare pela data inicial
-              return new Date(a.dateStart!).getTime() - new Date(b.dateStart!).getTime();
-            }
+          this.filteredPendings = pendings.filter(pending => {
+            const matchMatricula = this.selectedMatricula ? pending.matriculation === this.selectedMatricula : true;
+            const pendingStartDate = pending.dateStart ? new Date(pending.dateStart) : new Date();
+            const pendingEndDate = pending.dateEnd ? new Date(pending.dateEnd) : new Date();
+            const matchStartDate = startDate ? pendingStartDate >= startDate : true;
+            const matchEndDate = endDate ? pendingEndDate <= endDate : true;
+            return matchMatricula && matchStartDate && matchEndDate;
           });
-          
-          this.filteredPendings = [...this.pendings]; // Inicialize a lista filtrada com todos os pendentes
-          this.applyFilters(); // Aplica qualquer filtro inicial se necessário
         },
         error => {
           console.error('Erro ao carregar pendentes:', error);
         }
       );
+    }
+
+    cleanTable() {
+      this.filteredPendings = [];
+      this.selectedMatricula = '';
+      this.selectedVehicleType = '';
+      this.startDate = '';
+      this.endDate = '';
     }
     
     // Método para ordenar a tabela com base no estado de aprovação

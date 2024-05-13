@@ -40,11 +40,38 @@
                     <button class="clear-button" (click)="clearDate('startDate')" style="background-color: #337AB7; border: none; border-radius: 1px; height: 36px; display: flex; align-items: center; padding: 0 10px;"><i class="bi bi-trash-fill" style="color: #FFFFFF;"></i></button>
                 </div>
             </div>
-            <div>
+            <div style="margin-right: 30px;">
                 <label for="data-final" style="margin-right: 5px;">Data Final:</label>
                 <div style="position: relative; display: flex; align-items: center;">
                     <input type="date" id="data-final" [(ngModel)]="endDate" (change)="applyFilters()" style="height: 36px;">
                     <button class="clear-button" (click)="clearDate('endDate')" style="background-color: #337AB7; border: none; border-radius: 1px; height: 36px; display: flex; align-items: center; padding: 0 10px;"><i class="bi bi-trash-fill" style="color: #FFFFFF;"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; margin-left: 15px;">
+            <div >
+                <label for="data-inicial" style="margin-right: 5px;"></label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <button class="clear-button" style="background-color: rgb(24, 166, 137);; border: none; border-radius: 1px; height: 36px; display: flex; align-items: center; padding: 0 10px; justify-content: center;"><i class="bi bi-filetype-csv" style="color: #FFFFFF;"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; margin-left: 15px;">
+            <div >
+                <label for="data-inicial" style="margin-right: 5px;"></label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <button class="clear-button" style="background-color: #ec4758; border: none; border-radius: 1px; height: 36px; display: flex; align-items: center; padding: 0 10px; justify-content: center;"><i class="bi bi-file-earmark-pdf-fill" style="color: #FFFFFF;"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; margin-left: 15px;">
+            <div >
+                <label for="data-inicial" style="margin-right: 5px;"></label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <button class="clear-button" (click)="cleanTable()" style="background-color: #337AB7; border: none; border-radius: 1px; height: 36px; display: flex; align-items: center; padding: 0 10px; justify-content: center;"><i class="bi bi-trash-fill" style="color: #FFFFFF;"></i></button>
                 </div>
             </div>
         </div>
