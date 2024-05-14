@@ -7,6 +7,7 @@ import { TypeVehicleService } from '../../../services/vehicles/typeVehicle.servi
 import autoTable from 'jspdf-autotable';
 import jsPDF from 'jspdf';
 import { HttpClient } from '@angular/common/http';
+import { EmailSenderService } from '../../../services/extraServices/email-sender.service';
 
 @Component({
   selector: 'app-reports-reserves',
@@ -25,12 +26,17 @@ export class ReportsReservesComponent {
   matriculations: string[] = []; // Array para armazenar as matrículas
   vehicleType: string[] = []; // Array para armazenar os tipos
 
+  isEmailPopupVisible: boolean = false;
+  isSuccessPopupVisible: boolean = false;
+  emailToSend: string = ''; // Variável para armazenar o e-mail digitado pelo usuário
+
   sortDirection: string = 'desc';
 
   constructor( private vehicleService: VehicleService,
     private reserveService: ReserveService,
     private typeVehicleService: TypeVehicleService,
-    private http: HttpClient
+    private http: HttpClient,
+    private emailSenderService: EmailSenderService
   ){}
 
   
@@ -235,5 +241,111 @@ export class ReportsReservesComponent {
 
     // Remover o link do corpo do documento
     document.body.removeChild(link);
+  }
+
+  async enviarEmailComPdf(email: string) {
+    const pdfBlob = await this.gerarPdfBlob();
+  
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('subject', 'Relatório de Pedidos');
+    formData.append('message', 'Segue em anexo o relatório de pedidos.');
+    formData.append('attachment', pdfBlob, 'relatorio_pedidos.pdf');
+  
+    this.emailSenderService.sendEmail(formData).subscribe(
+      response => {
+        console.log('E-mail enviado com sucesso!', response);
+      },
+      error => console.error('Erro ao enviar e-mail', error)
+    );
+
+    this.closeEmailPopup();
+    this.openSuccessPopup('O pdf foi enviado para o email fornecido com sucesso.');
+  }
+
+  // Método para gerar o PDF e retornar como Blob
+  async gerarPdfBlob(): Promise<Blob> {
+    const doc = new jsPDF();
+
+    // Configurações do PDF (adicionar imagens, texto, tabelas, etc.)
+    // Por exemplo, adicionar uma imagem
+    const headerImg = await this.loadImage('assets/redLogoWaveMaps.png');
+    const footerFilePath = 'assets/logoMapsRodape.png';
+    const footerImg = await this.loadImage(footerFilePath);
+    doc.addImage(headerImg, 'PNG', 15, 10, 50, 15);
+
+    // Adicionar texto
+    doc.text('Relatório de Pedidos', 80, 22);
+
+    const columns = [
+      { header: 'Matrícula', dataKey: 'matriculation' },
+      { header: 'Data de Início', dataKey: 'dateStart' },
+      { header: 'Data de Fim', dataKey: 'dateEnd' },
+      { header: 'Estado', dataKey: 'state' },
+      { header: 'Dono da Reserva', dataKey: 'createdBy' }
+  ];
+
+  const data = this.filteredPendings.map(reserve => ({
+      matriculation: reserve.matriculation,
+      dateStart: reserve.dateStart,
+      dateEnd: reserve.dateEnd,
+      state: reserve.state,
+      createdBy: reserve.createdBy
+  }));
+
+  autoTable(doc, {
+      startY: 40,
+      columns: columns,
+      body: data,
+      margin: { top: 30, right: 14, bottom: 20, left: 14 },
+      didDrawPage: function (data) {
+          // Adicionar o rodapé em cada página
+          doc.addImage(footerImg, 'PNG', 15, doc.internal.pageSize.height - 30, 50, 15);
+          doc.setFontSize(10);
+      }
+  });
+
+    // Retornar o Blob do documento
+    return doc.output('blob');
+  }
+
+  // Método para carregar imagens
+  async loadImagem(filePath: string): Promise<string> {
+    try {
+      // Use o HttpClient para carregar a imagem como uma string
+      const imgBlob = await this.http.get(filePath, { responseType: 'blob' }).toPromise();
+      if (!imgBlob) {
+        throw new Error('Imagem não encontrada ou inválida');
+      }
+      const reader = new FileReader();
+      reader.readAsDataURL(imgBlob);
+      return new Promise<string>((resolve, reject) => {
+        reader.onloadend = () => {
+          resolve(reader.result as string);
+        };
+        reader.onerror = reject;
+      });
+    } catch (error) {
+      console.error('Erro ao carregar a imagem:', error);
+      return ''; // Retorne uma string vazia em caso de erro
+    }
+  }
+
+   // Função para abrir a popup de e-mail
+   openEmailPopup() {
+    this.isEmailPopupVisible = true;
+  }
+
+  // Função para fechar a popup de e-mail
+  closeEmailPopup() {
+    this.isEmailPopupVisible = false;
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
   }
 }

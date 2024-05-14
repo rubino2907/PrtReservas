@@ -68,6 +68,15 @@
         </div>
 
         <div style="display: flex; margin-left: 15px;">
+            <div>
+                <label for="data-inicial" style="margin-right: 5px;"></label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <button class="clear-button" (click)="openEmailPopup()" style="background-color: #337AB7; border: none; border-radius: 3px; height: 36px; display: flex; align-items: center; padding: 0 10px; justify-content: center;"><i class="bi bi-envelope-fill" style="color: #FFFFFF;"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; margin-left: 15px;">
             <div >
                 <label for="data-inicial" style="margin-right: 5px;"></label>
                 <div style="position: relative; display: flex; align-items: center;">
@@ -110,4 +119,28 @@
             </tr>
         </tbody>
     </table>    
+</div>
+
+<!-- Popup para inserir o e-mail -->
+<div class="popup-background" *ngIf="isEmailPopupVisible">
+    <div class="popup-content" style="width: 300px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+        <h3 style="border-bottom: 2px solid #337AB7; padding-bottom: 15px; margin-bottom: 20px; color: #333; text-align: center;">Enviar por E-mail</h3>
+        <div class="text-center" style="margin-bottom: 20px;">
+            <input type="text" class="form-control" [(ngModel)]="emailToSend" placeholder="Insira o endereço de e-mail">
+            <button class="btn btn-primary" style="background-color: #337AB7; border-color: #337AB7;" (click)="enviarEmailComPdf(emailToSend)">Enviar</button>
+            <button class="btn btn-secondary" style="margin-left: 10px;" (click)="closeEmailPopup()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Popup de confirmação de sucesso -->
+<div class="popup-background" *ngIf="isSuccessPopupVisible">
+    <div class="popup-content" style="width: 300px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+        <h3 style="border-bottom: 2px solid #4CAF50; padding-bottom: 15px; margin-bottom: 20px; color: #333; text-align: center;">Sucesso!</h3>
+        <div class="text-center" style="margin-bottom: 20px;">
+            <p style="color: #333;">O pedido foi submetido com sucesso.</p>
+            <button class="btn btn-primary" style="background-color: #4CAF50; border-color: #4CAF50;" (click)="closeSuccessPopup()">Fechar</button>
+        </div>
+    </div>
 </div>
