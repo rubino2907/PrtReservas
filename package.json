@@ -22,8 +22,8 @@
     "@angular/router": "^17.2.0",
     "@mat-datetimepicker/core": "^13.0.2",
     "@types/datatables.net": "^1.10.28",
+    "@types/nodemailer": "^6.4.15",
     "angular-calendar": "^0.31.0",
-    "angular-google-charts": "^2.2.3",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "datatables.net": "^2.0.2",
@@ -36,6 +36,7 @@
     "jwt-decode": "^4.0.0",
     "ngx-bootstrap": "^12.0.0",
     "ngx-cookie-service": "^17.1.0",
+    "nodemailer": "^6.9.13",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
