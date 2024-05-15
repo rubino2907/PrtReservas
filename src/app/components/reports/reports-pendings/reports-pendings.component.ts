@@ -209,6 +209,13 @@ export class ReportsPendingsComponent {
   }
   
   async criarPDF() {
+    // Verificar se há dados para exportar
+    if (this.filteredPendings.length === 0) {
+        // Exibir popup de aviso se a tabela estiver vazia
+        this.openTableEmptyPopup();
+        return;
+    }
+
     const doc = new jsPDF();
     const headerFilePath = 'assets/redLogoWaveMaps.png';
     const footerFilePath = 'assets/logoMapsRodape.png';
@@ -259,7 +266,11 @@ export class ReportsPendingsComponent {
     });
 
     doc.save('lista_pedidos.pdf');
+
+    // Exibir popup de sucesso após a criação do PDF
+    this.openSuccessPopup('PDF criado com sucesso!');
   }
+
 
   async criarCSV() {
     // Verificar se há dados para exportar
