@@ -1,11 +1,4 @@
-/* Estilo para o elemento pai */
-.container-fluid {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Garante que o container tenha pelo menos a altura da janela de visualização */
-    margin-bottom: 100px;
-    z-index: 100;
-}
+
 
 /* Estilo para a barra de navegação */
 app-navbar {
@@ -40,7 +33,7 @@ footer.footer {
     bottom: 0;
     width: 100%;
     text-align: center;
-    margin-top: 60px; /* Ajuste esta margem conforme necessário */
+    margin-bottom: 1500px;
 }
 
 .popup-background {
