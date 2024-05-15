@@ -210,7 +210,8 @@ export class ReportsReservesComponent {
   async criarCSV() {
     // Verificar se há dados para exportar
     if (this.filteredPendings.length === 0) {
-        console.error('Não há dados para exportar.');
+        // Exibir popup de aviso se a tabela estiver vazia
+        this.openTableEmptyPopup();
         return;
     }
 
@@ -219,8 +220,8 @@ export class ReportsReservesComponent {
 
     // Iterar sobre os dados filtrados e adicionar linhas ao CSV
     this.filteredPendings.forEach(reserve => {
-        // Formatando a linha com os dados do pendente
-        const row = `${reserve.matriculation},${reserve.dateStart},${reserve.dateEnd},${reserve.aproved},${reserve.aprovedBy}\n`;
+        // Formatando a linha com os dados da reserva
+        const row = `${reserve.matriculation},${reserve.dateStart},${reserve.dateEnd},${reserve.state},${reserve.createdBy}\n`;
         csvContent += row;
     });
 
@@ -241,7 +242,11 @@ export class ReportsReservesComponent {
 
     // Remover o link do corpo do documento
     document.body.removeChild(link);
+
+    // Exibir popup de sucesso após a criação do CSV
+    this.openSuccessPopup('CSV criado com sucesso!');
   }
+
 
   async enviarEmailComPdf(email: string) {
     const pdfBlob = await this.gerarPdfBlob();

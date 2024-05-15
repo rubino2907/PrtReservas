@@ -264,7 +264,8 @@ export class ReportsPendingsComponent {
   async criarCSV() {
     // Verificar se há dados para exportar
     if (this.filteredPendings.length === 0) {
-        console.error('Não há dados para exportar.');
+        // Exibir popup de aviso se a tabela estiver vazia
+        this.openTableEmptyPopup();
         return;
     }
 
@@ -295,7 +296,11 @@ export class ReportsPendingsComponent {
 
     // Remover o link do corpo do documento
     document.body.removeChild(link);
+
+    // Exibir popup de sucesso após a criação do CSV
+    this.openSuccessPopup('CSV criado com sucesso!');
   }
+
 
   async enviarEmailComPdf(email: string) {
     const pdfBlob = await this.gerarPdfBlob();
