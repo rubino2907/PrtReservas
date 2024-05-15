@@ -47,7 +47,7 @@
                     <tr *ngFor="let vehicle of filteredVehicles" (click)="editVehicle(vehicle)">
                         <!-- Coluna do ícone -->
                         <td style="vertical-align: middle; font: normal normal 14px; text-align: center;">
-                            <img *ngIf="vehicle.icon" [src]="'assets/Viaturas/' + vehicle.icon" alt="Ícone de carro do Bootstrap" style="width: 20px; height: 20px;">
+                            <img *ngIf="vehicle.icon" [src]="'assets/Viaturas/' + vehicle.icon" alt="Ícone de carro do Bootstrap" style="width: auto; height: 20px;">
                             <i *ngIf="!vehicle.icon" class="bi bi-car-front-fill" alt="Ícone de carro do Bootstrap" style="color: #337AB7; font-size: 20px;"></i>
                         </td>                        
                                                                    
