@@ -1,4 +1,4 @@
-<div class="row contentEmpty" >
+<div class="row contentEmpty" style="font-family: Open Sans, sans-serif;">
     <div class="col-lg-5" style="background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 2px 6px #00000029; border-radius: 8px; opacity: 1; min-height: 650px; display: flex; flex-direction: column; height: 90vh; width: 39vw; ">
         <!-- Cabeçalho da seção de veículos -->
         <div class="col-lg-11" style="margin-top: 10px; margin-left: 10px; border-bottom: 1px solid #337AB7; opacity: 1; margin-bottom: 20px;">
@@ -15,7 +15,7 @@
             </button>
             <!-- Campo de entrada de texto para pesquisa por matrícula -->
             <ng-container *ngIf="isSearchingByMatriculation; else typeSearchInput">
-                <input type="text" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0;" [(ngModel)]="searchInput" (input)="filterVehicles()" placeholder="Pesquisar por matrícula...">
+                <input type="text" style="flex-grow: 1; padding: 8px; border: 1px solid #337AB7; margin: 0; font-family: Open Sans, sans-serif;" [(ngModel)]="searchInput" (input)="filterVehicles()" placeholder="Pesquisar por matrícula...">
             </ng-container>
             <!-- Campo de seleção para filtrar por tipo de veículo -->
             <ng-template #typeSearchInput style="margin-right: 10px; margin-left: 10px;">
@@ -41,7 +41,6 @@
                         <th scope="col" style="text-align: center; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Matrícula</th>
                         <th scope="col" style="text-align: center; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Descrição</th>
                         <th scope="col" style="text-align: center; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Tipo de Veículo</th>
-                        <!-- <th scope="col" style="text-align: left; font: bold bold normal 12px Open Sans, sans-serif; letter-spacing: 0px; color: #444444; opacity: 1;">Ações</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -56,11 +55,8 @@
                         <td style="vertical-align: middle; height: 45px; text-align: center; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ vehicle.matriculation }}</td>
                         <!-- Coluna da descrição -->
                         <td style="vertical-align: middle; height: 45px; text-align: center; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ vehicle.descVehicle }}</td>
-                        <!-- Coluna das ações -->
+                        <!-- Coluna do tipo de veículo -->
                         <td style="vertical-align: middle; height: 45px; text-align: center; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; opacity: 1; color: #6D6D6D; height: 45px;">{{ vehicle.typeVehicle }}</td>
-                        <!-- <td style="vertical-align: middle; height: 45px;">
-                            <button (click)="editVehicle(vehicle)" class="btn btn-sm" style="text-align: left; font: normal 600 10px Open Sans, sans-serif; letter-spacing: 0px; color: #6D6D6D; opacity: 1;">Editar</button>
-                        </td> -->
                     </tr>
                 </tbody>
             </table>            
