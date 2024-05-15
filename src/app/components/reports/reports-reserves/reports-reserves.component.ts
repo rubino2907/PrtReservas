@@ -155,6 +155,13 @@ export class ReportsReservesComponent {
   }
   
   async criarPDF() {
+    // Verificar se há dados para exportar
+    if (this.filteredPendings.length === 0) {
+        // Exibir popup de aviso se a tabela estiver vazia
+        this.openTableEmptyPopup();
+        return;
+    }
+
     const doc = new jsPDF();
     const headerFilePath = 'assets/redLogoWaveMaps.png';
     const footerFilePath = 'assets/logoMapsRodape.png';
@@ -167,7 +174,7 @@ export class ReportsReservesComponent {
 
     // Definir o tamanho da fonte para o título
     doc.setFontSize(18);
-    // Adicionar o título "Relatório de Pedidos"
+    // Adicionar o título "Relatório de Reservas"
     doc.text('Relatório de Reservas', 80, 22);
 
     // Definir o tamanho da fonte para a data de emissão
@@ -205,7 +212,11 @@ export class ReportsReservesComponent {
     });
 
     doc.save('relatorio_reservas.pdf');
+
+    // Exibir popup de sucesso após a criação do PDF
+    this.openSuccessPopup('PDF criado com sucesso!');
   }
+
 
   async criarCSV() {
     // Verificar se há dados para exportar
