@@ -331,10 +331,20 @@ export class ReportsReservesComponent {
     }
   }
 
-   // Função para abrir a popup de e-mail
-   openEmailPopup() {
-    this.isEmailPopupVisible = true;
+  openEmailPopup(): void {
+    // Verifica se a lista de reservas filtradas está vazia
+    if (this.filteredPendings.length > 0) {
+      this.isEmailPopupVisible = true;
+    } else {
+      // Se estiver vazia, exiba uma mensagem ou tome outra ação, como atualizar os filtros ou notificar o usuário
+      console.log('A lista de reservas está vazia. Não é possível enviar e-mail.');
+      // Ou, se preferir, você pode limpar os campos de e-mail e ocultar a popup
+      this.emailToSend = '';
+      this.isEmailPopupVisible = false;
+      this.openTableEmptyPopup();
+    }
   }
+  
 
   // Função para fechar a popup de e-mail
   closeEmailPopup() {
@@ -347,5 +357,15 @@ export class ReportsReservesComponent {
 
   closeSuccessPopup(): void {
     this.isSuccessPopupVisible = false;
+  }
+
+  isTableEmptyPopupVisible: boolean = false;
+
+  openTableEmptyPopup(): void {
+      this.isTableEmptyPopupVisible = true;
+  }
+
+  closeTableEmptyPopup(): void {
+      this.isTableEmptyPopupVisible = false;
   }
 }

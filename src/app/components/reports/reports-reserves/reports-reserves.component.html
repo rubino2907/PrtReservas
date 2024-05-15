@@ -146,3 +146,15 @@
         </div>
     </div>
 </div>
+
+
+<!-- Popup de aviso -->
+<div class="popup-background" *ngIf="isTableEmptyPopupVisible">
+    <div class="popup-content" style="width: 300px; background-color: #fff3cd; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+        <h3 style="border-bottom: 2px solid #ffc107; padding-bottom: 15px; margin-bottom: 20px; color: #333; text-align: center;">Aviso</h3>
+        <div class="text-center" style="margin-bottom: 20px;">
+            <p style="color: #333;">A tabela está vazia. Não há dados para exibir.</p>
+            <button class="btn btn-primary" style="background-color: #ffc107; border-color: #ffc107;" (click)="closeTableEmptyPopup()">Fechar</button>
+        </div>
+    </div>
+</div>
