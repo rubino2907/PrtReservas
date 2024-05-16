@@ -20,21 +20,24 @@ app-sidebar {
     overflow-y: auto; /* Adiciona uma barra de rolagem vertical se o conteúdo da barra lateral for longo */
 }
 
-/* Estilo para o conteúdo principal */
-.content {
-    padding-top: 60px; /* Adicione o preenchimento superior necessário para evitar que o conteúdo seja sobreposto pela barra de navegação */
-    height: calc(100vh - 56px); /* Defina a altura do conteúdo para ocupar o restante da tela após subtrair a altura da barra de navegação */
-    z-index: 300px;
-}
-
 footer.footer {
     background-color: #f8f9fa;
     padding: 10px 0;
     bottom: 0;
     width: 100%;
     text-align: center;
-    margin-bottom: 1500px;
+    position: fixed; /* Posição fixa em relação à tela */
 }
+
+
+/* Estilo para o conteúdo principal */
+.content {
+    padding-top: 60px; 
+    padding-bottom: 60px; 
+    height: calc(100vh - 116px); 
+    z-index: 300px;
+}
+
 
 .popup-background {
     position: fixed; /* Posição fixa em relação à tela */
