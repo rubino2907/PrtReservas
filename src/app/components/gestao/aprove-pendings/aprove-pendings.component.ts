@@ -221,6 +221,8 @@ export class AprovePendingsComponent implements OnInit {
         // Altera o estado do pedido para 'RECUSADO'
         pending.aproved = 'RECUSADO';
 
+        
+
         // Envia a solicitação para atualizar o estado do pedido
         this.pendantService
             .updatePendings(pending)
@@ -233,6 +235,9 @@ export class AprovePendingsComponent implements OnInit {
                     this.openSuccessPopup('Pedido Recusado com sucesso!');
                     // Fecha o formulário apenas se a recusa for bem-sucedida
                     this.isFormEditPendingVisible = false;
+
+                    // Após a aprovação bem-sucedida, remover o pedido aprovado da lista de pendentes
+                    this.filteredPendings = this.filteredPendings.filter(item => item !== pending);
                 },
                 (error) => {
                     console.error("Erro ao recusar o pedido:", error);
