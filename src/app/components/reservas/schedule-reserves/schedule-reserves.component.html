@@ -117,15 +117,25 @@
                     </div>
                     <div class="popup-body">
                       <div *ngIf="showReservaDetails">
-                        <p><strong>Detalhes da Reserva:</strong> <span [innerHTML]="selectedEvent?.title"></span></p>
+                        <p style="margin: 10px;"><strong>Detalhes da Reserva:</strong> <span [innerHTML]="selectedEvent?.title"></span></p>
                       </div>
-                        <div *ngIf="!showReservaDetails">
-                          <p><strong>Detalhes da Viatura:</strong></p>
-                          <p><strong>Matrícula:</strong> {{ selectedEvent?.meta?.matriculation }}</p>
-                          <p><strong>Marca:</strong> {{ selectedEvent?.meta?.mark }}</p>
-                          <p><strong>Modelo:</strong> {{ selectedEvent?.meta?.model }}</p>
-                        </div>
-                    
+                      <div *ngIf="!showReservaDetails">
+                        <p><strong>Detalhes da Viatura:</strong></p>
+                        <div style="display: flex;">
+                          <div style="flex: 1; padding: 0 10px;">
+                            <p><strong>Matrícula:</strong></p>
+                            <p  style="border-bottom: 1px solid #337AB7;"> <i class="bi bi-card-list"></i> {{ selectedEvent?.meta?.matriculation }}</p>
+                            <p><strong>Fuel:</strong></p>
+                            <p  style="border-bottom: 1px solid #337AB7;" ><i class="bi bi-speedometer2"></i> {{ selectedEvent?.meta?.fuel }}</p>
+                          </div>
+                          <div style="flex: 1; padding: 0 10px;">
+                            <p><strong>Marca:</strong></p>
+                            <p style="border-bottom: 1px solid #337AB7;"> <i class="bi bi-shop"></i>  {{ selectedEvent?.meta?.mark }}</p>
+                            <p ><strong>Modelo:</strong></p>
+                            <p style="border-bottom: 1px solid #337AB7;"> <i class="bi bi-layers"></i> {{ selectedEvent?.meta?.model }}</p>
+                          </div>
+                        </div>                                                              
+                      </div>
                     </div>
                       <div class="popup-footer" style="text-align: center; margin-top: 20px;"> <!-- Centralizando e espaçando os botões -->
                         <button class="popup-button" (click)="showReservaDetails = true">Detalhes da Reserva</button>

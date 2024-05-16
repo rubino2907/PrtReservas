@@ -120,14 +120,18 @@ loadMatriculationsByType(vehicleType?: string): void {
           console.log('Adicionando reserva:', reserve);
           if (reserve.dateStart && reserve.dateEnd && reserve.matriculation && typeof reserve.matriculation === 'string') {
             const title = `
-              <br><br>  
-              <b>Matrícula:</b> ${reserve.matriculation} <br> 
-              <b>Data Início:</b> ${this.formatDate(reserve.dateStart.toString())} <br>  
-              <b>Data Fim:</b> ${this.formatDate(reserve.dateEnd.toString())} <br> 
-              <b>Descrição:</b> ${reserve.description} <br> 
-              <br> <br> `;
+            <br><br>
+            <div style="display: flex; flex-wrap: wrap;">
+              <div style="flex: 1 1 50%; padding: 0 10px;">
+                <p style="border-bottom: 1px solid #337AB7;"><i class="bi bi-card-list"></i> <b>Matrícula:</b> ${reserve.matriculation}</p>
+                <p style="border-bottom: 1px solid #337AB7;"><i class="bi bi-calendar"></i> <b>Data Início:</b> ${this.formatDate(reserve.dateStart.toString())}</p>
+              </div>
+              <div style="flex: 1 1 50%; padding: 0 10px;">
+                <p style="border-bottom: 1px solid #337AB7;"><i class="bi bi-calendar"></i> <b>Data Fim:</b> ${this.formatDate(reserve.dateEnd.toString())}</p>
+                <p style="border-bottom: 1px solid #337AB7;"><i class="bi bi-chat-left-text"></i> <b>Descrição:</b> ${reserve.description}</p>
+              </div>
+            </div>`;
 
-  
             // Verifica se já existe uma cor atribuída a esta matrícula
             if (!this.matriculationColors.hasOwnProperty(reserve.matriculation)) {
               // Se não houver, atribui uma cor nova
@@ -489,6 +493,7 @@ getRandomColor(): string {
                 matriculation: vehicle.matriculation,
                 mark: vehicle.mark,
                 model: vehicle.model,
+                fuel: vehicle.fuel,
                 // Adicione outros detalhes da viatura conforme necessário
               };
             } else {
