@@ -47,7 +47,6 @@ export class ScheduleReservesComponent implements OnInit {
   ngOnInit(): void {
     this.loadPendingData();
     this.loadTypeOfVehicles();
-    this.loadAllMatriculations();  // Carrega todas as matrículas inicialmente
   }
 
   loadPendingData(): void {
@@ -309,7 +308,6 @@ getRandomColor(): string {
       this.selectedMatriculation = ''; // Limpa a matrícula selecionada
       this.matriculationColors = {}; // Limpa as cores das matrículas
       this.matriculations = [];
-      this.loadAllMatriculations();
     }
     
 
@@ -345,9 +343,14 @@ getRandomColor(): string {
     showPopupLegendaMatriculas: boolean = false;
 
     openPopupe(): void {
-      this.showPopup = true;
-      this.showPopupDescReserva = false;
+      if (this.matriculations.length === 0) {
+        this.openErrorPopup('Selecione um Tipo de Veículo');
+      } else {
+        this.showPopup = true;
+        this.showPopupDescReserva = false;
+      }
     }
+    
 
     openPopupLegendaMatriculas(): void {
       this.showPopupLegendaMatriculas = true;
@@ -442,4 +445,15 @@ getRandomColor(): string {
       this.showPopupDayClick = false;
     }
 
+    isErrorPopupVisible: boolean = false;
+
+    openErrorPopup(message: string): void {
+      this.isErrorPopupVisible = true;
+    }
+
+    closeErrorPopup(): void {
+      this.isErrorPopupVisible = false;
+    }
   }
+
+  

@@ -157,9 +157,6 @@
   </div>
 </div>
 
-
-
-            
                   <!-- Janela de popup -->
                   <div class="popup" *ngIf="showPopup">
                     <div class="popup-content" style="width: 250px;">
@@ -231,6 +228,18 @@
                       </div>
                     </div>
                   </div>
+
+
+
+                  <div class="popup-background" *ngIf="isErrorPopupVisible">
+                    <div class="popup-contentee" style="width: 300px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+                        <h3 style="border-bottom: 2px solid #ddda0e; padding-bottom: 15px; margin-bottom: 20px; color: #ddda0e; text-align: center;">Atenção!</h3>
+                        <div class="text-center" style="margin-bottom: 20px;">
+                          <p style="color: #333;">Selecione um Tipo de Veículo</p>
+                            <button class="btn btn-primary" style="background-color: #ddda0e; border-color: #ddda0e;" (click)="closeErrorPopup()">Fechar</button>
+                        </div>
+                    </div>
+                </div>
 
 
 
