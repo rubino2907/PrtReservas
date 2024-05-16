@@ -195,7 +195,7 @@
   margin: 0 10px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff; /* Cor de fundo do botão */
+  background-color: #337ab7; /* Cor de fundo do botão */
   color: #fff; /* Cor do texto do botão */
   cursor: pointer;
   transition: background-color 0.3s ease; /* Adicionando uma transição suave para a cor de fundo */

@@ -120,7 +120,7 @@ loadMatriculationsByType(vehicleType?: string): void {
           console.log('Adicionando reserva:', reserve);
           if (reserve.dateStart && reserve.dateEnd && reserve.matriculation && typeof reserve.matriculation === 'string') {
             const title = `
-            <br><br>
+            <br>
             <div style="display: flex; flex-wrap: wrap;">
               <div style="flex: 1 1 50%; padding: 0 10px;">
                 <p style="border-bottom: 1px solid #337AB7;"><i class="bi bi-card-list"></i> <b>Matrícula:</b> ${reserve.matriculation}</p>
@@ -507,7 +507,10 @@ getRandomColor(): string {
         );
     }
     
-    
+    // Seu código TypeScript
+  toggleDetails() {
+    this.showReservaDetails = !this.showReservaDetails;
+  }
 
     showPopupDescReserva: boolean = false; // Certifica-te de inicializar esta variável como verdadeira ou false conforme necessário
     showReservaDetails: boolean = true; // Controla qual conjunto de detalhes é mostrado
