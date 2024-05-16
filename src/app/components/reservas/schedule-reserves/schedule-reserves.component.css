@@ -181,3 +181,43 @@
   padding: 20px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
 }
+
+/* Estilizando a área do footer */
+.popup-footer {
+  display: flex; /* Usando flexbox para alinhar os botões lado a lado */
+  justify-content: center; /* Centralizando os botões horizontalmente */
+  margin-top: 20px;
+}
+
+/* Estilizando os botões */
+.popup-button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff; /* Cor de fundo do botão */
+  color: #fff; /* Cor do texto do botão */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Adicionando uma transição suave para a cor de fundo */
+}
+
+.popup-button:hover {
+  background-color: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+}
+
+/* Adicionando uma animação suave ao passar de uma opção para outra */
+.popup-button {
+  transition: transform 0.3s ease; /* Adicionando uma transição suave para a transformação */
+}
+
+.popup-button:nth-child(2) {
+  transform: translateX(100%); /* Movendo o segundo botão para a direita inicialmente */
+}
+
+.popup-button.show-reserva-details:nth-child(1) {
+  transform: translateX(-100%); /* Movendo o primeiro botão para a esquerda quando 'showReservaDetails' é verdadeiro */
+}
+
+.popup-button:not(.show-reserva-details):nth-child(2) {
+  transform: translateX(0); /* Mantendo o segundo botão no lugar quando 'showReservaDetails' é verdadeiro */
+}

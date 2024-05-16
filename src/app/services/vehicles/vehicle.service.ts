@@ -44,5 +44,8 @@ export class VehicleService {
         return this.http.get<Vehicle[]>(`${environment.apiUrl}/${this.url}/ByVehicleType/${vehicleType}`);
     }
     
+    public getVehicleByMatriculation(matriculation: string): Observable<Vehicle> {
+        return this.http.get<Vehicle>(`${environment.apiUrl}/${this.url}/ByMatriculation/${matriculation}`);
+    }
     
 }

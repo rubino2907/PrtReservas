@@ -30,6 +30,9 @@ export class ScheduleReservesComponent implements OnInit {
   // Altere de private para public
   matriculationColors: { [matriculation: string]: string } = {};
   
+  // Ao criar ou carregar os eventos, mantenha um mapa de IDs de eventos para matrículas
+  eventMatriculationMap: { [eventId: string]: string } = {};
+
   typeOfVehicles: string[] = []; // Array para armazenar os tipos
 
   @Output() refresh: EventEmitter<void> = new EventEmitter<void>();
@@ -226,13 +229,6 @@ getRandomColor(): string {
   }
 
   selectedEvent: CalendarEvent | undefined;
-
-  eventClicked(event: CalendarEvent): void {
-    console.log('Evento clicado:', event);
-    this.selectedEvent = event; // Define o evento selecionado para exibir na popup
-    this.showPopupDescReserva = true; // Define showPopup como true para exibir a popup
-    this.showPopup = false;
-  }
   
 
   openPopup(event: CalendarEvent): void {
@@ -338,7 +334,6 @@ getRandomColor(): string {
 
 
     showPopup: boolean = false;
-    showPopupDescReserva: boolean = false;
     showPopupDayClick: boolean = false;
     showPopupLegendaMatriculas: boolean = false;
 
@@ -366,10 +361,6 @@ getRandomColor(): string {
     
       // Fechar a popup
       this.showPopup = false;
-    }
-    
-    closePopupDescReserva(): void {
-      this.showPopupDescReserva = false;
     }
     
     selectedDate: any; // Declare a variable to store the selected date
@@ -454,6 +445,71 @@ getRandomColor(): string {
     closeErrorPopup(): void {
       this.isErrorPopupVisible = false;
     }
+
+    
+
+    eventClicked(event: any): void {
+      console.log('Evento clicado:', event);
+      this.selectedEvent = event; // Define o evento selecionado para exibir na popup
+      this.showReservaDetails = true; // Define showPopup como true para exibir a popup
+      this.showPopupDescReserva = true;
+    
+      // Verifica se o evento contém informações relevantes
+      if (event.title) {
+        // Usa uma expressão regular para extrair a matrícula do título
+        const regex = /<b>Matrícula:<\/b> ([^<|]+)/;
+        const match = event.title.match(regex);
+        const matriculation = match ? match[1].trim() : null;
+        console.log('Matrícula do evento:', matriculation);
+    
+        // Verifica se a matrícula foi extraída com sucesso
+        if (matriculation) {
+          // Chama a função para obter os detalhes da viatura
+          this.getVehicleDetails(matriculation);
+        } else {
+          console.log('Nenhuma matrícula encontrada no evento.');
+        }
+      } else {
+        console.log('Nenhuma informação encontrada no evento.');
+      }
+    }
+    
+    getVehicleDetails(matriculation: string): void {
+      console.log('Obtendo detalhes da viatura para a matrícula:', matriculation);
+      this.vehicleService.getVehicleByMatriculation(matriculation)
+        .subscribe(
+          (vehicle: Vehicle) => {
+            console.log('Detalhes da viatura recuperados com sucesso:', vehicle);
+            // Verifica se selectedEvent está definido
+            if (this.selectedEvent) {
+              console.log('Atualizando detalhes da viatura em selectedEvent');
+              // Define os detalhes da viatura em selectedEvent.meta
+              this.selectedEvent.meta = {
+                ...this.selectedEvent.meta,
+                matriculation: vehicle.matriculation,
+                mark: vehicle.mark,
+                model: vehicle.model,
+                // Adicione outros detalhes da viatura conforme necessário
+              };
+            } else {
+              console.log('selectedEvent não definido.');
+            }
+          },
+          (error) => {
+            console.error('Erro ao obter os detalhes da viatura:', error);
+            // Lida com erros adequadamente
+          }
+        );
+    }
+    
+    
+
+    showPopupDescReserva: boolean = false; // Certifica-te de inicializar esta variável como verdadeira ou false conforme necessário
+    showReservaDetails: boolean = true; // Controla qual conjunto de detalhes é mostrado
+  
+  closePopupDescReserva() {
+    this.showPopupDescReserva = false;
   }
+}
 
   

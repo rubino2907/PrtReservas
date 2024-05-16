@@ -106,20 +106,35 @@
           ></mwl-calendar-week-view>
         </ng-container>
 
-                <!-- Janela de popup -->
+              <!-- Janela de popup -->
                 <div class="popup" *ngIf="showPopupDescReserva">
-                  <div class="popup-content">
+                  <div class="popup-content" style="width: 400px;"> <!-- Definindo um tamanho fixo para a popup -->
                     <div class="popup-header">
                       <h3 style="border-bottom: 2px solid #ccc; padding-bottom: 15px; margin-bottom: 30px;" >
-                        <i class="bi bi-list-task" style="margin-right: 5px;"></i> Detalhes da Reserva
+                        <i class="bi bi-list-task" style="margin-right: 5px;"></i> Detalhes
                         <button class="close-btn" (click)="closePopupDescReserva()" style="float: right; color: red; background: none; border: none; font-size: 20px;">&times;</button>
                       </h3>
                     </div>
                     <div class="popup-body">
-                      <p><strong>Detalhes:</strong> <span [innerHTML]="selectedEvent?.title"></span></p>
+                      <div *ngIf="showReservaDetails">
+                        <p><strong>Detalhes da Reserva:</strong> <span [innerHTML]="selectedEvent?.title"></span></p>
+                      </div>
+                        <div *ngIf="!showReservaDetails">
+                          <p><strong>Detalhes da Viatura:</strong></p>
+                          <p><strong>Matrícula:</strong> {{ selectedEvent?.meta?.matriculation }}</p>
+                          <p><strong>Marca:</strong> {{ selectedEvent?.meta?.mark }}</p>
+                          <p><strong>Modelo:</strong> {{ selectedEvent?.meta?.model }}</p>
+                        </div>
+                    
                     </div>
+                      <div class="popup-footer" style="text-align: center; margin-top: 20px;"> <!-- Centralizando e espaçando os botões -->
+                        <button class="popup-button" (click)="showReservaDetails = true">Detalhes da Reserva</button>
+                        <button class="popup-button" (click)="showReservaDetails = false">Detalhes da Viatura</button>
+                      </div>            
+                  </div>
                 </div>
-        </div>
+
+          
       </div>
     </div>
     <!-- Container do formulário -->
