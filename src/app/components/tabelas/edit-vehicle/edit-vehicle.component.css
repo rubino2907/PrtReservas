@@ -42,7 +42,7 @@
   }
   
   .icon-list li img {
-    width: 30px;
+    width: auto;
     height: 30px;
   }
 
