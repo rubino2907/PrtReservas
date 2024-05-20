@@ -26,6 +26,7 @@ export class HomeComponent {
   confirmPassword: string = '';
   isErrorPopupVisible: boolean = false;
   errorMessage: string = '';
+  isSuccessPopupVisible: boolean = false;
 
   constructor(private authService: AuthService, 
     private router: Router, 
@@ -91,14 +92,17 @@ export class HomeComponent {
             response => {
                 this.pendingsUpdated.emit([this.pendingToPasswordChange]);
                 this.closePopupToCreatePending(); // Assuming you have a method to close the popup
+                this.openSuccessPopup('Pedido de mudança de password criado com sucesso.');
                 console.log('Pedido de alteração de senha criado com sucesso:', response);
             },
             error => {
                 console.error('Erro ao criar o pedido de alteração de password:', error);
-                this.openErrorPopup("Erro ao criar o pedido de alteração de senha. Detalhes: " + (error.error.detail || "Verifique os dados enviados."));
                 this.closePopupToCreatePending();
+                this.openErrorPopup("Erro ao criar o pedido de alteração de senha. Detalhes: " + (error.error.detail || "Verifique os dados enviados."));        
             }
         );
+
+        this.closePopupToCreatePending();
 }
 
 // Método para verificar se o usuário existe
@@ -107,9 +111,11 @@ async isUserExists(username: string): Promise<boolean> {
       const users = await this.userService.getUsers().toPromise();
       // Verifica se a resposta contém usuários e, em seguida, verifica se o username existe nos usuários
       const userExists = users && users.some(user => user.userName === username);
+      this.closePopupToCreatePending();
       return userExists || false; // Retorna false se users for undefined ou null
   } catch (error) {
       console.error('Erro ao obter usuários:', error);
+      this.closePopupToCreatePending();
       throw error;
   }
 }
@@ -135,5 +141,15 @@ async isUserExists(username: string): Promise<boolean> {
 
   closePopupToCreatePending(): void {
     this.isForgotPasswordPopupVisible = false;
+  }
+
+  openSuccessPopup(message: string): void {
+    this.isSuccessPopupVisible = true;
+    // Fecha o formulário apenas se a aprovação for bem-sucedida
+    this.closePopupToCreatePending();
+  }
+
+  closeSuccessPopup(): void {
+    this.isSuccessPopupVisible = false;
   }
 }
