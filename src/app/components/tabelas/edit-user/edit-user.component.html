@@ -138,10 +138,10 @@
 
     <div class="popup-background" *ngIf="isErrorPopupVisible">
         <div class="popup-content" style="width: 300px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
-            <h3 style="border-bottom: 2px solid #dd0e0e; padding-bottom: 15px; margin-bottom: 20px; color: #dd0e0e; text-align: center;">Atenção!</h3>
+            <h3 style="border-bottom: 2px solid #ffc107; padding-bottom: 15px; margin-bottom: 20px; color: #ffc107; text-align: center;">Atenção!</h3>
             <div class="text-center" style="margin-bottom: 20px;">
                 <p >{{ errorMessage }}</p>
-                <button class="btn btn-primary" style="background-color: #dd0e0e; border-color: #dd0e0e;" (click)="closeErrorPopup()">Fechar</button>
+                <button class="btn btn-primary" style="background-color: #ffc107; border-color: #ffc107;" (click)="closeErrorPopup()">Fechar</button>
             </div>
         </div>
     </div>
