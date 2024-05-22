@@ -506,17 +506,29 @@ getRandomColor(): string {
           }
         );
     }
-    
-    // Seu código TypeScript
+
+  showPopupDescReserva: boolean = false; // Controla se o popup de descrição da reserva está visível
+  showReservaDetails: boolean = false; // Controla se os detalhes da reserva estão visíveis
+  showViaturaDetails: boolean = false; // Controla se os detalhes da viatura estão visíveis
+  
+  // Alterna a visibilidade dos detalhes da reserva
   toggleDetails() {
-    this.showReservaDetails = !this.showReservaDetails;
+    this.showReservaDetails = true;
+    this.showViaturaDetails = false;
+    this.showPopupDescReserva = true;
   }
 
-    showPopupDescReserva: boolean = false; // Certifica-te de inicializar esta variável como verdadeira ou false conforme necessário
-    showReservaDetails: boolean = true; // Controla qual conjunto de detalhes é mostrado
-  
+  // Alterna a visibilidade dos detalhes da viatura
+  toggleDetailsReserva() {
+    this.showReservaDetails = false;
+    this.showViaturaDetails = true;
+  }
+
+  // Fecha o popup de descrição da reserva
   closePopupDescReserva() {
     this.showPopupDescReserva = false;
+    this.showReservaDetails = false;
+    this.showViaturaDetails = false;
   }
 }
 

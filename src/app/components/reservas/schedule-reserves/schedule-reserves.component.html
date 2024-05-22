@@ -116,11 +116,15 @@
                         <button class="close-btn" (click)="closePopupDescReserva()" style="float: right; color: red; background: none; border: none; font-size: 20px;">&times;</button>
                       </h3>
                     </div>
+                    <div class="btn-group" role="group" aria-label="Exemplo básico">
+                      <button type="button" class="popup-button" style="text-align: center; margin-bottom: 15px;" (click)="toggleDetails()">Detalhes da Reserva</button>
+                      <button type="button" class="popup-button" style="text-align: center; margin-bottom: 15px;" (click)="toggleDetailsReserva()">Detalhes da Viatura</button>
+                    </div>
                     <div class="popup-body">
                       <div *ngIf="showReservaDetails">
                         <p><span [innerHTML]="selectedEvent?.title"></span></p>
                       </div>
-                      <div *ngIf="!showReservaDetails">
+                      <div *ngIf="showViaturaDetails">
                         <div style="display: flex;">
                           <div style="flex: 1; padding: 0 10px;">
                             <p><strong>Matrícula:</strong></p>
@@ -136,10 +140,7 @@
                           </div>
                         </div>                                                              
                       </div>
-                    </div>
-                    <div class="popup-footer" style="text-align: center; margin-top: 20px;"> <!-- Centralizando e espaçando os botões -->
-                      <button class="popup-button" (click)="toggleDetails()">{{ showReservaDetails ? 'Detalhes da Viatura' : 'Detalhes da Reserva' }}</button>
-                    </div>       
+                    </div>   
                   </div>
                 </div>
 
